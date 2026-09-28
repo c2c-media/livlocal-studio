@@ -2,11 +2,11 @@
   "_notes": {
     "purpose": "Single source of truth for the LivLocal website. Edit this file, run `node build.js`, and the whole site regenerates.",
     "needsConfirmation": [
-      "site.siteUrl and site.contactEmail are placeholders. Set the real domain and Olivia's email before launch.",
-      "fabrics[].name are placeholders (Fabric 01 to Fabric 10). Rename to the real fabric names. The 10 fabric photos from the LivLocal Fabric page are in tools/source-images for reference.",
-      "shipping.flatRate, shipping.freeOver, and site.leadTime are sensible defaults, not confirmed numbers.",
+      "Root-domain forwarding for livlocal.studio is still propagating on some networks. www.livlocal.studio is the live primary address.",
+      "fabrics[].name are placeholders (Fabric 01 to Fabric 10). Rename them when the final fabric names are confirmed.",
+      "shipping.flatRate, shipping.freeOver, and site.leadTime still need final confirmation.",
       "products[].images is empty. Add product photos to assets/img and list the filenames here.",
-      "quilted-bag and bible-bag have no price yet, so they show Pricing on request."
+      "quilted-bag and bible-bag have no confirmed price, so they show Pricing on request."
     ],
     "realDataPulledFromNotion": "products[kids-dress].options[size].values prices come from the LivLocal Fabric page price sheet dated 2026-09-22."
   },
@@ -22,58 +22,58 @@
     "locale": "en-US"
   },
   "copy": {
-    "tagline": "Handmade in Southeast Iowa",
-    "heroEyebrow": "Made by hand, made to order",
-    "heroHeadline": "Little things, sewn one at a time",
-    "heroSub": "Kids clothes, quilted bags, and Bible bags cut, sewn, and finished by hand in Ottumwa, Iowa. You pick the size and the fabric. We make it for you.",
+    "tagline": "Sewn by Olivia in Ottumwa, Iowa",
+    "heroEyebrow": "Made to order in Ottumwa",
+    "heroHeadline": "Pick the piece and the fabrics. Olivia will sew the rest.",
+    "heroSub": "LivLocal makes children’s dresses, quilted bags, and Bible bags one order at a time. Choose your size and two fabrics, then allow 2 to 3 weeks for sewing.",
     "heroPrimaryCta": {
-      "label": "Shop handmade",
+      "label": "See what’s available",
       "href": "/shop.html"
     },
     "heroSecondaryCta": {
-      "label": "How it works",
-      "href": "/#how-it-works"
+      "label": "Choose fabrics",
+      "href": "/#fabrics"
     },
     "valueProps": [
       {
-        "title": "Made to order",
-        "body": "Nothing sits on a shelf. Your piece is cut and sewn after you order, so you get the size and the fabric you actually want."
+        "title": "Made after you order",
+        "body": "Olivia cuts and sews each piece after the order comes in. The current sewing time is about 2 to 3 weeks."
       },
       {
-        "title": "Two fabrics, your pairing",
-        "body": "Every piece uses a primary fabric and a secondary fabric. Pick both and we will build the piece around your combination."
+        "title": "You choose both fabrics",
+        "body": "Pick one fabric for the main part of the piece and a second for the lining, trim, ties, or contrast details."
       },
       {
-        "title": "Small batch, local",
-        "body": "One maker, one sewing machine, one small town in Southeast Iowa. Questions go straight to a person."
+        "title": "Questions go to Olivia",
+        "body": "Not sure about a size or fabric pairing? Send a message before ordering and Olivia will help you sort it out."
       }
     ],
     "howItWorks": [
       {
-        "step": "Choose your piece",
-        "body": "Pick a style, then set the size. Sizes run from 0 to 3 months up to 7 to 8 years on the kids pieces."
+        "step": "Choose the item",
+        "body": "Start with a children’s dress, quilted bag, or Bible bag."
       },
       {
-        "step": "Pick your two fabrics",
-        "body": "Choose a primary fabric for the main body and a secondary fabric for the trim, lining, or contrast."
+        "step": "Select the details",
+        "body": "Choose the available size, then select a primary fabric and a secondary fabric."
       },
       {
-        "step": "We sew it and ship it",
-        "body": "Your piece is cut and sewn by hand, then shipped from Ottumwa. Expect about 2 to 3 weeks."
+        "step": "Olivia makes it",
+        "body": "Your order is cut and sewn in Ottumwa, then shipped when it is finished. Current sewing time is about 2 to 3 weeks."
       }
     ],
-    "fabricSectionTitle": "Choose your fabric",
-    "fabricSectionBody": "Every piece is built from a primary fabric and a secondary fabric. Pick a combination on any product page. If you want something you do not see here, ask.",
-    "aboutTitle": "Made in Ottumwa, Iowa",
+    "fabricSectionTitle": "Pick two fabrics",
+    "fabricSectionBody": "Choose a primary fabric for the main part of the piece and a secondary fabric for the lining, trim, ties, or contrast details. If you need help pairing them, ask Olivia before ordering.",
+    "aboutTitle": "Hi, I’m Olivia.",
     "aboutBody": [
-      "LivLocal is a small, family-run shop. Every piece is cut, sewn, pressed, and finished by hand, in small batches, in Southeast Iowa.",
-      "The work started with kids clothes and grew into quilted bags and Bible bags. More is coming as new patterns are finished.",
-      "Because everything is made to order, you are never choosing from whatever happened to be left in a warehouse. You are choosing the size, the fabric, and the pairing."
+      "LivLocal is my sewing business in Ottumwa, Iowa. I make children’s dresses, quilted bags, and Bible bags one order at a time.",
+      "I do the cutting, sewing, pressing, and finishing myself. I started with children’s clothing and added bags as I worked through new patterns.",
+      "Choose the item, size, and fabrics you want. If you need something different, send me a message and I’ll let you know what is possible."
     ],
-    "ctaBandTitle": "Have something specific in mind?",
-    "ctaBandBody": "Custom sizes, custom fabric pairings, and small runs are all possible. Tell us what you are picturing.",
+    "ctaBandTitle": "Need a different size or fabric?",
+    "ctaBandBody": "Send Olivia the details before ordering. She can confirm availability, timing, and any price change.",
     "ctaBandButton": {
-      "label": "Start a custom order",
+      "label": "Ask Olivia",
       "href": "/contact.html"
     }
   },
@@ -166,7 +166,7 @@
       "price": 4000,
       "priceLabel": "From $40",
       "images": [],
-      "summary": "A simple everyday dress, cut and sewn by hand, in sizes 0 to 3 months through 7 to 8 years. Price follows the size because the fabric and sewing time change as the piece grows.",
+      "summary": "A children’s dress sewn after you order. Choose a size from 0 to 3 months through 7 to 8 years, then pick the main and contrast fabrics. The price changes with the size.",
       "bullets": [
         "Primary fabric for the body, secondary fabric for the trim",
         "Soft, breathable cotton blends that wash well",
@@ -297,7 +297,7 @@
       "price": null,
       "priceLabel": "Pricing on request",
       "images": [],
-      "summary": "A quilted everyday bag, padded and lined, made in the fabric pairing you choose. Sizing and strap options are set with you before it is cut.",
+      "summary": "A padded, lined bag made with the two fabrics you choose. Contact Olivia to confirm the finished size, strap, timing, and price before ordering.",
       "bullets": [
         "Quilted body with a lined interior",
         "Primary fabric outside, secondary fabric for the lining or base",
@@ -343,7 +343,7 @@
       "price": null,
       "priceLabel": "Pricing on request",
       "images": [],
-      "summary": "A padded carry bag sized for a Bible, a notebook, and a pen. Built with a primary fabric outside and a secondary fabric lining.",
+      "summary": "A padded bag made to carry a Bible, notebook, and pen. Choose the outside fabric and lining, then contact Olivia to confirm the size and price.",
       "bullets": [
         "Padded to protect a Bible and notebook",
         "Primary fabric outside, secondary fabric lining",
@@ -404,35 +404,35 @@
   "faq": [
     {
       "q": "How long until my order ships?",
-      "a": "Everything is made to order. Expect about 2 to 3 weeks for your piece to be cut, sewn, and finished, then 3 to 5 business days in transit."
+      "a": "Current sewing time is about 2 to 3 weeks. Shipping usually takes another 3 to 5 business days."
     },
     {
       "q": "How do sizes work on the kids pieces?",
-      "a": "Sizes run from 0 to 3 months up to 7 to 8 years. The price steps up as the piece gets larger, because the fabric and sewing time grow with it."
+      "a": "Dress sizes run from 0 to 3 months through 7 to 8 years. The price shown on the product page updates when you choose a size."
     },
     {
       "q": "What are the two fabrics?",
-      "a": "Every piece is built from a primary fabric and a secondary fabric. The primary fabric is the main body. The secondary fabric is the trim, lining, ties, or contrast detail."
+      "a": "The primary fabric is used for the main part of the piece. The secondary fabric is used for the lining, trim, ties, or contrast details."
     },
     {
       "q": "Can I pick a fabric that is not listed?",
-      "a": "Yes. Send us a message with what you have in mind and we will tell you whether it is available and how it changes the price."
+      "a": "Possibly. Send Olivia a message with what you are looking for before ordering. She will confirm availability, timing, and any price change."
     },
     {
       "q": "Do you take returns?",
-      "a": "Made-to-order pieces are cut specifically for you, so they are not returnable. If something arrives damaged or does not match what you ordered, contact us and we will fix it."
+      "a": "Made-to-order pieces are cut for the size and fabrics you select. If your order arrives damaged or does not match what you ordered, contact Olivia so she can make it right."
     },
     {
       "q": "Do you ship outside the United States?",
-      "a": "Not yet. Shipping is currently within the United States. Ask if you need something sent elsewhere and we will look into it."
+      "a": "Not at this time. Online shipping is currently limited to the United States."
     },
     {
       "q": "Can I pick up locally?",
-      "a": "Yes. Choose local pickup at checkout if you are in or near Ottumwa, Iowa."
+      "a": "Local pickup is not available through online checkout yet. Contact Olivia before ordering if you are near Ottumwa and want to ask about pickup."
     },
     {
       "q": "Can I order a custom size or a custom piece?",
-      "a": "Yes. Custom sizes, custom fabric pairings, and small runs are all possible. Start with the contact page."
+      "a": "Send the details through the contact page. Olivia will confirm whether she can make it, how long it will take, and what it will cost."
     }
   ]
 }
