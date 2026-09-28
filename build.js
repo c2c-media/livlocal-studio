@@ -199,7 +199,9 @@ function swatchFieldset(opt, fabrics) {
       .map(
         (f, i) => `<label class="swatch">
       <input type="radio" name="${esc(opt.key)}" value="${esc(f.id)}"${i === 0 ? '' : ''} required>
-      <span class="swatch-chip" style="--chip:${esc(f.hex)}" aria-hidden="true"></span>
+      <span class="swatch-chip" style="--chip:${esc(f.hex)};${
+        f.image ? `--chip-image:url('${esc(f.image)}')` : ''
+      }" aria-hidden="true"></span>
       <span class="swatch-name">${esc(f.name)}</span>
     </label>`
       )
@@ -308,7 +310,9 @@ function home() {
       ${content.fabrics
         .map(
           (f) =>
-            `<li><span class="fabric-dot" style="--chip:${esc(f.hex)}" aria-hidden="true"></span><span>${esc(
+            `<li><span class="fabric-dot" style="--chip:${esc(f.hex)};${
+              f.image ? `--chip-image:url('${esc(f.image)}')` : ''
+            }" aria-hidden="true"></span><span>${esc(
               f.name
             )}</span></li>`
         )
