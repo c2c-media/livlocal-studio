@@ -322,7 +322,7 @@ function home() {
   <div class="wrap">
     <div class="section-head">
       <h2>How ordering works</h2>
-      <p>Three steps, no guesswork.</p>
+      <p>Here is what to expect after you place an order.</p>
     </div>
     <ol class="steps">
       ${content.copy.howItWorks
