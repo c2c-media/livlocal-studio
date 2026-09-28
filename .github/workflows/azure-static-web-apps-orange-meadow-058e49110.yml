@@ -16,6 +16,13 @@ jobs:
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v3
+      - name: Setup Node
+  uses: actions/setup-node@v4
+  with:
+    node-version: "20"
+
+- name: Build static site
+  run: node build.js
         with:
           submodules: true
           lfs: false
