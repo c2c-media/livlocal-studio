@@ -1,0 +1,438 @@
+{
+  "_notes": {
+    "purpose": "Single source of truth for the LivLocal website. Edit this file, run `node build.js`, and the whole site regenerates.",
+    "needsConfirmation": [
+      "site.siteUrl and site.contactEmail are placeholders. Set the real domain and Olivia's email before launch.",
+      "fabrics[].name are placeholders (Fabric 01 to Fabric 10). Rename to the real fabric names. The 10 fabric photos from the LivLocal Fabric page are in tools/source-images for reference.",
+      "shipping.flatRate, shipping.freeOver, and site.leadTime are sensible defaults, not confirmed numbers.",
+      "products[].images is empty. Add product photos to assets/img and list the filenames here.",
+      "quilted-bag and bible-bag have no price yet, so they show Pricing on request."
+    ],
+    "realDataPulledFromNotion": "products[kids-dress].options[size].values prices come from the LivLocal Fabric page price sheet dated 2026-09-22."
+  },
+  "site": {
+    "name": "LivLocal",
+    "siteUrl": "https://www.livlocal.shop",
+    "contactEmail": "trevan@c2cmedia.studio",
+    "location": "Ottumwa, Iowa",
+    "instagram": "",
+    "facebook": "",
+    "leadTime": "2 to 3 weeks",
+    "currency": "USD",
+    "locale": "en-US"
+  },
+  "copy": {
+    "tagline": "Handmade in Southeast Iowa",
+    "heroEyebrow": "Made by hand, made to order",
+    "heroHeadline": "Little things, sewn one at a time",
+    "heroSub": "Kids clothes, quilted bags, and Bible bags cut, sewn, and finished by hand in Ottumwa, Iowa. You pick the size and the fabric. We make it for you.",
+    "heroPrimaryCta": {
+      "label": "Shop handmade",
+      "href": "/shop.html"
+    },
+    "heroSecondaryCta": {
+      "label": "How it works",
+      "href": "/#how-it-works"
+    },
+    "valueProps": [
+      {
+        "title": "Made to order",
+        "body": "Nothing sits on a shelf. Your piece is cut and sewn after you order, so you get the size and the fabric you actually want."
+      },
+      {
+        "title": "Two fabrics, your pairing",
+        "body": "Every piece uses a primary fabric and a secondary fabric. Pick both and we will build the piece around your combination."
+      },
+      {
+        "title": "Small batch, local",
+        "body": "One maker, one sewing machine, one small town in Southeast Iowa. Questions go straight to a person."
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "Choose your piece",
+        "body": "Pick a style, then set the size. Sizes run from 0 to 3 months up to 7 to 8 years on the kids pieces."
+      },
+      {
+        "step": "Pick your two fabrics",
+        "body": "Choose a primary fabric for the main body and a secondary fabric for the trim, lining, or contrast."
+      },
+      {
+        "step": "We sew it and ship it",
+        "body": "Your piece is cut and sewn by hand, then shipped from Ottumwa. Expect about 2 to 3 weeks."
+      }
+    ],
+    "fabricSectionTitle": "Choose your fabric",
+    "fabricSectionBody": "Every piece is built from a primary fabric and a secondary fabric. Pick a combination on any product page. If you want something you do not see here, ask.",
+    "aboutTitle": "Made in Ottumwa, Iowa",
+    "aboutBody": [
+      "LivLocal is a small, family-run shop. Every piece is cut, sewn, pressed, and finished by hand, in small batches, in Southeast Iowa.",
+      "The work started with kids clothes and grew into quilted bags and Bible bags. More is coming as new patterns are finished.",
+      "Because everything is made to order, you are never choosing from whatever happened to be left in a warehouse. You are choosing the size, the fabric, and the pairing."
+    ],
+    "ctaBandTitle": "Have something specific in mind?",
+    "ctaBandBody": "Custom sizes, custom fabric pairings, and small runs are all possible. Tell us what you are picturing.",
+    "ctaBandButton": {
+      "label": "Start a custom order",
+      "href": "/contact.html"
+    }
+  },
+  "categories": [
+    {
+      "id": "all",
+      "label": "Everything"
+    },
+    {
+      "id": "kids-clothing",
+      "label": "Kids Clothing"
+    },
+    {
+      "id": "bags",
+      "label": "Quilted Bags"
+    },
+    {
+      "id": "bible-bags",
+      "label": "Bible Bags"
+    }
+  ],
+  "fabrics": [
+    {
+      "id": "fabric-01",
+      "name": "Fabric 01",
+      "hex": "#C9B29B",
+      "placeholder": true
+    },
+    {
+      "id": "fabric-02",
+      "name": "Fabric 02",
+      "hex": "#A8B5A0",
+      "placeholder": true
+    },
+    {
+      "id": "fabric-03",
+      "name": "Fabric 03",
+      "hex": "#C4A2A2",
+      "placeholder": true
+    },
+    {
+      "id": "fabric-04",
+      "name": "Fabric 04",
+      "hex": "#8E9BAE",
+      "placeholder": true
+    },
+    {
+      "id": "fabric-05",
+      "name": "Fabric 05",
+      "hex": "#D9B26A",
+      "placeholder": true
+    },
+    {
+      "id": "fabric-06",
+      "name": "Fabric 06",
+      "hex": "#8C6B5A",
+      "placeholder": true
+    },
+    {
+      "id": "fabric-07",
+      "name": "Fabric 07",
+      "hex": "#B9C3C7",
+      "placeholder": true
+    },
+    {
+      "id": "fabric-08",
+      "name": "Fabric 08",
+      "hex": "#A34A44",
+      "placeholder": true
+    },
+    {
+      "id": "fabric-09",
+      "name": "Fabric 09",
+      "hex": "#6E7A85",
+      "placeholder": true
+    },
+    {
+      "id": "fabric-10",
+      "name": "Fabric 10",
+      "hex": "#E4DAC8",
+      "placeholder": true
+    }
+  ],
+  "fabricNote": "Fabric names and swatch photos are provisional. Confirm the real names and we will swap them in.",
+  "products": [
+    {
+      "slug": "kids-dress",
+      "name": "Handmade Kids Dress",
+      "category": "kids-clothing",
+      "price": 4000,
+      "priceLabel": "From $40",
+      "images": [],
+      "summary": "A simple everyday dress, cut and sewn by hand, in sizes 0 to 3 months through 7 to 8 years. Price follows the size because the fabric and sewing time change as the piece grows.",
+      "bullets": [
+        "Primary fabric for the body, secondary fabric for the trim",
+        "Soft, breathable cotton blends that wash well",
+        "Made to order in about 2 to 3 weeks"
+      ],
+      "specs": [
+        {
+          "label": "Materials",
+          "value": "Cotton and cotton blend fabric, polyester thread"
+        },
+        {
+          "label": "Care",
+          "value": "Machine wash cold, tumble dry low, warm iron if needed"
+        },
+        {
+          "label": "Lead time",
+          "value": "About 2 to 3 weeks, made to order"
+        },
+        {
+          "label": "Returns",
+          "value": "Because each piece is cut to your size and fabric, made-to-order items are not returnable. Message us if something is wrong and we will make it right."
+        }
+      ],
+      "options": [
+        {
+          "key": "size",
+          "label": "Size",
+          "type": "select",
+          "required": true,
+          "help": "Price changes with size.",
+          "values": [
+            {
+              "id": "0-3m",
+              "label": "0 to 3 months",
+              "price": 4000,
+              "group": "Baby"
+            },
+            {
+              "id": "3-6m",
+              "label": "3 to 6 months",
+              "price": 4000,
+              "group": "Baby"
+            },
+            {
+              "id": "6-9m",
+              "label": "6 to 9 months",
+              "price": 4000,
+              "group": "Baby"
+            },
+            {
+              "id": "9-12m",
+              "label": "9 to 12 months",
+              "price": 4000,
+              "group": "Baby"
+            },
+            {
+              "id": "12-18m",
+              "label": "12 to 18 months",
+              "price": 4500,
+              "group": "Toddler"
+            },
+            {
+              "id": "18-24m",
+              "label": "18 to 24 months",
+              "price": 4500,
+              "group": "Toddler"
+            },
+            {
+              "id": "2-3y",
+              "label": "2 to 3 years",
+              "price": 4500,
+              "group": "Toddler"
+            },
+            {
+              "id": "3-4y",
+              "label": "3 to 4 years",
+              "price": 4500,
+              "group": "Toddler"
+            },
+            {
+              "id": "4-5y",
+              "label": "4 to 5 years",
+              "price": 5000,
+              "group": "Kids"
+            },
+            {
+              "id": "5-6y",
+              "label": "5 to 6 years",
+              "price": 5000,
+              "group": "Kids"
+            },
+            {
+              "id": "6-7y",
+              "label": "6 to 7 years",
+              "price": 5500,
+              "group": "Kids"
+            },
+            {
+              "id": "7-8y",
+              "label": "7 to 8 years",
+              "price": 5500,
+              "group": "Kids"
+            }
+          ]
+        },
+        {
+          "key": "primaryFabric",
+          "label": "Primary fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The main body of the dress."
+        },
+        {
+          "key": "secondaryFabric",
+          "label": "Secondary fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The trim, ties, or contrast detail."
+        }
+      ]
+    },
+    {
+      "slug": "quilted-bag",
+      "name": "Quilted Bag",
+      "category": "bags",
+      "price": null,
+      "priceLabel": "Pricing on request",
+      "images": [],
+      "summary": "A quilted everyday bag, padded and lined, made in the fabric pairing you choose. Sizing and strap options are set with you before it is cut.",
+      "bullets": [
+        "Quilted body with a lined interior",
+        "Primary fabric outside, secondary fabric for the lining or base",
+        "Pricing confirmed once the size and hardware are chosen"
+      ],
+      "specs": [
+        {
+          "label": "Materials",
+          "value": "Quilting cotton, cotton lining, batting"
+        },
+        {
+          "label": "Care",
+          "value": "Spot clean or machine wash cold on gentle, air dry"
+        },
+        {
+          "label": "Lead time",
+          "value": "About 2 to 3 weeks, made to order"
+        }
+      ],
+      "options": [
+        {
+          "key": "primaryFabric",
+          "label": "Primary fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The outside of the bag."
+        },
+        {
+          "key": "secondaryFabric",
+          "label": "Secondary fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The lining or base."
+        }
+      ]
+    },
+    {
+      "slug": "bible-bag",
+      "name": "Bible Bag",
+      "category": "bible-bags",
+      "price": null,
+      "priceLabel": "Pricing on request",
+      "images": [],
+      "summary": "A padded carry bag sized for a Bible, a notebook, and a pen. Built with a primary fabric outside and a secondary fabric lining.",
+      "bullets": [
+        "Padded to protect a Bible and notebook",
+        "Primary fabric outside, secondary fabric lining",
+        "Pricing confirmed once the size and any personalization are chosen"
+      ],
+      "specs": [
+        {
+          "label": "Materials",
+          "value": "Quilting cotton, cotton lining, batting"
+        },
+        {
+          "label": "Care",
+          "value": "Spot clean or machine wash cold on gentle, air dry"
+        },
+        {
+          "label": "Lead time",
+          "value": "About 2 to 3 weeks, made to order"
+        }
+      ],
+      "options": [
+        {
+          "key": "primaryFabric",
+          "label": "Primary fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The outside of the bag."
+        },
+        {
+          "key": "secondaryFabric",
+          "label": "Secondary fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The lining."
+        }
+      ]
+    }
+  ],
+  "shipping": {
+    "flatRate": 600,
+    "freeOver": 7500,
+    "localPickup": true,
+    "localPickupLabel": "Local pickup in Ottumwa",
+    "standardLabel": "Standard shipping (US)",
+    "standardEstimate": "3 to 5 business days after your piece is made",
+    "countries": [
+      "US"
+    ],
+    "note": "Default rates. Confirm the real numbers with Olivia before launch."
+  },
+  "tax": {
+    "enabled": false,
+    "rate": 7.0,
+    "label": "Sales tax (Iowa 7%)",
+    "note": "Ottumwa is 6% Iowa state tax plus a 1% local option tax, so 7.0% combined. Left OFF by default because LivLocal must hold an Iowa sales tax permit before collecting tax. Confirm with the Iowa Department of Revenue, then set enabled to true."
+  },
+  "faq": [
+    {
+      "q": "How long until my order ships?",
+      "a": "Everything is made to order. Expect about 2 to 3 weeks for your piece to be cut, sewn, and finished, then 3 to 5 business days in transit."
+    },
+    {
+      "q": "How do sizes work on the kids pieces?",
+      "a": "Sizes run from 0 to 3 months up to 7 to 8 years. The price steps up as the piece gets larger, because the fabric and sewing time grow with it."
+    },
+    {
+      "q": "What are the two fabrics?",
+      "a": "Every piece is built from a primary fabric and a secondary fabric. The primary fabric is the main body. The secondary fabric is the trim, lining, ties, or contrast detail."
+    },
+    {
+      "q": "Can I pick a fabric that is not listed?",
+      "a": "Yes. Send us a message with what you have in mind and we will tell you whether it is available and how it changes the price."
+    },
+    {
+      "q": "Do you take returns?",
+      "a": "Made-to-order pieces are cut specifically for you, so they are not returnable. If something arrives damaged or does not match what you ordered, contact us and we will fix it."
+    },
+    {
+      "q": "Do you ship outside the United States?",
+      "a": "Not yet. Shipping is currently within the United States. Ask if you need something sent elsewhere and we will look into it."
+    },
+    {
+      "q": "Can I pick up locally?",
+      "a": "Yes. Choose local pickup at checkout if you are in or near Ottumwa, Iowa."
+    },
+    {
+      "q": "Can I order a custom size or a custom piece?",
+      "a": "Yes. Custom sizes, custom fabric pairings, and small runs are all possible. Start with the contact page."
+    }
+  ]
+}

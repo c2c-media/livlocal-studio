@@ -1,0 +1,9 @@
+{
+  "name": "livlocal-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Serverless endpoint that creates Square checkout links for the LivLocal shop. No dependencies: it calls the Square REST API directly.",
+  "main": "create-payment-link/index.js",
+  "dependencies": {},
+  "engines": { "node": ">=20" }
+}

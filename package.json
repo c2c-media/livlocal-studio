@@ -1,0 +1,12 @@
+{
+  "name": "livlocal-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LivLocal handmade shop - static storefront with Stripe Checkout",
+  "scripts": {
+    "build": "node build.js",
+    "start": "node build.js && node serve.js",
+    "optimize": "node tools/optimize-images.js"
+  },
+  "engines": { "node": ">=20" }
+}
