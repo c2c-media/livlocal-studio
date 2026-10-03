@@ -340,7 +340,7 @@ function home() {
 <section class="hero">
   <div class="hero-media" aria-hidden="true"></div>
   <div class="wrap hero-inner">
-    <p class="eyebrow">${esc(content.copy.heroEyebrow)}</p>
+    ${content.copy.heroEyebrow ? `<p class="eyebrow">${esc(content.copy.heroEyebrow)}</p>` : ''}
     <h1>${esc(content.copy.heroHeadline)}</h1>
     <p class="hero-sub">${esc(content.copy.heroSub)}</p>
     <div class="btn-row">
@@ -405,7 +405,7 @@ function home() {
   <div class="wrap">
     <div class="section-head">
       <h2>How ordering works</h2>
-      <p>Three steps, no guesswork.</p>
+      <p>Here is what to expect after you place an order.</p>
     </div>
     <ol class="steps">
       ${content.copy.howItWorks
