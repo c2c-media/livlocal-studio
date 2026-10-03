@@ -330,11 +330,223 @@
     link.setAttribute('href', href + '?subject=' + encodeURIComponent('Custom order: ' + piece));
   }
 
+  /* --------------------------------- gallery -------------------------------- */
+
+  function parseJson(raw) {
+    try {
+      var value = JSON.parse(raw || '[]');
+      return Array.isArray(value) ? value : [];
+    } catch (err) {
+      return [];
+    }
+  }
+
+  /** The chosen swatch in one fabric fieldset, with its SKU and display name. */
+  function checkedFabric(form, key) {
+    var input = form.querySelector('input[name="' + key + '"]:checked');
+    if (!input) return null;
+    var label = input.closest('label');
+    if (!label) return null;
+    var nameEl = label.querySelector('.swatch-name');
+    return {
+      id: input.value,
+      sku: label.getAttribute('data-fabric-sku') || '',
+      name: nameEl ? nameEl.textContent.trim() : input.value
+    };
+  }
+
+  function initGallery() {
+    var gallery = document.querySelector('[data-gallery]');
+    if (!gallery) return;
+    var main = gallery.querySelector('[data-gallery-main]');
+    var webp = gallery.querySelector('[data-gallery-webp]');
+    var caption = gallery.querySelector('[data-gallery-caption]');
+    var badge = gallery.querySelector('[data-gallery-badge]');
+    var status = gallery.querySelector('[data-gallery-status]');
+    var thumbs = Array.prototype.slice.call(gallery.querySelectorAll('[data-gallery-index]'));
+    if (!main || !thumbs.length) return;
+
+    var images = parseJson(gallery.getAttribute('data-images'));
+    var pairs = parseJson(gallery.getAttribute('data-pairs'));
+    var form = document.querySelector('[data-buy]');
+    var dir = '/assets/img/lydia/';
+    var shown = 0;
+
+    function show(index, message) {
+      var im = images[index];
+      if (!im) return;
+      shown = index;
+      main.setAttribute('src', dir + im.slug + '-550.jpg');
+      main.setAttribute('srcset', dir + im.slug + '-550.jpg 550w, ' + dir + im.slug + '.jpg 1100w');
+      main.setAttribute('alt', im.alt || '');
+      if (webp) {
+        webp.setAttribute('srcset', dir + im.slug + '-550.webp 550w, ' + dir + im.slug + '.webp 1100w');
+      }
+      if (caption) caption.textContent = im.caption || '';
+      if (badge) badge.textContent = im.kind === 'photo' ? 'Photo' : 'Illustrative preview';
+      thumbs.forEach(function (thumb, i) {
+        var on = i === index;
+        thumb.classList.toggle('is-active', on);
+        thumb.setAttribute('aria-pressed', String(on));
+      });
+      if (status) {
+        status.textContent = message || '';
+        status.hidden = !message;
+      }
+    }
+
+    thumbs.forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        show(parseInt(thumb.getAttribute('data-gallery-index'), 10), '');
+      });
+    });
+
+    /** A combination photo shows only for an exact dress-body plus collar pair. */
+    function syncToSelection() {
+      if (!form || !pairs.length) return;
+      var body = checkedFabric(form, 'primaryFabric');
+      var collar = checkedFabric(form, 'secondaryFabric');
+      var match = null;
+      if (body && collar && body.sku && collar.sku) {
+        for (var i = 0; i < pairs.length; i++) {
+          if (pairs[i].dress === body.sku && pairs[i].collar === collar.sku) {
+            match = pairs[i];
+            break;
+          }
+        }
+      }
+      if (match) {
+        for (var j = 0; j < images.length; j++) {
+          if (images[j].slug === match.image) {
+            show(
+              j,
+              'Showing the preview that matches your selection: ' +
+                body.name +
+                ' dress body with a ' +
+                collar.name +
+                ' collar.'
+            );
+            return;
+          }
+        }
+      }
+      if (shown !== 0) show(0, '');
+      if (status && body && collar) {
+        status.textContent =
+          'No preview exists for that combination, so the photos show example combinations, not the fabrics you have selected.';
+        status.hidden = false;
+      }
+    }
+
+    if (form) {
+      form.addEventListener('change', function (event) {
+        var name = event.target && event.target.name;
+        if (name === 'primaryFabric' || name === 'secondaryFabric') syncToSelection();
+      });
+    }
+  }
+
+  /* ----------------------------- fabric previews ---------------------------- */
+
+  function initSwatchPreview() {
+    var labels = document.querySelectorAll('.swatch[data-fabric-image]');
+    if (!labels.length) return;
+
+    var pop = null;
+    var image = null;
+    var nameEl = null;
+    var openFor = null;
+
+    function build() {
+      if (pop) return;
+      pop = document.createElement('div');
+      pop.className = 'fabric-preview';
+      pop.setAttribute('role', 'dialog');
+      pop.setAttribute('aria-label', 'Fabric preview');
+      pop.hidden = true;
+      pop.innerHTML =
+        '<button type="button" class="fabric-preview-close" data-preview-close aria-label="Close fabric preview">\u00d7</button>' +
+        '<img data-preview-image alt="" width="320" height="320" decoding="async">' +
+        '<p class="fabric-preview-name" data-preview-name></p>';
+      document.body.appendChild(pop);
+      image = pop.querySelector('[data-preview-image]');
+      nameEl = pop.querySelector('[data-preview-name]');
+      pop.querySelector('[data-preview-close]').addEventListener('click', close);
+    }
+
+    function place(anchor) {
+      var rect = anchor.getBoundingClientRect();
+      var box = pop.getBoundingClientRect();
+      var margin = 10;
+      var top = rect.bottom + margin;
+      if (top + box.height > window.innerHeight - margin) {
+        top = Math.max(margin, rect.top - box.height - margin);
+      }
+      var left = rect.left + rect.width / 2 - box.width / 2;
+      left = Math.min(Math.max(margin, left), Math.max(margin, window.innerWidth - box.width - margin));
+      pop.style.top = Math.round(top + window.scrollY) + 'px';
+      pop.style.left = Math.round(left) + 'px';
+    }
+
+    function open(label) {
+      var src = label.getAttribute('data-fabric-image');
+      if (!src) return;
+      var name = label.getAttribute('data-fabric-name') || '';
+      build();
+      image.setAttribute('src', src);
+      image.setAttribute('alt', name + ' fabric swatch');
+      nameEl.textContent = name;
+      pop.hidden = false;
+      openFor = label;
+      place(label.querySelector('.swatch-chip') || label);
+    }
+
+    function close() {
+      if (!pop || pop.hidden) return;
+      pop.hidden = true;
+      openFor = null;
+    }
+
+    Array.prototype.forEach.call(labels, function (label) {
+      label.addEventListener('mouseenter', function () { open(label); });
+      label.addEventListener('mouseleave', function () {
+        if (openFor === label) close();
+      });
+      label.addEventListener('focusin', function () { open(label); });
+      label.addEventListener('focusout', function (event) {
+        if (!pop || !pop.contains(event.relatedTarget)) close();
+      });
+      var zoom = label.querySelector('[data-swatch-zoom]');
+      if (zoom) {
+        zoom.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          if (openFor === label) close();
+          else open(label);
+        });
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' || event.keyCode === 27) close();
+    });
+    document.addEventListener('click', function (event) {
+      if (!pop || pop.hidden) return;
+      if (pop.contains(event.target)) return;
+      if (openFor && openFor.contains(event.target)) return;
+      close();
+    });
+    window.addEventListener('scroll', close, { passive: true });
+    window.addEventListener('resize', close);
+  }
+
   /* ----------------------------------- boot ---------------------------------- */
 
   function boot() {
     initNav();
     initProduct();
+    initGallery();
+    initSwatchPreview();
     initFilters();
     renderCart();
     initCheckout();

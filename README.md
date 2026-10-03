@@ -52,7 +52,7 @@ Everything customer-facing lives in `content.json`. Change it, run `npm run buil
 { "id": "6-7y", "label": "6 to 7 years", "price": 5500, "group": "Kids" }
 ```
 
-**Fabrics.** `fabrics` is one shared list. Every product that has a fabric option reads from it, so renaming a fabric once updates the product pages, the swatch pickers, and the homepage strip. Each entry takes a `name` and a `hex` colour. Add an `image` key later if you want a photo swatch instead of a colour chip.
+**Fabrics.** `fabrics` is one shared list. Every product that has a fabric option reads from it, so renaming a fabric once updates the product pages, the swatch pickers, and the homepage strip. Each entry takes a `name` and a `hex` colour. Add an `image` key with a root-relative path, such as `/assets/img/fabrics/green-daisy.webp`, to use a photo swatch instead of a colour chip.
 
 **Products.** To add one, copy an existing block in `products` and change the `slug`, `name`, `category`, `summary`, and `options`. A product with `"price": null` shows "Pricing on request" and routes to the contact page instead of the cart. The quilted bag and Bible bag currently work that way.
 
@@ -122,7 +122,7 @@ Prices are looked up **server-side** in `api/_catalog.js`, which `build.js` gene
 - [ ] Set the real domain in `content.json` (`site.siteUrl`) and rebuild.
 - [ ] Set the real contact email (`site.contactEmail`). It currently points at `trevan@c2cmedia.studio`.
 - [ ] Confirm the shipping rates and the made-to-order lead time.
-- [ ] Confirm the real fabric names and add swatch photos.
+- [ ] Confirm the remaining Fabric 01 through Fabric 10 names and add their swatch photos. Five named Hobby Lobby fabrics already have photo swatches.
 - [ ] Add product photography.
 - [ ] Register for an Iowa sales tax permit, then turn tax on in `content.json`.
 - [ ] Add the Square access token and location ID in Azure, and run a sandbox order.

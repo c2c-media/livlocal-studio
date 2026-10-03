@@ -96,8 +96,8 @@ const VIEWPORTS = [{ w: 1440, h: 900, tag: 'desktop' }, { w: 390, h: 844, tag: '
   const priceBefore = await shop.textContent('[data-price-display]');
   await shop.selectOption('select[name="size"]', '6-7y');
   const priceAfter = await shop.textContent('[data-price-display]');
-  await shop.check('input[name="primaryFabric"][value="fabric-03"]');
-  await shop.check('input[name="secondaryFabric"][value="fabric-07"]');
+  await shop.locator('input[name="primaryFabric"]').first().check();
+  await shop.locator('input[name="secondaryFabric"]').first().check();
   await shop.click('button[type="submit"]');
   await shop.waitForURL('**/cart.html');
   await shop.waitForTimeout(300);

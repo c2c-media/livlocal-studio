@@ -95,7 +95,7 @@ global.fetch = async (url, init) => {
 
   const okRes = await run(handler, {
     items: [
-      { slug: 'kids-dress', qty: 2, size: '6-7y', primaryFabric: 'fabric-03', secondaryFabric: 'fabric-07' },
+      { slug: 'kids-dress', qty: 2, size: '6-7y', primaryFabric: 'boho-blender', secondaryFabric: 'mauve-rose-textured' },
     ],
   });
 
@@ -121,14 +121,14 @@ global.fetch = async (url, init) => {
 
   check('line item name shows the size and both fabrics to the buyer', () => {
     const name = sent.body.order.line_items[0].name;
-    assert.match(name, /Handmade Kids Dress/);
+    assert.match(name, /The Lydia Dress/);
     assert.match(name, /6 to 7 years/);
-    assert.match(name, /Fabric 03/);
-    assert.match(name, /Fabric 07/);
+    assert.match(name, /Boho Blender Cotton Calico Fabric/);
+    assert.match(name, /Mauve Rose Textured Cotton Calico Fabric/);
   });
 
   check('line item note carries the structured options', () => {
-    assert.match(sent.body.order.line_items[0].note, /Primary fabric: Fabric 03/);
+    assert.match(sent.body.order.line_items[0].note, /Primary fabric: Boho Blender Cotton Calico Fabric/);
   });
 
   check('location id is set on the order', () => assert.strictEqual(sent.body.order.location_id, 'LTESTLOCATION'));
@@ -154,7 +154,7 @@ global.fetch = async (url, init) => {
   /* ------------------------------- shipping fee ------------------------------ */
 
   const smallRes = await run(handler, {
-    items: [{ slug: 'kids-dress', qty: 1, size: '0-3m', primaryFabric: 'fabric-01', secondaryFabric: 'fabric-02' }],
+    items: [{ slug: 'kids-dress', qty: 1, size: '0-3m', primaryFabric: 'green-daisy', secondaryFabric: 'cream-sunflower' }],
   });
   check('applies the flat shipping fee below the free threshold', () => {
     assert.strictEqual(smallRes.status, 200);
@@ -166,7 +166,7 @@ global.fetch = async (url, init) => {
 
   const freeHandler = loadHandler({ taxEnabled: true });
   const freeRes = await run(freeHandler, {
-    items: [{ slug: 'kids-dress', qty: 2, size: '7-8y', primaryFabric: 'fabric-01', secondaryFabric: 'fabric-02' }],
+    items: [{ slug: 'kids-dress', qty: 2, size: '7-8y', primaryFabric: 'green-daisy', secondaryFabric: 'cream-sunflower' }],
   });
 
   check('order over the threshold drops the shipping fee', () => {

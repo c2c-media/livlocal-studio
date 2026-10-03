@@ -552,3 +552,67 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   .card:hover { transform: none; }
 }
+
+
+/* ---------------------- product photos and photo gallery -------------------- */
+
+.card-img {
+  display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover;
+  background: var(--surface);
+}
+.gallery { display: grid; gap: 14px; }
+.gallery-stage { position: relative; margin: 0; }
+.gallery-stage picture { display: block; }
+.gallery-main {
+  display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover;
+  border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow);
+}
+.gallery-badge {
+  position: absolute; top: 12px; left: 12px; padding: 5px 10px; border-radius: 999px;
+  background: rgba(0,0,0,.62); color: #fff; font-size: .7rem; font-weight: 700;
+  letter-spacing: .07em; text-transform: uppercase;
+}
+.gallery-thumbs {
+  list-style: none; margin: 0; padding: 0; display: grid; gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+}
+.gallery-thumb {
+  display: block; width: 100%; padding: 0; cursor: pointer; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+}
+.gallery-thumb img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
+.gallery-thumb:hover { border-color: var(--border-strong); }
+.gallery-thumb.is-active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.gallery-thumb:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.gallery-caption { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+.gallery-status {
+  margin: 0; padding: 10px 12px; font-size: .9rem; color: var(--ink);
+  background: var(--gold-tint); border: 1px solid var(--border); border-radius: var(--radius);
+}
+
+/* -------------------------- fabric preview popover -------------------------- */
+
+.swatch { position: relative; }
+.swatch-zoom {
+  position: absolute; top: 6px; right: 6px; width: 32px; height: 32px; padding: 0;
+  display: grid; place-items: center; cursor: zoom-in; opacity: .85;
+  background: var(--surface); color: var(--ink); font-size: .8rem; line-height: 1;
+  border: 1px solid var(--border-strong); border-radius: 50%;
+}
+.swatch-zoom:hover, .swatch-zoom:focus-visible { opacity: 1; color: var(--accent); border-color: var(--accent); }
+.fabric-preview {
+  position: absolute; z-index: 60; width: 280px; max-width: calc(100vw - 20px);
+  padding: 12px; background: var(--surface); border: 1px solid var(--border-strong);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.fabric-preview img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 8px; }
+.fabric-preview-name { margin: 10px 0 0; font-size: .92rem; font-weight: 600; }
+.fabric-preview-close {
+  position: absolute; top: 6px; right: 6px; width: 32px; height: 32px; padding: 0;
+  display: grid; place-items: center; cursor: pointer; font-size: 1rem; line-height: 1;
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: 50%;
+}
+
+/* Pointer devices preview on hover and keyboard focus, so the tap control stays
+   for touch screens only. */
+@media (hover: hover) and (pointer: fine) { .swatch-zoom { display: none; } }

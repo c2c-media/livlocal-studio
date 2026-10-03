@@ -1,0 +1,499 @@
+{
+  "batch": "The Lydia Dress batch",
+  "generated": "2026-10-03",
+  "fabricNote": "Fabric names, SKUs, and swatch photos come from the LivLocal Fabric Library in Notion. The website is built from a snapshot taken when this file was generated, so a change in the library appears on the site after the next successful build and deploy.",
+  "fabricSource": {
+    "database": "https://app.notion.com/p/1e65cf621bea4ff09891d415b0dc72c4",
+    "dataSource": "collection://148a60a2-f67d-48a1-97d2-6d89c260d9cc",
+    "snapshotDate": "2026-10-03",
+    "note": "Do not publish the Dress prompt or Collar prompt properties from that database."
+  },
+  "fabrics": [
+    {
+      "id": "black-tan-check",
+      "name": "Black & Tan Homespun Check Cotton Fabric",
+      "sku": "975979",
+      "hex": "#6B5545",
+      "image": "/assets/img/fabrics/black-tan-check.webp",
+      "placeholder": false
+    },
+    {
+      "id": "black-white-gingham",
+      "name": "Black & White Gingham Homespun Cotton Fabric",
+      "sku": "1759174",
+      "hex": "#777071",
+      "image": "/assets/img/fabrics/black-white-gingham.webp",
+      "placeholder": false
+    },
+    {
+      "id": "black-white-gray-plaid",
+      "name": "Black, White & Gray Homespun Plaid Cotton Fabric",
+      "sku": "1749290",
+      "hex": "#615C55",
+      "image": "/assets/img/fabrics/black-white-gray-plaid.webp",
+      "placeholder": false
+    },
+    {
+      "id": "blue-dandelion",
+      "name": "Blue Dandelion Cotton Calico Fabric",
+      "sku": "2241024",
+      "hex": "#323A46",
+      "image": "/assets/img/fabrics/blue-dandelion.webp",
+      "placeholder": false
+    },
+    {
+      "id": "boho-blender",
+      "name": "Boho Blender Cotton Calico Fabric",
+      "sku": "2238947",
+      "hex": "#EADAD4",
+      "image": "/assets/img/fabrics/boho-blender.webp",
+      "placeholder": false
+    },
+    {
+      "id": "brown-plaid",
+      "name": "Brown & White Plaid Cotton Fabric",
+      "sku": "2556157",
+      "hex": "#7F5C47",
+      "image": "/assets/img/fabrics/brown-plaid.webp",
+      "placeholder": false
+    },
+    {
+      "id": "brown-diamond",
+      "name": "Brown Diamond Print Cotton Calico Fabric",
+      "sku": "124404",
+      "hex": "#532D21",
+      "image": "/assets/img/fabrics/brown-diamond.webp",
+      "placeholder": false
+    },
+    {
+      "id": "pink-buffalo-plaid",
+      "name": "Buffalo Plaid Cotton Calico Fabric",
+      "sku": "2012961",
+      "hex": "#D7C7D5",
+      "image": "/assets/img/fabrics/pink-buffalo-plaid.webp",
+      "placeholder": false
+    },
+    {
+      "id": "red-black-buffalo",
+      "name": "Buffalo Plaid Cotton Calico Fabric — Red & Black",
+      "sku": "1720424",
+      "hex": "#640911",
+      "image": "/assets/img/fabrics/red-black-buffalo.webp",
+      "placeholder": false
+    },
+    {
+      "id": "clouds-dots",
+      "name": "Clouds & Dots Cotton Calico Fabric",
+      "sku": "1916352",
+      "hex": "#BDD5ED",
+      "image": "/assets/img/fabrics/clouds-dots.webp",
+      "placeholder": false
+    },
+    {
+      "id": "cream-sunflower",
+      "name": "Cream Sunflower Cotton Calico Fabric",
+      "sku": "2155836",
+      "hex": "#E6DCD0",
+      "image": "/assets/img/fabrics/cream-sunflower.webp",
+      "placeholder": false
+    },
+    {
+      "id": "earth-botanical",
+      "name": "Earth Botanical Cotton Calico Fabric",
+      "sku": "2247708",
+      "hex": "#C2A89B",
+      "image": "/assets/img/fabrics/earth-botanical.webp",
+      "placeholder": false
+    },
+    {
+      "id": "earth-tone-floral",
+      "name": "Earth Tone Floral Cotton Calico Fabric",
+      "sku": "2156123",
+      "hex": "#E7CBB8",
+      "image": "/assets/img/fabrics/earth-tone-floral.webp",
+      "placeholder": false
+    },
+    {
+      "id": "farm-floral-ditzy",
+      "name": "Farm Floral Ditzy Cotton Calico Fabric",
+      "sku": "2238160",
+      "hex": "#D4A348",
+      "image": "/assets/img/fabrics/farm-floral-ditzy.webp",
+      "placeholder": false
+    },
+    {
+      "id": "gingham-ducks",
+      "name": "Gingham Ducks Cotton Calico Fabric",
+      "sku": "2639292",
+      "hex": "#D1DCD0",
+      "image": "/assets/img/fabrics/gingham-ducks.webp",
+      "placeholder": false
+    },
+    {
+      "id": "green-cream-polka",
+      "name": "Green & Cream Polka Dot Cotton Calico Fabric",
+      "sku": "556720",
+      "hex": "#D7CA8E",
+      "image": "/assets/img/fabrics/green-cream-polka.webp",
+      "placeholder": false
+    },
+    {
+      "id": "green-daisy",
+      "name": "Green Daisy Cotton Calico Fabric",
+      "sku": "2155851",
+      "hex": "#949570",
+      "image": "/assets/img/fabrics/green-daisy.webp",
+      "placeholder": false
+    },
+    {
+      "id": "green-trendy-floral",
+      "name": "Green Trendy Floral Cotton Calico Fabric",
+      "sku": "1982354",
+      "hex": "#2F3835",
+      "image": "/assets/img/fabrics/green-trendy-floral.webp",
+      "placeholder": false
+    },
+    {
+      "id": "homespun-brown",
+      "name": "Homespun Brown Cotton Fabric",
+      "sku": "1982750",
+      "hex": "#B16740",
+      "image": "/assets/img/fabrics/homespun-brown.webp",
+      "placeholder": false
+    },
+    {
+      "id": "homespun-plaid",
+      "name": "Homespun Plaid Cotton Fabric",
+      "sku": "602268",
+      "hex": "#505159",
+      "image": "/assets/img/fabrics/homespun-plaid.webp",
+      "placeholder": false
+    },
+    {
+      "id": "ivory-gray-stripes",
+      "name": "Ivory & Gray Striped Cotton Calico Fabric",
+      "sku": "1879725",
+      "hex": "#A69B93",
+      "image": "/assets/img/fabrics/ivory-gray-stripes.webp",
+      "placeholder": false
+    },
+    {
+      "id": "light-blue-denim",
+      "name": "Light Blue Denim Cotton Calico Fabric",
+      "sku": "2641546",
+      "hex": "#B1C1D6",
+      "image": "/assets/img/fabrics/light-blue-denim.webp",
+      "placeholder": false
+    },
+    {
+      "id": "light-brown-red-floral",
+      "name": "Light Brown & Red Tiny Floral Cotton Calico Fabric",
+      "sku": "808949",
+      "hex": "#C78552",
+      "image": "/assets/img/fabrics/light-brown-red-floral.webp",
+      "placeholder": false
+    },
+    {
+      "id": "mauve-floral",
+      "name": "Mauve Floral Cotton Calico Fabric",
+      "sku": "2012797",
+      "hex": "#96867E",
+      "image": "/assets/img/fabrics/mauve-floral.webp",
+      "placeholder": false
+    },
+    {
+      "id": "mauve-rose-textured",
+      "name": "Mauve Rose Textured Cotton Calico Fabric",
+      "sku": "1752740",
+      "hex": "#DB968E",
+      "image": "/assets/img/fabrics/mauve-rose-textured.webp",
+      "placeholder": false
+    },
+    {
+      "id": "mini-floral",
+      "name": "Mini Floral Cotton Calico Fabric",
+      "sku": "2047553",
+      "hex": "#5A3D34",
+      "image": "/assets/img/fabrics/mini-floral.webp",
+      "placeholder": false
+    },
+    {
+      "id": "muted-rainbow",
+      "name": "Muted Rainbow Cotton Calico Fabric",
+      "sku": "2153310",
+      "hex": "#E9E6E5",
+      "image": "/assets/img/fabrics/muted-rainbow.webp",
+      "placeholder": false
+    },
+    {
+      "id": "light-nautical",
+      "name": "Nautical Map Cotton Calico Fabric",
+      "sku": "1254879",
+      "hex": "#DADAE0",
+      "image": "/assets/img/fabrics/light-nautical.webp",
+      "placeholder": false
+    },
+    {
+      "id": "navy-coral-suns",
+      "name": "Navy & Coral Suns Cotton Calico Fabric",
+      "sku": "2241297",
+      "hex": "#C8C3CA",
+      "image": "/assets/img/fabrics/navy-coral-suns.webp",
+      "placeholder": false
+    },
+    {
+      "id": "navy-nautical",
+      "name": "Navy Nautical Map Cotton Calico Fabric",
+      "sku": "1428259",
+      "hex": "#434760",
+      "image": "/assets/img/fabrics/navy-nautical.webp",
+      "placeholder": false
+    },
+    {
+      "id": "painted-flowers",
+      "name": "Painted Flowers Cotton Calico Fabric",
+      "sku": "2595569",
+      "hex": "#AD918B",
+      "image": "/assets/img/fabrics/painted-flowers.webp",
+      "placeholder": false
+    },
+    {
+      "id": "prairie-ecru-stripes",
+      "name": "Prairie Girl Striped Ecru Cotton Calico Fabric",
+      "sku": "272641",
+      "hex": "#BDA68F",
+      "image": "/assets/img/fabrics/prairie-ecru-stripes.webp",
+      "placeholder": false
+    },
+    {
+      "id": "red-cream-distressed",
+      "name": "Red & Cream Distressed Cotton Calico Fabric",
+      "sku": "1759190",
+      "hex": "#C6A093",
+      "image": "/assets/img/fabrics/red-cream-distressed.webp",
+      "placeholder": false
+    },
+    {
+      "id": "red-white-gingham",
+      "name": "Red & White Gingham Cotton Calico Fabric",
+      "sku": "2248904",
+      "hex": "#D46B7B",
+      "image": "/assets/img/fabrics/red-white-gingham.webp",
+      "placeholder": false
+    },
+    {
+      "id": "red-mini-floral",
+      "name": "Red Mini Floral Cotton Calico Fabric",
+      "sku": "838607",
+      "hex": "#6D2124",
+      "image": "/assets/img/fabrics/red-mini-floral.webp",
+      "placeholder": false
+    },
+    {
+      "id": "rosebuds",
+      "name": "Rosebuds Cotton Calico Fabric",
+      "sku": "2597359",
+      "hex": "#16120D",
+      "image": "/assets/img/fabrics/rosebuds.webp",
+      "placeholder": false
+    },
+    {
+      "id": "rust-floral",
+      "name": "Rust Floral Cotton Calico Fabric",
+      "sku": "2156206",
+      "hex": "#DD9985",
+      "image": "/assets/img/fabrics/rust-floral.webp",
+      "placeholder": false
+    },
+    {
+      "id": "strawberries",
+      "name": "Strawberries Cotton Calico Fabric",
+      "sku": "2638096",
+      "hex": "#F6E5EB",
+      "image": "/assets/img/fabrics/strawberries.webp",
+      "placeholder": false
+    },
+    {
+      "id": "tan-stripes",
+      "name": "Tan & White Striped Dyed Yarn Essex Linen Fabric",
+      "sku": "2230019",
+      "hex": "#DBD2CF",
+      "image": "/assets/img/fabrics/tan-stripes.webp",
+      "placeholder": false
+    },
+    {
+      "id": "tea-dye-bee",
+      "name": "Tea Dye Bee Cotton Calico Fabric",
+      "sku": "2241016",
+      "hex": "#DDC7AE",
+      "image": "/assets/img/fabrics/tea-dye-bee.webp",
+      "placeholder": false
+    },
+    {
+      "id": "tiny-pink-hearts",
+      "name": "Tiny Pink Hearts Cotton Calico Fabric",
+      "sku": "417667",
+      "hex": "#F6DDD5",
+      "image": "/assets/img/fabrics/tiny-pink-hearts.webp",
+      "placeholder": false
+    },
+    {
+      "id": "tonal-starburst",
+      "name": "Tonal Starburst Cotton Calico Fabric",
+      "sku": "2248805",
+      "hex": "#F9CA65",
+      "image": "/assets/img/fabrics/tonal-starburst.webp",
+      "placeholder": false
+    },
+    {
+      "id": "unbleached-muslin",
+      "name": "Unbleached Premium Muslin Fabric",
+      "sku": "719591",
+      "hex": "#EAE6DB",
+      "image": "/assets/img/fabrics/unbleached-muslin.webp",
+      "placeholder": false
+    },
+    {
+      "id": "white-black-polka",
+      "name": "White & Black Polka Dot Cotton Calico Fabric",
+      "sku": "133405",
+      "hex": "#D6D4D5",
+      "image": "/assets/img/fabrics/white-black-polka.webp",
+      "placeholder": false
+    },
+    {
+      "id": "white-black-ticking",
+      "name": "White & Black Ticking Striped Cotton Calico Fabric",
+      "sku": "1678408",
+      "hex": "#AAB2BB",
+      "image": "/assets/img/fabrics/white-black-ticking.webp",
+      "placeholder": false
+    },
+    {
+      "id": "wine-tan-check",
+      "name": "Wine & Tan Check Homespun Cotton Fabric",
+      "sku": "487421",
+      "hex": "#90473B",
+      "image": "/assets/img/fabrics/wine-tan-check.webp",
+      "placeholder": false
+    },
+    {
+      "id": "yellow-scroll",
+      "name": "Yellow Scroll Print Cotton Calico Fabric",
+      "sku": "2238095",
+      "hex": "#EFBA2C",
+      "image": "/assets/img/fabrics/yellow-scroll.webp",
+      "placeholder": false
+    }
+  ],
+  "dress": {
+    "slug": "kids-dress",
+    "name": "The Lydia Dress",
+    "optionLabels": {
+      "primaryFabric": {
+        "label": "Dress body fabric",
+        "help": "The main fabric of the dress: bodice, sleeves, and skirt."
+      },
+      "secondaryFabric": {
+        "label": "Collar fabric",
+        "help": "The collar and the trim details."
+      }
+    },
+    "bulletReplace": {
+      "Primary fabric for the body, secondary fabric for the trim": "Choose a dress body fabric and a separate collar fabric"
+    },
+    "images": [
+      {
+        "slug": "lydia-boho-mauve",
+        "alt": "The Lydia Dress in Boho Blender with a Mauve Rose Textured collar",
+        "caption": "Boho Blender dress body with a Mauve Rose Textured collar. Illustrative fabric preview.",
+        "kind": "preview"
+      },
+      {
+        "slug": "lydia-buffalo-pink-hearts",
+        "alt": "The Lydia Dress in pink and white buffalo plaid with a Tiny Pink Hearts collar",
+        "caption": "Pink and white buffalo plaid dress body with a Tiny Pink Hearts collar. Illustrative fabric preview.",
+        "kind": "preview"
+      },
+      {
+        "slug": "lydia-green-white-plaid-mustard",
+        "alt": "The Lydia Dress in green and white plaid with a solid mustard collar",
+        "caption": "Green and white plaid dress body with a solid mustard collar. Illustrative fabric preview. These two fabric records are not confirmed in the fabric library yet.",
+        "kind": "preview"
+      },
+      {
+        "slug": "lydia-green-daisy-yellow-scroll",
+        "alt": "The Lydia Dress in Green Daisy with a Yellow Scroll Print collar",
+        "caption": "Green Daisy dress body with a Yellow Scroll Print collar. Illustrative fabric preview.",
+        "kind": "preview"
+      },
+      {
+        "slug": "lydia-navy-nautical-light-nautical",
+        "alt": "The Lydia Dress in Navy Nautical Map with a light Nautical Map collar",
+        "caption": "Navy Nautical Map dress body with a light Nautical Map collar. Illustrative fabric preview.",
+        "kind": "preview"
+      },
+      {
+        "slug": "lydia-red-cream-earth-botanical",
+        "alt": "The Lydia Dress in Red & Cream Distressed with an Earth Botanical collar",
+        "caption": "Red and cream distressed dress body with an Earth Botanical collar. Illustrative fabric preview.",
+        "kind": "preview"
+      },
+      {
+        "slug": "lydia-tea-dye-bee-homespun-plaid",
+        "alt": "The Lydia Dress in Tea Dye Bee with a navy Homespun Plaid collar",
+        "caption": "Tea Dye Bee dress body with a navy Homespun Plaid collar. Illustrative fabric preview.",
+        "kind": "preview"
+      }
+    ],
+    "imagePairs": [
+      {
+        "dress": "2238947",
+        "collar": "1752740",
+        "image": "lydia-boho-mauve"
+      },
+      {
+        "dress": "2012961",
+        "collar": "417667",
+        "image": "lydia-buffalo-pink-hearts"
+      },
+      {
+        "dress": "2155851",
+        "collar": "2238095",
+        "image": "lydia-green-daisy-yellow-scroll"
+      },
+      {
+        "dress": "1428259",
+        "collar": "1254879",
+        "image": "lydia-navy-nautical-light-nautical"
+      },
+      {
+        "dress": "1759190",
+        "collar": "2247708",
+        "image": "lydia-red-cream-earth-botanical"
+      },
+      {
+        "dress": "2241016",
+        "collar": "602268",
+        "image": "lydia-tea-dye-bee-homespun-plaid"
+      }
+    ],
+    "imageNote": "Photos show example fabric combinations, not the combination selected above. Combination images are AI-assisted previews, not photographs of a sewn piece. Every dress is made to order in the fabrics you choose."
+  },
+  "bibleBag": {
+    "slug": "bible-bag",
+    "price": 2000,
+    "priceLabel": "$20",
+    "bulletReplace": {
+      "Pricing confirmed once the size and any personalization are chosen": "Made to order in about 2 to 3 weeks"
+    }
+  },
+  "about": {
+    "title": "About LivLocal",
+    "removeBodyMatching": "^(The work started with kids clothes|I started with children)"
+  },
+  "site": {
+    "siteUrl": "https://www.livlocal.studio",
+    "contactEmail": "liv@livlocal.studio"
+  }
+}

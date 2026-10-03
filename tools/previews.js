@@ -15,15 +15,15 @@ const OUT = path.join(__dirname, '..', 'previews');
     if (url === '/cart.html') {
       await page.evaluate(() => {
         localStorage.setItem('livlocal.cart.v1', JSON.stringify([
-          { id: 'a', slug: 'kids-dress', name: 'Handmade Kids Dress', price: 4500, qty: 1,
+          { id: 'a', slug: 'kids-dress', name: 'The Lydia Dress', price: 4500, qty: 1,
             options: [
               { key: 'size', value: '12-18m', label: '12 to 18 months', fieldLabel: 'Size' },
-              { key: 'primaryFabric', value: 'fabric-02', label: 'Fabric 02', fieldLabel: 'Primary fabric' },
-              { key: 'secondaryFabric', value: 'fabric-05', label: 'Fabric 05', fieldLabel: 'Secondary fabric' }] },
+              { key: 'primaryFabric', value: 'boho-blender', label: 'Boho Blender Cotton Calico Fabric', fieldLabel: 'Dress body fabric' },
+              { key: 'secondaryFabric', value: 'cream-sunflower', label: 'Cream Sunflower Cotton Calico Fabric', fieldLabel: 'Collar fabric' }] },
           { id: 'b', slug: 'bible-bag', name: 'Bible Bag', price: 0, qty: 1,
             options: [
-              { key: 'primaryFabric', value: 'fabric-06', label: 'Fabric 06', fieldLabel: 'Primary fabric' },
-              { key: 'secondaryFabric', value: 'fabric-10', label: 'Fabric 10', fieldLabel: 'Secondary fabric' }] }
+              { key: 'primaryFabric', value: 'homespun-plaid', label: 'Homespun Plaid Cotton Fabric', fieldLabel: 'Primary fabric' },
+              { key: 'secondaryFabric', value: 'tiny-pink-hearts', label: 'Tiny Pink Hearts Cotton Calico Fabric', fieldLabel: 'Secondary fabric' }] }
         ]));
       });
       await page.reload({ waitUntil: 'networkidle' });
