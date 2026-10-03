@@ -168,6 +168,68 @@ ${footer()}
 
 /* ------------------------------ shared fragments ---------------------------- */
 
+/* --------------------------- product photography --------------------------- */
+
+/** File paths for one square product photo in assets/img/lydia. */
+function photoSet(slug) {
+  const dir = '/assets/img/lydia/';
+  return {
+    jpg: `${dir}${slug}.jpg`,
+    jpg550: `${dir}${slug}-550.jpg`,
+    webp: `${dir}${slug}.webp`,
+    webp550: `${dir}${slug}-550.webp`,
+    thumb: `${dir}${slug}-thumb.jpg`,
+  };
+}
+
+/** Square gallery when a product has photos, otherwise the drawn fabric tile. */
+function productMedia(p) {
+  const images = p.images || [];
+  if (!images.length) {
+    return `<div class="product-media">
+        ${tile(p, 'tile--lg')}
+        <p class="media-note">Product photo coming soon. Every piece is made to order, so your fabric pairing is the real thing.</p>
+      </div>`;
+  }
+  const first = images[0];
+  const set = photoSet(first.slug);
+  const sizes = '(min-width: 900px) 540px, 92vw';
+  const payload = images.map((im) => ({
+    slug: im.slug,
+    alt: im.alt,
+    caption: im.caption,
+    kind: im.kind || 'preview',
+  }));
+  return `<div class="product-media">
+      <div class="gallery" data-gallery data-pairs="${esc(JSON.stringify(p.imagePairs || []))}" data-images="${esc(JSON.stringify(payload))}">
+        <figure class="gallery-stage">
+          <picture>
+            <source data-gallery-webp type="image/webp" srcset="${esc(set.webp550)} 550w, ${esc(set.webp)} 1100w" sizes="${sizes}">
+            <img data-gallery-main class="gallery-main" src="${esc(set.jpg550)}" srcset="${esc(set.jpg550)} 550w, ${esc(set.jpg)} 1100w" sizes="${sizes}" width="1100" height="1100" alt="${esc(first.alt)}" decoding="async">
+          </picture>
+          <span class="gallery-badge" data-gallery-badge>${first.kind === 'photo' ? 'Photo' : 'Illustrative preview'}</span>
+        </figure>
+        <ul class="gallery-thumbs" data-gallery-thumbs>
+          ${images
+            .map(
+              (im, i) =>
+                `<li><button type="button" class="gallery-thumb${
+                  i === 0 ? ' is-active' : ''
+                }" data-gallery-index="${i}" aria-pressed="${
+                  i === 0
+                }" aria-label="Show photo ${i + 1} of ${images.length}: ${esc(
+                  im.alt
+                )}"><img src="${esc(photoSet(im.slug).thumb)}" alt="" width="240" height="240" loading="lazy" decoding="async"></button></li>`
+            )
+            .join('')}
+        </ul>
+        <p class="gallery-caption" data-gallery-caption>${esc(first.caption)}</p>
+        <p class="gallery-status" data-gallery-status role="status" aria-live="polite" hidden></p>
+        <p class="media-note">${esc(p.imageNote || '')}</p>
+      </div>
+    </div>`;
+}
+
 /** CSS-drawn fabric tile used until real product photos exist. */
 function tile(p, size = '') {
   const tint = { 'kids-clothing': 'clay', bags: 'sage', 'bible-bags': 'gold' }[p.category] || 'clay';
@@ -180,7 +242,13 @@ function productCard(p) {
   const from = priceFrom(p);
   return `<article class="card">
     <a class="card-media" href="${productHref(p)}" aria-label="${esc(p.name)}">
-      ${tile(p)}
+      ${
+        (p.images || []).length
+          ? `<img class="card-img" src="${esc(
+              photoSet(p.images[0].slug).jpg550
+            )}" alt="${esc(p.images[0].alt)}" width="550" height="550" loading="lazy" decoding="async">`
+          : tile(p)
+      }
     </a>
     <div class="card-body">
       <p class="card-cat">${esc(categoryLabel(p.category))}</p>
@@ -197,12 +265,23 @@ function swatchFieldset(opt, fabrics) {
   <div class="swatches">
     ${fabrics
       .map(
-        (f, i) => `<label class="swatch">
+        (f, i) => `<label class="swatch" data-fabric="${esc(f.id)}" data-fabric-name="${esc(
+          f.name
+        )}"${f.sku ? ` data-fabric-sku="${esc(f.sku)}"` : ''}${
+          f.image ? ` data-fabric-image="${esc(f.image)}"` : ''
+        }>
       <input type="radio" name="${esc(opt.key)}" value="${esc(f.id)}"${i === 0 ? '' : ''} required>
       <span class="swatch-chip" style="--chip:${esc(f.hex)};${
         f.image ? `--chip-image:url('${esc(f.image)}')` : ''
       }" aria-hidden="true"></span>
       <span class="swatch-name">${esc(f.name)}</span>
+      ${
+        f.image
+          ? `<button type="button" class="swatch-zoom" data-swatch-zoom aria-label="Preview the ${esc(
+              f.name
+            )}"><span aria-hidden="true">&#8981;</span></button>`
+          : ''
+      }
     </label>`
       )
       .join('')}
@@ -326,7 +405,7 @@ function home() {
   <div class="wrap">
     <div class="section-head">
       <h2>How ordering works</h2>
-      <p>Here is what to expect after you place an order.</p>
+      <p>Three steps, no guesswork.</p>
     </div>
     <ol class="steps">
       ${content.copy.howItWorks
@@ -455,10 +534,7 @@ function productPage(p) {
     </nav>
 
     <div class="product-layout">
-      <div class="product-media">
-        ${tile(p, 'tile--lg')}
-        <p class="media-note">Product photo coming soon. Every piece is made to order, so your fabric pairing is the real thing.</p>
-      </div>
+      ${productMedia(p)}
 
       <div class="product-info">
         <p class="eyebrow">${esc(categoryLabel(p.category))}</p>

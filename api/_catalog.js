@@ -2,7 +2,7 @@
 module.exports = {
   "catalog": {
     "kids-dress": {
-      "name": "Handmade Kids Dress",
+      "name": "The Lydia Dress",
       "base": 4000,
       "sizes": {
         "0-3m": 4000,
@@ -41,22 +41,59 @@ module.exports = {
     },
     "bible-bag": {
       "name": "Bible Bag",
-      "base": null,
+      "base": 2000,
       "sizes": {},
       "sizeLabels": {}
     }
   },
   "fabricMap": {
-    "fabric-01": "Fabric 01",
-    "fabric-02": "Fabric 02",
-    "fabric-03": "Fabric 03",
-    "fabric-04": "Fabric 04",
-    "fabric-05": "Fabric 05",
-    "fabric-06": "Fabric 06",
-    "fabric-07": "Fabric 07",
-    "fabric-08": "Fabric 08",
-    "fabric-09": "Fabric 09",
-    "fabric-10": "Fabric 10"
+    "black-tan-check": "Black & Tan Homespun Check Cotton Fabric",
+    "black-white-gingham": "Black & White Gingham Homespun Cotton Fabric",
+    "black-white-gray-plaid": "Black, White & Gray Homespun Plaid Cotton Fabric",
+    "blue-dandelion": "Blue Dandelion Cotton Calico Fabric",
+    "boho-blender": "Boho Blender Cotton Calico Fabric",
+    "brown-plaid": "Brown & White Plaid Cotton Fabric",
+    "brown-diamond": "Brown Diamond Print Cotton Calico Fabric",
+    "pink-buffalo-plaid": "Buffalo Plaid Cotton Calico Fabric",
+    "red-black-buffalo": "Buffalo Plaid Cotton Calico Fabric — Red & Black",
+    "clouds-dots": "Clouds & Dots Cotton Calico Fabric",
+    "cream-sunflower": "Cream Sunflower Cotton Calico Fabric",
+    "earth-botanical": "Earth Botanical Cotton Calico Fabric",
+    "earth-tone-floral": "Earth Tone Floral Cotton Calico Fabric",
+    "farm-floral-ditzy": "Farm Floral Ditzy Cotton Calico Fabric",
+    "gingham-ducks": "Gingham Ducks Cotton Calico Fabric",
+    "green-cream-polka": "Green & Cream Polka Dot Cotton Calico Fabric",
+    "green-daisy": "Green Daisy Cotton Calico Fabric",
+    "green-trendy-floral": "Green Trendy Floral Cotton Calico Fabric",
+    "homespun-brown": "Homespun Brown Cotton Fabric",
+    "homespun-plaid": "Homespun Plaid Cotton Fabric",
+    "ivory-gray-stripes": "Ivory & Gray Striped Cotton Calico Fabric",
+    "light-blue-denim": "Light Blue Denim Cotton Calico Fabric",
+    "light-brown-red-floral": "Light Brown & Red Tiny Floral Cotton Calico Fabric",
+    "mauve-floral": "Mauve Floral Cotton Calico Fabric",
+    "mauve-rose-textured": "Mauve Rose Textured Cotton Calico Fabric",
+    "mini-floral": "Mini Floral Cotton Calico Fabric",
+    "muted-rainbow": "Muted Rainbow Cotton Calico Fabric",
+    "light-nautical": "Nautical Map Cotton Calico Fabric",
+    "navy-coral-suns": "Navy & Coral Suns Cotton Calico Fabric",
+    "navy-nautical": "Navy Nautical Map Cotton Calico Fabric",
+    "painted-flowers": "Painted Flowers Cotton Calico Fabric",
+    "prairie-ecru-stripes": "Prairie Girl Striped Ecru Cotton Calico Fabric",
+    "red-cream-distressed": "Red & Cream Distressed Cotton Calico Fabric",
+    "red-white-gingham": "Red & White Gingham Cotton Calico Fabric",
+    "red-mini-floral": "Red Mini Floral Cotton Calico Fabric",
+    "rosebuds": "Rosebuds Cotton Calico Fabric",
+    "rust-floral": "Rust Floral Cotton Calico Fabric",
+    "strawberries": "Strawberries Cotton Calico Fabric",
+    "tan-stripes": "Tan & White Striped Dyed Yarn Essex Linen Fabric",
+    "tea-dye-bee": "Tea Dye Bee Cotton Calico Fabric",
+    "tiny-pink-hearts": "Tiny Pink Hearts Cotton Calico Fabric",
+    "tonal-starburst": "Tonal Starburst Cotton Calico Fabric",
+    "unbleached-muslin": "Unbleached Premium Muslin Fabric",
+    "white-black-polka": "White & Black Polka Dot Cotton Calico Fabric",
+    "white-black-ticking": "White & Black Ticking Striped Cotton Calico Fabric",
+    "wine-tan-check": "Wine & Tan Check Homespun Cotton Fabric",
+    "yellow-scroll": "Yellow Scroll Print Cotton Calico Fabric"
   },
   "shipping": {
     "flatRate": 600,
@@ -78,6 +115,6 @@ module.exports = {
   },
   "site": {
     "name": "LivLocal",
-    "contactEmail": "trevan@c2cmedia.studio"
+    "contactEmail": "liv@livlocal.studio"
   }
 };
