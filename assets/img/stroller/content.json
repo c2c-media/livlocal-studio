@@ -1,0 +1,1107 @@
+{
+  "_notes": {
+    "purpose": "Single source of truth for the LivLocal website. Edit this file, run `node build.js`, and the whole site regenerates.",
+    "needsConfirmation": [
+      "shipping.flatRate, shipping.freeOver, and site.leadTime are sensible defaults, not confirmed numbers.",
+      "The quilted bag and the Bible bag carry prices; shipping.flatRate, shipping.freeOver, and site.leadTime are still unconfirmed."
+    ],
+    "realDataPulledFromNotion": "products[kids-dress].options[size].values prices come from the LivLocal Fabric page price sheet dated 2026-09-22."
+  },
+  "site": {
+    "name": "LivLocal",
+    "siteUrl": "https://www.livlocal.studio",
+    "contactEmail": "liv@livlocal.studio",
+    "location": "Ottumwa, Iowa",
+    "instagram": "",
+    "facebook": "",
+    "leadTime": "2 to 3 weeks",
+    "currency": "USD",
+    "locale": "en-US"
+  },
+  "copy": {
+    "tagline": "Sewn in Ottumwa, Iowa",
+    "heroEyebrow": "",
+    "heroHeadline": "Little things, sewn one at a time",
+    "heroSub": "LivLocal makes children’s dresses, quilted bags, and Bible bags one order at a time. Pick your size and two fabrics. Sewing takes about 2 to 3 weeks.",
+    "heroPrimaryCta": {
+      "label": "See what’s available",
+      "href": "/shop.html"
+    },
+    "heroSecondaryCta": {
+      "label": "How ordering works",
+      "href": "/#how-it-works"
+    },
+    "valueProps": [
+      {
+        "title": "Made after you order",
+        "body": "We cut and sew each piece after the order comes in."
+      },
+      {
+        "title": "You choose both fabrics",
+        "body": "One fabric for the main part of the piece, one for the lining or trim."
+      },
+      {
+        "title": "Questions go to LivLocal",
+        "body": "Not sure about a size or fabric pairing? Send a message before ordering and we’ll help you sort it out."
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": "Pick the piece",
+        "body": "Start with a children’s dress, quilted bag, or Bible bag."
+      },
+      {
+        "step": "Choose your size and fabrics",
+        "body": "Pick your size, then a primary and a secondary fabric."
+      },
+      {
+        "step": "LivLocal makes it",
+        "body": "Your order is cut and sewn in Ottumwa, then shipped when it is finished."
+      }
+    ],
+    "fabricSectionTitle": "Pick two fabrics",
+    "fabricSectionBody": "Choose a primary fabric for the main part of the piece and a secondary fabric for the lining, trim, ties, or contrast details. If you need help pairing them, send us a message before ordering.",
+    "aboutTitle": "Hi, I’m Olivia.",
+    "aboutBody": [
+      "LivLocal is my sewing business in Ottumwa, Iowa. I make children’s dresses, quilted bags, and Bible bags one order at a time.",
+      "I cut, sew, and press every piece myself.",
+      "I’m adding new pieces as I go. If you want something different from what is listed, send me a message and I’ll tell you what is possible."
+    ],
+    "ctaBandTitle": "Need a different size or fabric?",
+    "ctaBandBody": "Send us the details before ordering. We’ll tell you what’s possible and what it costs.",
+    "ctaBandButton": {
+      "label": "Ask a question",
+      "href": "/contact.html"
+    }
+  },
+  "categories": [
+    {
+      "id": "all",
+      "label": "Everything"
+    },
+    {
+      "id": "kids-clothing",
+      "label": "Kids Clothing"
+    },
+    {
+      "id": "bags",
+      "label": "Quilted Bags"
+    },
+    {
+      "id": "bible-bags",
+      "label": "Bible Bags"
+    }
+  ],
+  "fabrics": [
+    {
+      "id": "black-tan-check",
+      "name": "Black & Tan Homespun Check Cotton Fabric",
+      "sku": "975979",
+      "hex": "#6B5545",
+      "image": "/assets/img/fabrics/black-tan-check.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark"
+      ],
+      "pattern": "Check & gingham"
+    },
+    {
+      "id": "black-white-gingham",
+      "name": "Black & White Gingham Homespun Cotton Fabric",
+      "sku": "1759174",
+      "hex": "#777071",
+      "image": "/assets/img/fabrics/black-white-gingham.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Check & gingham"
+    },
+    {
+      "id": "black-white-gray-plaid",
+      "name": "Black, White & Gray Homespun Plaid Cotton Fabric",
+      "sku": "1749290",
+      "hex": "#615C55",
+      "image": "/assets/img/fabrics/black-white-gray-plaid.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Plaid"
+    },
+    {
+      "id": "blue-dandelion",
+      "name": "Blue Dandelion Cotton Calico Fabric",
+      "sku": "2241024",
+      "hex": "#323A46",
+      "image": "/assets/img/fabrics/blue-dandelion.webp",
+      "placeholder": false,
+      "colors": [
+        "Blue"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "boho-blender",
+      "name": "Boho Blender Cotton Calico Fabric",
+      "sku": "2238947",
+      "hex": "#EADAD4",
+      "image": "/assets/img/fabrics/boho-blender.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Pink"
+      ],
+      "pattern": "Solid"
+    },
+    {
+      "id": "brown-plaid",
+      "name": "Brown & White Plaid Cotton Fabric",
+      "sku": "2556157",
+      "hex": "#7F5C47",
+      "image": "/assets/img/fabrics/brown-plaid.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Plaid"
+    },
+    {
+      "id": "brown-diamond",
+      "name": "Brown Diamond Print Cotton Calico Fabric",
+      "sku": "124404",
+      "hex": "#532D21",
+      "image": "/assets/img/fabrics/brown-diamond.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "pink-buffalo-plaid",
+      "name": "Buffalo Plaid Cotton Calico Fabric",
+      "sku": "2012961",
+      "hex": "#D7C7D5",
+      "image": "/assets/img/fabrics/pink-buffalo-plaid.webp",
+      "placeholder": false,
+      "colors": [
+        "Pink"
+      ],
+      "pattern": "Plaid"
+    },
+    {
+      "id": "red-black-buffalo",
+      "name": "Buffalo Plaid Cotton Calico Fabric — Red & Black",
+      "sku": "1720424",
+      "hex": "#640911",
+      "image": "/assets/img/fabrics/red-black-buffalo.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Red"
+      ],
+      "pattern": "Plaid"
+    },
+    {
+      "id": "clouds-dots",
+      "name": "Clouds & Dots Cotton Calico Fabric",
+      "sku": "1916352",
+      "hex": "#BDD5ED",
+      "image": "/assets/img/fabrics/clouds-dots.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Blue"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "cream-sunflower",
+      "name": "Cream Sunflower Cotton Calico Fabric",
+      "sku": "2155836",
+      "hex": "#E6DCD0",
+      "image": "/assets/img/fabrics/cream-sunflower.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Yellow"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "earth-botanical",
+      "name": "Earth Botanical Cotton Calico Fabric",
+      "sku": "2247708",
+      "hex": "#C2A89B",
+      "image": "/assets/img/fabrics/earth-botanical.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "earth-tone-floral",
+      "name": "Earth Tone Floral Cotton Calico Fabric",
+      "sku": "2156123",
+      "hex": "#E7CBB8",
+      "image": "/assets/img/fabrics/earth-tone-floral.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "farm-floral-ditzy",
+      "name": "Farm Floral Ditzy Cotton Calico Fabric",
+      "sku": "2238160",
+      "hex": "#D4A348",
+      "image": "/assets/img/fabrics/farm-floral-ditzy.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Yellow"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "gingham-ducks",
+      "name": "Gingham Ducks Cotton Calico Fabric",
+      "sku": "2639292",
+      "hex": "#D1DCD0",
+      "image": "/assets/img/fabrics/gingham-ducks.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Green"
+      ],
+      "pattern": "Check & gingham"
+    },
+    {
+      "id": "green-cream-polka",
+      "name": "Green & Cream Polka Dot Cotton Calico Fabric",
+      "sku": "556720",
+      "hex": "#D7CA8E",
+      "image": "/assets/img/fabrics/green-cream-polka.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Green"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "green-daisy",
+      "name": "Green Daisy Cotton Calico Fabric",
+      "sku": "2155851",
+      "hex": "#949570",
+      "image": "/assets/img/fabrics/green-daisy.webp",
+      "placeholder": false,
+      "colors": [
+        "Green"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "green-trendy-floral",
+      "name": "Green Trendy Floral Cotton Calico Fabric",
+      "sku": "1982354",
+      "hex": "#2F3835",
+      "image": "/assets/img/fabrics/green-trendy-floral.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Green"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "homespun-brown",
+      "name": "Homespun Brown Cotton Fabric",
+      "sku": "1982750",
+      "hex": "#B16740",
+      "image": "/assets/img/fabrics/homespun-brown.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark"
+      ],
+      "pattern": "Solid"
+    },
+    {
+      "id": "homespun-plaid",
+      "name": "Homespun Plaid Cotton Fabric",
+      "sku": "602268",
+      "hex": "#505159",
+      "image": "/assets/img/fabrics/homespun-plaid.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Blue"
+      ],
+      "pattern": "Plaid"
+    },
+    {
+      "id": "ivory-gray-stripes",
+      "name": "Ivory & Gray Striped Cotton Calico Fabric",
+      "sku": "1879725",
+      "hex": "#A69B93",
+      "image": "/assets/img/fabrics/ivory-gray-stripes.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Stripes"
+    },
+    {
+      "id": "light-blue-denim",
+      "name": "Light Blue Denim Cotton Calico Fabric",
+      "sku": "2641546",
+      "hex": "#B1C1D6",
+      "image": "/assets/img/fabrics/light-blue-denim.webp",
+      "placeholder": false,
+      "colors": [
+        "Blue"
+      ],
+      "pattern": "Solid"
+    },
+    {
+      "id": "light-brown-red-floral",
+      "name": "Light Brown & Red Tiny Floral Cotton Calico Fabric",
+      "sku": "808949",
+      "hex": "#C78552",
+      "image": "/assets/img/fabrics/light-brown-red-floral.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Red"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "mauve-floral",
+      "name": "Mauve Floral Cotton Calico Fabric",
+      "sku": "2012797",
+      "hex": "#96867E",
+      "image": "/assets/img/fabrics/mauve-floral.webp",
+      "placeholder": false,
+      "colors": [
+        "Pink",
+        "Purple"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "mauve-rose-textured",
+      "name": "Mauve Rose Textured Cotton Calico Fabric",
+      "sku": "1752740",
+      "hex": "#DB968E",
+      "image": "/assets/img/fabrics/mauve-rose-textured.webp",
+      "placeholder": false,
+      "colors": [
+        "Pink",
+        "Purple"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "mini-floral",
+      "name": "Mini Floral Cotton Calico Fabric",
+      "sku": "2047553",
+      "hex": "#5A3D34",
+      "image": "/assets/img/fabrics/mini-floral.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "muted-rainbow",
+      "name": "Muted Rainbow Cotton Calico Fabric",
+      "sku": "2153310",
+      "hex": "#E9E6E5",
+      "image": "/assets/img/fabrics/muted-rainbow.webp",
+      "placeholder": false,
+      "colors": [
+        "Blue",
+        "Green",
+        "Pink",
+        "Yellow"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "light-nautical",
+      "name": "Nautical Map Cotton Calico Fabric",
+      "sku": "1254879",
+      "hex": "#DADAE0",
+      "image": "/assets/img/fabrics/light-nautical.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Blue"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "navy-coral-suns",
+      "name": "Navy & Coral Suns Cotton Calico Fabric",
+      "sku": "2241297",
+      "hex": "#C8C3CA",
+      "image": "/assets/img/fabrics/navy-coral-suns.webp",
+      "placeholder": false,
+      "colors": [
+        "Blue",
+        "Orange"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "navy-nautical",
+      "name": "Navy Nautical Map Cotton Calico Fabric",
+      "sku": "1428259",
+      "hex": "#434760",
+      "image": "/assets/img/fabrics/navy-nautical.webp",
+      "placeholder": false,
+      "colors": [
+        "Blue"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "painted-flowers",
+      "name": "Painted Flowers Cotton Calico Fabric",
+      "sku": "2595569",
+      "hex": "#AD918B",
+      "image": "/assets/img/fabrics/painted-flowers.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Pink"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "prairie-ecru-stripes",
+      "name": "Prairie Girl Striped Ecru Cotton Calico Fabric",
+      "sku": "272641",
+      "hex": "#BDA68F",
+      "image": "/assets/img/fabrics/prairie-ecru-stripes.webp",
+      "placeholder": false,
+      "colors": [
+        "Light"
+      ],
+      "pattern": "Stripes"
+    },
+    {
+      "id": "red-cream-distressed",
+      "name": "Red & Cream Distressed Cotton Calico Fabric",
+      "sku": "1759190",
+      "hex": "#C6A093",
+      "image": "/assets/img/fabrics/red-cream-distressed.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Red"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "red-white-gingham",
+      "name": "Red & White Gingham Cotton Calico Fabric",
+      "sku": "2248904",
+      "hex": "#D46B7B",
+      "image": "/assets/img/fabrics/red-white-gingham.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Red"
+      ],
+      "pattern": "Check & gingham"
+    },
+    {
+      "id": "red-mini-floral",
+      "name": "Red Mini Floral Cotton Calico Fabric",
+      "sku": "838607",
+      "hex": "#6D2124",
+      "image": "/assets/img/fabrics/red-mini-floral.webp",
+      "placeholder": false,
+      "colors": [
+        "Red"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "rosebuds",
+      "name": "Rosebuds Cotton Calico Fabric",
+      "sku": "2597359",
+      "hex": "#16120D",
+      "image": "/assets/img/fabrics/rosebuds.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Pink"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "rust-floral",
+      "name": "Rust Floral Cotton Calico Fabric",
+      "sku": "2156206",
+      "hex": "#DD9985",
+      "image": "/assets/img/fabrics/rust-floral.webp",
+      "placeholder": false,
+      "colors": [
+        "Orange"
+      ],
+      "pattern": "Floral"
+    },
+    {
+      "id": "strawberries",
+      "name": "Strawberries Cotton Calico Fabric",
+      "sku": "2638096",
+      "hex": "#F6E5EB",
+      "image": "/assets/img/fabrics/strawberries.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Red"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "tan-stripes",
+      "name": "Tan & White Striped Dyed Yarn Essex Linen Fabric",
+      "sku": "2230019",
+      "hex": "#DBD2CF",
+      "image": "/assets/img/fabrics/tan-stripes.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Stripes"
+    },
+    {
+      "id": "tea-dye-bee",
+      "name": "Tea Dye Bee Cotton Calico Fabric",
+      "sku": "2241016",
+      "hex": "#DDC7AE",
+      "image": "/assets/img/fabrics/tea-dye-bee.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "tiny-pink-hearts",
+      "name": "Tiny Pink Hearts Cotton Calico Fabric",
+      "sku": "417667",
+      "hex": "#F6DDD5",
+      "image": "/assets/img/fabrics/tiny-pink-hearts.webp",
+      "placeholder": false,
+      "colors": [
+        "Pink"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "tonal-starburst",
+      "name": "Tonal Starburst Cotton Calico Fabric",
+      "sku": "2248805",
+      "hex": "#F9CA65",
+      "image": "/assets/img/fabrics/tonal-starburst.webp",
+      "placeholder": false,
+      "colors": [
+        "Yellow"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "unbleached-muslin",
+      "name": "Unbleached Premium Muslin Fabric",
+      "sku": "719591",
+      "hex": "#EAE6DB",
+      "image": "/assets/img/fabrics/unbleached-muslin.webp",
+      "placeholder": false,
+      "colors": [
+        "Light"
+      ],
+      "pattern": "Solid"
+    },
+    {
+      "id": "white-black-polka",
+      "name": "White & Black Polka Dot Cotton Calico Fabric",
+      "sku": "133405",
+      "hex": "#D6D4D5",
+      "image": "/assets/img/fabrics/white-black-polka.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Novelty"
+    },
+    {
+      "id": "white-black-ticking",
+      "name": "White & Black Ticking Striped Cotton Calico Fabric",
+      "sku": "1678408",
+      "hex": "#AAB2BB",
+      "image": "/assets/img/fabrics/white-black-ticking.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Stripes"
+    },
+    {
+      "id": "wine-tan-check",
+      "name": "Wine & Tan Check Homespun Cotton Fabric",
+      "sku": "487421",
+      "hex": "#90473B",
+      "image": "/assets/img/fabrics/wine-tan-check.webp",
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Red"
+      ],
+      "pattern": "Check & gingham"
+    },
+    {
+      "id": "yellow-scroll",
+      "name": "Yellow Scroll Print Cotton Calico Fabric",
+      "sku": "2238095",
+      "hex": "#EFBA2C",
+      "image": "/assets/img/fabrics/yellow-scroll.webp",
+      "placeholder": false,
+      "colors": [
+        "Yellow"
+      ],
+      "pattern": "Novelty"
+    }
+  ],
+  "fabricNote": "Fabric names, SKUs, and swatch photos come from the LivLocal fabric library. A change there shows up on the site after the next update.",
+  "products": [
+    {
+      "slug": "kids-dress",
+      "name": "The Lydia Dress",
+      "category": "kids-clothing",
+      "price": 4000,
+      "priceLabel": "From $40",
+      "images": [
+        {
+          "slug": "lydia-boho-mauve",
+          "alt": "The Lydia Dress in Boho Blender with a Mauve Rose Textured collar",
+          "caption": "Boho Blender dress body with a Mauve Rose Textured collar.",
+          "kind": "preview"
+        },
+        {
+          "slug": "lydia-buffalo-pink-hearts",
+          "alt": "The Lydia Dress in pink and white buffalo plaid with a Tiny Pink Hearts collar",
+          "caption": "Pink and white buffalo plaid dress body with a Tiny Pink Hearts collar.",
+          "kind": "preview"
+        },
+        {
+          "slug": "lydia-green-white-plaid-mustard",
+          "alt": "The Lydia Dress in green and white plaid with a solid mustard collar",
+          "caption": "Green and white plaid dress body with a solid mustard collar. These two fabric records are not confirmed in the fabric library yet.",
+          "kind": "preview"
+        },
+        {
+          "slug": "lydia-green-daisy-yellow-scroll",
+          "alt": "The Lydia Dress in Green Daisy with a Yellow Scroll Print collar",
+          "caption": "Green Daisy dress body with a Yellow Scroll Print collar.",
+          "kind": "preview"
+        },
+        {
+          "slug": "lydia-navy-nautical-light-nautical",
+          "alt": "The Lydia Dress in Navy Nautical Map with a light Nautical Map collar",
+          "caption": "Navy Nautical Map dress body with a light Nautical Map collar.",
+          "kind": "preview"
+        },
+        {
+          "slug": "lydia-red-cream-earth-botanical",
+          "alt": "The Lydia Dress in Red & Cream Distressed with an Earth Botanical collar",
+          "caption": "Red and cream distressed dress body with an Earth Botanical collar.",
+          "kind": "preview"
+        },
+        {
+          "slug": "lydia-tea-dye-bee-homespun-plaid",
+          "alt": "The Lydia Dress in Tea Dye Bee with a navy Homespun Plaid collar",
+          "caption": "Tea Dye Bee dress body with a navy Homespun Plaid collar.",
+          "kind": "preview"
+        }
+      ],
+      "summary": "A children’s dress sewn after you order. Choose a size from 0 to 3 months through 7 to 8 years, then pick the main and contrast fabrics. The price changes with the size.",
+      "bullets": [
+        "Choose a dress body fabric and a separate collar fabric",
+        "Cotton and cotton blends that wash well"
+      ],
+      "specs": [
+        {
+          "label": "Materials",
+          "value": "Cotton and cotton blend fabric, polyester thread"
+        },
+        {
+          "label": "Care",
+          "value": "Machine wash cold, tumble dry low, warm iron if needed"
+        },
+        {
+          "label": "Lead time",
+          "value": "About 2 to 3 weeks, made to order"
+        },
+        {
+          "label": "Returns",
+          "value": "Because each piece is cut to your size and fabric, made-to-order items are not returnable. Message us if something is wrong and we will make it right."
+        }
+      ],
+      "options": [
+        {
+          "key": "size",
+          "label": "Size",
+          "type": "select",
+          "required": true,
+          "help": "Price changes with size.",
+          "values": [
+            {
+              "id": "0-3m",
+              "label": "0 to 3 months",
+              "price": 4000,
+              "group": "Baby"
+            },
+            {
+              "id": "3-6m",
+              "label": "3 to 6 months",
+              "price": 4000,
+              "group": "Baby"
+            },
+            {
+              "id": "6-9m",
+              "label": "6 to 9 months",
+              "price": 4000,
+              "group": "Baby"
+            },
+            {
+              "id": "9-12m",
+              "label": "9 to 12 months",
+              "price": 4000,
+              "group": "Baby"
+            },
+            {
+              "id": "12-18m",
+              "label": "12 to 18 months",
+              "price": 4500,
+              "group": "Toddler"
+            },
+            {
+              "id": "18-24m",
+              "label": "18 to 24 months",
+              "price": 4500,
+              "group": "Toddler"
+            },
+            {
+              "id": "2-3y",
+              "label": "2 to 3 years",
+              "price": 4500,
+              "group": "Toddler"
+            },
+            {
+              "id": "3-4y",
+              "label": "3 to 4 years",
+              "price": 4500,
+              "group": "Toddler"
+            },
+            {
+              "id": "4-5y",
+              "label": "4 to 5 years",
+              "price": 5000,
+              "group": "Kids"
+            },
+            {
+              "id": "5-6y",
+              "label": "5 to 6 years",
+              "price": 5000,
+              "group": "Kids"
+            },
+            {
+              "id": "6-7y",
+              "label": "6 to 7 years",
+              "price": 5500,
+              "group": "Kids"
+            },
+            {
+              "id": "7-8y",
+              "label": "7 to 8 years",
+              "price": 5500,
+              "group": "Kids"
+            }
+          ]
+        },
+        {
+          "key": "primaryFabric",
+          "label": "Dress body fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The main fabric of the dress: bodice, sleeves, and skirt."
+        },
+        {
+          "key": "secondaryFabric",
+          "label": "Collar fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The collar and the trim details."
+        }
+      ],
+      "imagePairs": [
+        {
+          "dress": "2238947",
+          "collar": "1752740",
+          "image": "lydia-boho-mauve"
+        },
+        {
+          "dress": "2012961",
+          "collar": "417667",
+          "image": "lydia-buffalo-pink-hearts"
+        },
+        {
+          "dress": "2155851",
+          "collar": "2238095",
+          "image": "lydia-green-daisy-yellow-scroll"
+        },
+        {
+          "dress": "1428259",
+          "collar": "1254879",
+          "image": "lydia-navy-nautical-light-nautical"
+        },
+        {
+          "dress": "1759190",
+          "collar": "2247708",
+          "image": "lydia-red-cream-earth-botanical"
+        },
+        {
+          "dress": "2241016",
+          "collar": "602268",
+          "image": "lydia-tea-dye-bee-homespun-plaid"
+        }
+      ],
+      "imageNote": "Photos show example fabric combinations, not the combination selected above. Every dress is made to order in the fabrics you choose."
+    },
+    {
+      "slug": "quilted-bag",
+      "name": "Quilted Stroller Bag",
+      "category": "bags",
+      "price": 6000,
+      "priceLabel": "$60",
+      "imageDir": "/assets/img/stroller/",
+      "imageNote": "Photos show a finished Quilted Stroller Bag. Every bag is made to order in the two fabrics you choose.",
+      "images": [
+        {
+          "slug": "stroller-wide",
+          "alt": "Quilted Stroller Bag, wide view",
+          "caption": "Quilted Stroller Bag.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-medium-1",
+          "alt": "Quilted Stroller Bag, full view",
+          "caption": "Full view.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-medium-2",
+          "alt": "Quilted Stroller Bag, second full view",
+          "caption": "Second full view.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-1",
+          "alt": "Quilted Stroller Bag, detail view 1",
+          "caption": "Detail view 1.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-2",
+          "alt": "Quilted Stroller Bag, detail view 2",
+          "caption": "Detail view 2.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-3",
+          "alt": "Quilted Stroller Bag, detail view 3",
+          "caption": "Detail view 3.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-4",
+          "alt": "Quilted Stroller Bag, detail view 4",
+          "caption": "Detail view 4.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-6",
+          "alt": "Quilted Stroller Bag, detail view 5",
+          "caption": "Detail view 5.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-5",
+          "alt": "Quilted Stroller Bag, detail view 6",
+          "caption": "Detail view 6.",
+          "kind": "photo"
+        }
+      ],
+      "summary": "A padded, lined bag made with the two fabrics you choose. Pick your outside fabric and lining before adding it to the cart.",
+      "bullets": [
+        "Quilted body with a lined interior",
+        "Primary fabric outside, secondary fabric for the lining or base"
+      ],
+      "specs": [
+        {
+          "label": "Materials",
+          "value": "Quilting cotton, cotton lining, batting"
+        },
+        {
+          "label": "Care",
+          "value": "Spot clean or machine wash cold on gentle, air dry"
+        },
+        {
+          "label": "Lead time",
+          "value": "About 2 to 3 weeks, made to order"
+        }
+      ],
+      "options": [
+        {
+          "key": "primaryFabric",
+          "label": "Primary fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The outside of the bag."
+        },
+        {
+          "key": "secondaryFabric",
+          "label": "Secondary fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The lining or base."
+        }
+      ]
+    },
+    {
+      "slug": "bible-bag",
+      "name": "Bible Bag",
+      "category": "bible-bags",
+      "price": 2000,
+      "priceLabel": "$20",
+      "images": [],
+      "summary": "A padded bag made to carry a Bible, notebook, and pen. Choose the outside fabric and lining, and message us if you need a different size.",
+      "bullets": [
+        "Padded to protect a Bible and notebook",
+        "Primary fabric outside, secondary fabric lining"
+      ],
+      "specs": [
+        {
+          "label": "Materials",
+          "value": "Quilting cotton, cotton lining, batting"
+        },
+        {
+          "label": "Care",
+          "value": "Spot clean or machine wash cold on gentle, air dry"
+        },
+        {
+          "label": "Lead time",
+          "value": "About 2 to 3 weeks, made to order"
+        }
+      ],
+      "options": [
+        {
+          "key": "primaryFabric",
+          "label": "Primary fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The outside of the bag."
+        },
+        {
+          "key": "secondaryFabric",
+          "label": "Secondary fabric",
+          "type": "swatch",
+          "source": "fabrics",
+          "required": true,
+          "help": "The lining."
+        }
+      ]
+    }
+  ],
+  "shipping": {
+    "flatRate": 600,
+    "freeOver": 7500,
+    "localPickup": false,
+    "localPickupLabel": "Local pickup in Ottumwa",
+    "standardLabel": "Standard shipping (US)",
+    "standardEstimate": "3 to 5 business days after your piece is made",
+    "countries": [
+      "US"
+    ],
+    "note": "Default rates. Confirm the real numbers with Olivia before launch."
+  },
+  "tax": {
+    "enabled": false,
+    "rate": 7,
+    "label": "Sales tax (Iowa 7%)",
+    "note": "Ottumwa is 6% Iowa state tax plus a 1% local option tax, so 7.0% combined. Left OFF by default because LivLocal must hold an Iowa sales tax permit before collecting tax. Confirm with the Iowa Department of Revenue, then set enabled to true."
+  },
+  "faq": [
+    {
+      "q": "How long until my order ships?",
+      "a": "Current sewing time is about 2 to 3 weeks. Shipping usually takes another 3 to 5 business days."
+    },
+    {
+      "q": "How do sizes work on the kids pieces?",
+      "a": "Dress sizes run from 0 to 3 months through 7 to 8 years. The price shown on the product page updates when you choose a size."
+    },
+    {
+      "q": "What are the two fabrics?",
+      "a": "The primary fabric is used for the main part of the piece. The secondary fabric is used for the lining, trim, ties, or contrast details."
+    },
+    {
+      "q": "Can I pick a fabric that is not listed?",
+      "a": "Possibly. Send us a message with what you are looking for before ordering. We’ll tell you what’s possible and what it costs."
+    },
+    {
+      "q": "Do you take returns?",
+      "a": "Made-to-order pieces are cut for the size and fabrics you select. If your order arrives damaged or does not match what you ordered, contact us so we can make it right."
+    },
+    {
+      "q": "Do you ship outside the United States?",
+      "a": "Not at this time. Online shipping is currently limited to the United States."
+    },
+    {
+      "q": "Can I pick up locally?",
+      "a": "Local pickup is not available through online checkout yet. Contact us before ordering if you are near Ottumwa and want to ask about pickup."
+    },
+    {
+      "q": "Can I order a custom size or a custom piece?",
+      "a": "Send the details through the contact page. We’ll tell you whether we can make it, how long it will take, and what it costs."
+    }
+  ],
+  "fabricSource": {
+    "database": "https://app.notion.com/p/1e65cf621bea4ff09891d415b0dc72c4",
+    "dataSource": "collection://148a60a2-f67d-48a1-97d2-6d89c260d9cc",
+    "snapshotDate": "2026-10-03",
+    "note": "Do not publish the Dress prompt or Collar prompt properties from that database."
+  }
+}
