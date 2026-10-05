@@ -202,6 +202,7 @@ function productMedia(p) {
   }));
   return `<div class="product-media">
       <div class="gallery" data-gallery data-image-dir="${esc(dir)}" data-pairs="${esc(JSON.stringify(p.imagePairs || []))}" data-images="${esc(JSON.stringify(payload))}">
+        <div class="gallery-frame">
         <figure class="gallery-stage">
           <picture>
             <source data-gallery-webp type="image/webp" srcset="${esc(set.webp550)} 550w, ${esc(set.webp)} 1100w" sizes="${sizes}">
@@ -222,9 +223,10 @@ function productMedia(p) {
             )
             .join('')}
         </ul>
-        <p class="gallery-caption" data-gallery-caption>${esc(first.caption)}</p>
-        <p class="gallery-status" data-gallery-status role="status" aria-live="polite" hidden></p>
-        <p class="media-note">${esc(p.imageNote || '')}</p>
+        </div>
+        <div class="gallery-meta">
+          <p class="gallery-status" data-gallery-status role="status" aria-live="polite" hidden></p>
+        </div>
       </div>
     </div>`;
 }
@@ -630,22 +632,23 @@ function productPage(p) {
       <span aria-current="page">${esc(p.name)}</span>
     </nav>
 
-    <div class="product-layout">
+    <div class="product-layout" data-buy-area>
       ${productMedia(p)}
 
-      <div class="product-info">
+      <div class="product-head">
         <p class="eyebrow">${esc(categoryLabel(p.category))}</p>
         <h1>${esc(p.name)}</h1>
         <p class="product-price" data-price-display data-base="${buyable ? from : ''}">${
           buyable ? `From ${money(from)}` : esc(p.priceLabel)
         }</p>
         <p class="product-summary">${esc(p.summary)}</p>
+      </div>
 
+      <div class="product-buy">
         ${
           buyable
             ? `<form class="buy" data-buy data-slug="${esc(p.slug)}" data-name="${esc(p.name)}" data-base="${from}">
           ${selectOpt ? sizeFieldset(selectOpt) : ''}
-          ${swatchOpts.length ? fabricPicker(swatchOpts, content.fabrics) : ''}
           <div class="buy-row">
             <div class="qty-field">
               <label for="qty">Quantity</label>
@@ -654,6 +657,7 @@ function productPage(p) {
             <button class="btn btn-primary btn-block" type="submit">Add to cart</button>
           </div>
           <p class="buy-note">Made to order. Ships in about ${esc(SITE.leadTime)}.</p>
+          <p class="buy-jump">Make sure to pick your fabric options below! <span class="buy-jump-arrow" aria-hidden="true">&darr;</span></p>
           <p class="form-error" data-buy-error hidden></p>
         </form>`
             : `<div class="quote-box">
@@ -661,7 +665,17 @@ function productPage(p) {
           <a class="btn btn-primary btn-block" href="/contact.html?piece=${esc(p.slug)}">Request a quote</a>
         </div>`
         }
+      </div>
 
+      ${
+        buyable && swatchOpts.length
+          ? `<div class="product-picker">
+        ${fabricPicker(swatchOpts, content.fabrics)}
+      </div>`
+          : ''
+      }
+
+      <div class="product-more">
         <ul class="bullets">
           ${p.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}
         </ul>

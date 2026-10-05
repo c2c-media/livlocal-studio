@@ -908,21 +908,21 @@
       "imageNote": "Photos show a finished Quilted Stroller Bag. Every bag is made to order in the two fabrics you choose.",
       "images": [
         {
-          "slug": "stroller-medium",
-          "alt": "Quilted Stroller Bag, full view",
+          "slug": "stroller-wide",
+          "alt": "Quilted Stroller Bag, wide view",
           "caption": "Quilted Stroller Bag.",
           "kind": "photo"
         },
         {
-          "slug": "stroller-close",
-          "alt": "Quilted Stroller Bag, close view",
-          "caption": "Close view.",
+          "slug": "stroller-medium-1",
+          "alt": "Quilted Stroller Bag, full view",
+          "caption": "Full view.",
           "kind": "photo"
         },
         {
-          "slug": "stroller-medium-1",
+          "slug": "stroller-medium-2",
           "alt": "Quilted Stroller Bag, second full view",
-          "caption": "Second view.",
+          "caption": "Second full view.",
           "kind": "photo"
         },
         {
@@ -950,13 +950,13 @@
           "kind": "photo"
         },
         {
-          "slug": "stroller-tight-5",
+          "slug": "stroller-tight-6",
           "alt": "Quilted Stroller Bag, detail view 5",
           "caption": "Detail view 5.",
           "kind": "photo"
         },
         {
-          "slug": "stroller-tight-6",
+          "slug": "stroller-tight-5",
           "alt": "Quilted Stroller Bag, detail view 6",
           "caption": "Detail view 6.",
           "kind": "photo"

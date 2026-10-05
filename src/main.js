@@ -112,6 +112,7 @@
   function initProduct() {
     var form = document.querySelector('[data-buy]');
     if (!form) return;
+    var area = document.querySelector('[data-buy-area]') || form;
     var display = document.querySelector('[data-price-display]');
     var errorBox = form.querySelector('[data-buy-error]');
 
@@ -131,10 +132,10 @@
       if (errorBox) { errorBox.hidden = true; }
 
       var missing = [];
-      form.querySelectorAll('select[name][required]').forEach(function (s) {
+      area.querySelectorAll('select[name][required]').forEach(function (s) {
         if (!s.value) missing.push(s.name);
       });
-      form.querySelectorAll('fieldset[data-opt]').forEach(function (fs) {
+      area.querySelectorAll('fieldset[data-opt]').forEach(function (fs) {
         if (!fs.querySelector('input[type="radio"]:checked')) missing.push(fs.getAttribute('data-opt'));
       });
       if (missing.length) {
@@ -150,7 +151,7 @@
 
       var qtyInput = form.querySelector('input[name="qty"]');
       var qty = Math.max(1, Math.min(10, parseInt(qtyInput && qtyInput.value, 10) || 1));
-      var options = readOptions(form);
+      var options = readOptions(area);
       var slug = form.getAttribute('data-slug');
       var id = slug + '|' + options.map(function (o) { return o.key + ':' + o.value; }).join('|');
 
@@ -371,6 +372,7 @@
     var images = parseJson(gallery.getAttribute('data-images'));
     var pairs = parseJson(gallery.getAttribute('data-pairs'));
     var form = document.querySelector('[data-buy]');
+    var root = document.querySelector('[data-buy-area]') || form;
     var dir = gallery.getAttribute('data-image-dir') || '/assets/img/lydia/';
     var shown = 0;
 
@@ -404,9 +406,9 @@
 
     /** A combination photo shows only for an exact dress-body plus collar pair. */
     function syncToSelection() {
-      if (!form || !pairs.length) return;
-      var body = checkedFabric(form, 'primaryFabric');
-      var collar = checkedFabric(form, 'secondaryFabric');
+      if (!root || !pairs.length) return;
+      var body = checkedFabric(root, 'primaryFabric');
+      var collar = checkedFabric(root, 'secondaryFabric');
       var match = null;
       if (body && collar && body.sku && collar.sku) {
         for (var i = 0; i < pairs.length; i++) {
@@ -431,16 +433,16 @@
           }
         }
       }
-      if (shown !== 0) show(0, '');
-      if (status && body && collar) {
-        status.textContent =
-          'The photos show example combinations, not the fabrics you have selected.';
-        status.hidden = false;
+      /* no photo of this pair: fall back to the first photo and say nothing */
+      if (status) {
+        status.textContent = '';
+        status.hidden = true;
       }
+      if (shown !== 0) show(0, '');
     }
 
-    if (form) {
-      form.addEventListener('change', function (event) {
+    if (root) {
+      root.addEventListener('change', function (event) {
         var name = event.target && event.target.name;
         if (name === 'primaryFabric' || name === 'secondaryFabric') syncToSelection();
       });
@@ -562,8 +564,7 @@
   function initPicker() {
     var picker = document.querySelector('[data-picker]');
     if (!picker) return;
-    var form = picker.closest('form') || document.querySelector('[data-buy]');
-    if (!form) return;
+    var root = document.querySelector('[data-buy-area]') || picker;
 
     var grid = picker.querySelector('[data-grid]');
     var tiles = Array.prototype.slice.call(grid.querySelectorAll('.swatch'));
@@ -581,7 +582,7 @@
     var color = '';
 
     function radioFor(key) {
-      return form.querySelector('input[name="' + key + '"]:checked');
+      return root.querySelector('input[name="' + key + '"]:checked');
     }
 
     function tileForId(id) {
@@ -651,12 +652,16 @@
 
       tiles.forEach(function (tile) {
         var id = tile.getAttribute('data-id');
-        var picked = false;
+        // remember which slot took this tile, so the collar's outline stays blue
+        var pickedBy = '';
         slots.forEach(function (slot) {
           var chosen = radioFor(slot.getAttribute('data-slot'));
-          if (chosen && chosen.value === id) picked = true;
+          if (chosen && chosen.value === id && !pickedBy) pickedBy = slot.getAttribute('data-slot');
         });
+        var picked = !!pickedBy;
         tile.classList.toggle('is-picked', picked);
+        if (picked) tile.setAttribute('data-picked-slot', pickedBy);
+        else tile.removeAttribute('data-picked-slot');
         var button = tile.querySelector('.swatch-pick');
         if (button) button.setAttribute('aria-pressed', String(picked));
       });
@@ -664,7 +669,7 @@
 
     /** Picking a tile fills the active slot and tells the gallery what changed. */
     function pick(id) {
-      var input = form.querySelector('input[name="' + active + '"][value="' + id + '"]');
+      var input = root.querySelector('input[name="' + active + '"][value="' + id + '"]');
       if (!input) return;
       input.checked = true;
       input.dispatchEvent(new Event('change', { bubbles: true }));
@@ -728,7 +733,7 @@
       reset.addEventListener('click', function () {
         slots.forEach(function (slot) {
           var key = slot.getAttribute('data-slot');
-          Array.prototype.forEach.call(form.querySelectorAll('input[name="' + key + '"]'), function (radio) {
+          Array.prototype.forEach.call(root.querySelectorAll('input[name="' + key + '"]'), function (radio) {
             radio.checked = false;
           });
         });
@@ -740,7 +745,7 @@
         var first = slots.length ? slots[0].getAttribute('data-slot') : '';
         if (first) {
           active = first;
-          var radio = form.querySelector('input[name="' + first + '"]');
+          var radio = root.querySelector('input[name="' + first + '"]');
           if (radio) radio.dispatchEvent(new Event('change', { bubbles: true }));
         }
         paint();

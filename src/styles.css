@@ -29,6 +29,10 @@
   --danger: #B3261E;
   --focus: #1F6FEB;
 
+  /* The collar pick is outlined blue so the two fabric slots never get confused. */
+  --contrast-line: #A8C0CE;
+  --contrast-line-strong: #7C9DAF;
+
   /* Type */
   --font-display: Georgia, "Iowan Old Style", "Times New Roman", serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -41,6 +45,8 @@
   --shadow-lift: 0 2px 4px rgba(38, 34, 32, .06), 0 12px 28px rgba(38, 34, 32, .08);
 
   /* Layout */
+  --rail-w: 72px;
+  --rail-gap: 12px;
   --maxw: 1120px;
   --gutter: 24px;
   --header-h: 68px;
@@ -68,6 +74,9 @@
     --accent-hover: var(--clay-hover);
     --danger: #E97366;
     --focus: #7FB0F5;
+
+    --contrast-line: #5E7885;
+    --contrast-line-strong: #8FAEBE;
 
     --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 4px 12px rgba(0, 0, 0, .3);
     --shadow-lift: 0 2px 4px rgba(0, 0, 0, .4), 0 12px 28px rgba(0, 0, 0, .35);
@@ -347,17 +356,57 @@ p:last-child { margin-bottom: 0; }
 .crumbs a { color: var(--ink-soft); text-decoration: none; display: inline-block; padding: 6px 2px; }
 .crumbs a:hover { color: var(--accent); }
 
-.product-layout { display: grid; gap: clamp(28px, 5vw, 60px); grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+.product-layout {
+  display: grid;
+  /* the photo column carries the main photo, so it takes the larger share */
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  column-gap: clamp(28px, 5vw, 60px);
+  row-gap: 20px;
+  grid-template-rows: max-content 1fr;
+  grid-template-areas:
+    "media head"
+    "media buy"
+    "sub   .";
+  align-items: start;
+}
+/* The photo frame is laid out by .product-layout itself. The only thing that
+   follows it is the "we have your exact pair" note, so the page runs straight
+   from the photo and buy area into the fabric picker. */
+.product-media, .product-media .gallery { display: contents; }
+.product-media .gallery-frame,
+.product-media .tile { grid-area: media; }
+.product-media .gallery-meta { grid-area: sub; display: grid; gap: 10px; }
+.product-media .media-note { grid-area: sub; }
+/* The picker takes the full width straight under the buy area, and the details
+   follow it, so changing fabric never means scrolling past the write-up. */
+.product-layout:has(.product-picker) {
+  grid-template-areas:
+    "media head"
+    "media buy"
+    "sub   ."
+    "picker picker"
+    "more more";
+}
+.product-media { grid-area: media; }
+.product-head { grid-area: head; }
+.product-buy { grid-area: buy; }
+.product-more { grid-area: more; }
+.product-picker { grid-area: picker; }
 .media-note { margin-top: 14px; font-size: .86rem; color: var(--ink-soft); }
-.product-info h1 { margin-bottom: 10px; }
-.product-price { font-size: 1.35rem; font-weight: 700; color: var(--accent); margin-bottom: 14px; }
+/* in the product grid the row gap already spaces it, so drop the extra margin */
+.product-media .media-note { margin-top: 0; }
+.product-head h1 { margin-bottom: 10px; }
+.product-price { font-size: 1.35rem; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
 .product-summary { color: var(--ink-soft); }
 
-.buy { margin: 26px 0 22px; display: grid; gap: 24px; }
+.buy { margin: 0; display: grid; gap: 12px; }
 .opt { border: 0; padding: 0; margin: 0; }
-.opt legend, .opt-label { display: block; font-weight: 600; font-size: .95rem; margin-bottom: 6px; padding: 0; }
+.opt legend, .opt-label { display: block; font-weight: 600; font-size: .95rem; margin-bottom: 4px; padding: 0; }
 .req { color: var(--danger); margin-left: 3px; }
-.opt-help { font-size: .86rem; color: var(--ink-soft); margin: 0 0 10px; }
+/* The size hint shares the label line, so the buy area stays level with the photo. */
+.opt-label { display: inline-block; margin: 0 6px 0 0; }
+.opt-help { display: inline; margin: 0; }
+.opt .select-wrap { margin-top: 8px; }
 
 .select-wrap { position: relative; }
 .select-wrap::after {
@@ -408,6 +457,9 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 .qty-field label { display: block; font-weight: 600; font-size: .95rem; margin-bottom: 6px; }
 .buy-row .btn { flex: 1; }
 .buy-note { font-size: .86rem; color: var(--ink-soft); margin: 0; }
+/* points from Add to cart down to the fabric picker: a step up from the note above it */
+.buy-jump { margin: 0; font-size: 1rem; font-weight: 600; color: var(--ink); }
+.buy-jump-arrow { display: inline-block; }
 .form-error { margin: 0; color: var(--danger); font-size: .9rem; font-weight: 600; }
 
 .quote-box {
@@ -537,7 +589,13 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 @media (max-width: 900px) {
   .site-nav { display: none; }
   .nav-toggle { display: block; }
-  .product-layout { grid-template-columns: 1fr; }
+  .product-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: "media" "sub" "head" "buy" "more";
+  }
+  .product-layout:has(.product-picker) {
+    grid-template-areas: "media" "sub" "head" "buy" "picker" "more";
+  }
   .split { grid-template-columns: 1fr; }
   .split--reverse .split-media { order: 0; }
   .cart-layout { grid-template-columns: 1fr; }
@@ -582,9 +640,25 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
   display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover;
   border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow);
 }
+/* The photo strip runs down the left of the main photo and scrolls on its own. */
+.gallery-frame { position: relative; padding-left: calc(var(--rail-w) + var(--rail-gap)); }
 .gallery-thumbs {
-  list-style: none; margin: 0; padding: 0; display: grid; gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  position: absolute; left: 0; top: 0; bottom: 0; width: var(--rail-w);
+  list-style: none; margin: 0; padding: 0 2px 0 0;
+  display: grid; gap: 8px; align-content: start;
+  overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;
+}
+.gallery-thumbs::-webkit-scrollbar { width: 6px; }
+.gallery-thumbs::-webkit-scrollbar-track { background: transparent; }
+.gallery-thumbs::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+/* On a narrow screen the strip goes back under the photo and runs sideways. */
+@media (max-width: 900px) {
+  .gallery-frame { padding-left: 0; padding-bottom: calc(var(--rail-w) + 10px); }
+  .gallery-thumbs {
+    top: auto; left: 0; right: 0; bottom: 0; width: auto; height: var(--rail-w);
+    grid-auto-flow: column; grid-auto-columns: var(--rail-w); align-content: stretch;
+    overflow-x: auto; overflow-y: hidden; padding: 0 0 2px;
+  }
 }
 .gallery-thumb {
   display: block; width: 100%; padding: 0; cursor: pointer; overflow: hidden;
@@ -645,6 +719,12 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
 }
 .slot:hover { border-color: var(--border-strong); }
+/* The collar slot is outlined blue so it never reads as the dress body. */
+.slot[data-slot="secondaryFabric"] { border-color: var(--contrast-line); }
+.slot[data-slot="secondaryFabric"]:hover { border-color: var(--contrast-line-strong); }
+.slot[data-slot="secondaryFabric"].is-active {
+  border-color: var(--contrast-line-strong); box-shadow: 0 0 0 1px var(--contrast-line-strong);
+}
 .slot.is-active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .slot:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .slot-chip {
@@ -675,6 +755,10 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 }
 .swatch-pick:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
 .swatch.is-picked { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+/* A tile taken by the collar keeps the collar's blue outline in the grid. */
+.swatch.is-picked[data-picked-slot="secondaryFabric"] {
+  border-color: var(--contrast-line-strong); box-shadow: 0 0 0 1px var(--contrast-line-strong);
+}
 .swatch.is-picked .swatch-name { color: var(--ink); font-weight: 600; }
 
 .picker-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
