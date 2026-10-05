@@ -3,7 +3,7 @@
     "purpose": "Single source of truth for the LivLocal website. Edit this file, run `node build.js`, and the whole site regenerates.",
     "needsConfirmation": [
       "shipping.flatRate, shipping.freeOver, and site.leadTime are sensible defaults, not confirmed numbers.",
-      "quilted-bag and bible-bag have no price yet, so they show Pricing on request."
+      "The quilted bag and the Bible bag carry prices; shipping.flatRate, shipping.freeOver, and site.leadTime are still unconfirmed."
     ],
     "realDataPulledFromNotion": "products[kids-dress].options[size].values prices come from the LivLocal Fabric page price sheet dated 2026-09-22."
   },
@@ -19,58 +19,58 @@
     "locale": "en-US"
   },
   "copy": {
-    "tagline": "Sewn by Olivia in Ottumwa, Iowa",
+    "tagline": "Sewn in Ottumwa, Iowa",
     "heroEyebrow": "",
     "heroHeadline": "Little things, sewn one at a time",
-    "heroSub": "LivLocal makes children’s dresses, quilted bags, and Bible bags one order at a time. Choose your size and two fabrics, then allow 2 to 3 weeks for sewing.",
+    "heroSub": "LivLocal makes children’s dresses, quilted bags, and Bible bags one order at a time. Pick your size and two fabrics. Sewing takes about 2 to 3 weeks.",
     "heroPrimaryCta": {
       "label": "See what’s available",
       "href": "/shop.html"
     },
     "heroSecondaryCta": {
-      "label": "Choose fabrics",
-      "href": "/#fabrics"
+      "label": "How ordering works",
+      "href": "/#how-it-works"
     },
     "valueProps": [
       {
         "title": "Made after you order",
-        "body": "Olivia cuts and sews each piece after the order comes in. The current sewing time is about 2 to 3 weeks."
+        "body": "We cut and sew each piece after the order comes in."
       },
       {
         "title": "You choose both fabrics",
-        "body": "Pick one fabric for the main part of the piece and a second for the lining, trim, ties, or contrast details."
+        "body": "One fabric for the main part of the piece, one for the lining or trim."
       },
       {
-        "title": "Questions go to Olivia",
-        "body": "Not sure about a size or fabric pairing? Send a message before ordering and Olivia will help you sort it out."
+        "title": "Questions go to LivLocal",
+        "body": "Not sure about a size or fabric pairing? Send a message before ordering and we’ll help you sort it out."
       }
     ],
     "howItWorks": [
       {
-        "step": "Choose the item",
+        "step": "Pick the piece",
         "body": "Start with a children’s dress, quilted bag, or Bible bag."
       },
       {
-        "step": "Select the details",
-        "body": "Choose the available size, then select a primary fabric and a secondary fabric."
+        "step": "Choose your size and fabrics",
+        "body": "Pick your size, then a primary and a secondary fabric."
       },
       {
-        "step": "Olivia makes it",
-        "body": "Your order is cut and sewn in Ottumwa, then shipped when it is finished. Current sewing time is about 2 to 3 weeks."
+        "step": "LivLocal makes it",
+        "body": "Your order is cut and sewn in Ottumwa, then shipped when it is finished."
       }
     ],
     "fabricSectionTitle": "Pick two fabrics",
-    "fabricSectionBody": "Choose a primary fabric for the main part of the piece and a secondary fabric for the lining, trim, ties, or contrast details. If you need help pairing them, ask Olivia before ordering.",
+    "fabricSectionBody": "Choose a primary fabric for the main part of the piece and a secondary fabric for the lining, trim, ties, or contrast details. If you need help pairing them, send us a message before ordering.",
     "aboutTitle": "Hi, I’m Olivia.",
     "aboutBody": [
       "LivLocal is my sewing business in Ottumwa, Iowa. I make children’s dresses, quilted bags, and Bible bags one order at a time.",
-      "I do the cutting, sewing, pressing, and finishing myself.",
-      "Choose the item, size, and fabrics you want. If you need something different, send me a message and I’ll let you know what is possible."
+      "I cut, sew, and press every piece myself.",
+      "I’m adding new pieces as I go. If you want something different from what is listed, send me a message and I’ll tell you what is possible."
     ],
     "ctaBandTitle": "Need a different size or fabric?",
-    "ctaBandBody": "Send Olivia the details before ordering. She can confirm availability, timing, and any price change.",
+    "ctaBandBody": "Send us the details before ordering. We’ll tell you what’s possible and what it costs.",
     "ctaBandButton": {
-      "label": "Ask Olivia",
+      "label": "Ask a question",
       "href": "/contact.html"
     }
   },
@@ -99,7 +99,11 @@
       "sku": "975979",
       "hex": "#6B5545",
       "image": "/assets/img/fabrics/black-tan-check.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark"
+      ],
+      "pattern": "Check & gingham"
     },
     {
       "id": "black-white-gingham",
@@ -107,7 +111,12 @@
       "sku": "1759174",
       "hex": "#777071",
       "image": "/assets/img/fabrics/black-white-gingham.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Check & gingham"
     },
     {
       "id": "black-white-gray-plaid",
@@ -115,7 +124,12 @@
       "sku": "1749290",
       "hex": "#615C55",
       "image": "/assets/img/fabrics/black-white-gray-plaid.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Plaid"
     },
     {
       "id": "blue-dandelion",
@@ -123,7 +137,11 @@
       "sku": "2241024",
       "hex": "#323A46",
       "image": "/assets/img/fabrics/blue-dandelion.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Blue"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "boho-blender",
@@ -131,7 +149,12 @@
       "sku": "2238947",
       "hex": "#EADAD4",
       "image": "/assets/img/fabrics/boho-blender.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Pink"
+      ],
+      "pattern": "Solid"
     },
     {
       "id": "brown-plaid",
@@ -139,7 +162,12 @@
       "sku": "2556157",
       "hex": "#7F5C47",
       "image": "/assets/img/fabrics/brown-plaid.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Plaid"
     },
     {
       "id": "brown-diamond",
@@ -147,7 +175,11 @@
       "sku": "124404",
       "hex": "#532D21",
       "image": "/assets/img/fabrics/brown-diamond.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "pink-buffalo-plaid",
@@ -155,7 +187,11 @@
       "sku": "2012961",
       "hex": "#D7C7D5",
       "image": "/assets/img/fabrics/pink-buffalo-plaid.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Pink"
+      ],
+      "pattern": "Plaid"
     },
     {
       "id": "red-black-buffalo",
@@ -163,7 +199,12 @@
       "sku": "1720424",
       "hex": "#640911",
       "image": "/assets/img/fabrics/red-black-buffalo.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Red"
+      ],
+      "pattern": "Plaid"
     },
     {
       "id": "clouds-dots",
@@ -171,7 +212,12 @@
       "sku": "1916352",
       "hex": "#BDD5ED",
       "image": "/assets/img/fabrics/clouds-dots.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Blue"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "cream-sunflower",
@@ -179,7 +225,12 @@
       "sku": "2155836",
       "hex": "#E6DCD0",
       "image": "/assets/img/fabrics/cream-sunflower.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Yellow"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "earth-botanical",
@@ -187,7 +238,11 @@
       "sku": "2247708",
       "hex": "#C2A89B",
       "image": "/assets/img/fabrics/earth-botanical.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "earth-tone-floral",
@@ -195,7 +250,12 @@
       "sku": "2156123",
       "hex": "#E7CBB8",
       "image": "/assets/img/fabrics/earth-tone-floral.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "farm-floral-ditzy",
@@ -203,7 +263,12 @@
       "sku": "2238160",
       "hex": "#D4A348",
       "image": "/assets/img/fabrics/farm-floral-ditzy.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Yellow"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "gingham-ducks",
@@ -211,7 +276,12 @@
       "sku": "2639292",
       "hex": "#D1DCD0",
       "image": "/assets/img/fabrics/gingham-ducks.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Green"
+      ],
+      "pattern": "Check & gingham"
     },
     {
       "id": "green-cream-polka",
@@ -219,7 +289,12 @@
       "sku": "556720",
       "hex": "#D7CA8E",
       "image": "/assets/img/fabrics/green-cream-polka.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Green"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "green-daisy",
@@ -227,7 +302,11 @@
       "sku": "2155851",
       "hex": "#949570",
       "image": "/assets/img/fabrics/green-daisy.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Green"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "green-trendy-floral",
@@ -235,7 +314,12 @@
       "sku": "1982354",
       "hex": "#2F3835",
       "image": "/assets/img/fabrics/green-trendy-floral.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Green"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "homespun-brown",
@@ -243,7 +327,11 @@
       "sku": "1982750",
       "hex": "#B16740",
       "image": "/assets/img/fabrics/homespun-brown.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark"
+      ],
+      "pattern": "Solid"
     },
     {
       "id": "homespun-plaid",
@@ -251,7 +339,12 @@
       "sku": "602268",
       "hex": "#505159",
       "image": "/assets/img/fabrics/homespun-plaid.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Blue"
+      ],
+      "pattern": "Plaid"
     },
     {
       "id": "ivory-gray-stripes",
@@ -259,7 +352,12 @@
       "sku": "1879725",
       "hex": "#A69B93",
       "image": "/assets/img/fabrics/ivory-gray-stripes.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Stripes"
     },
     {
       "id": "light-blue-denim",
@@ -267,7 +365,11 @@
       "sku": "2641546",
       "hex": "#B1C1D6",
       "image": "/assets/img/fabrics/light-blue-denim.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Blue"
+      ],
+      "pattern": "Solid"
     },
     {
       "id": "light-brown-red-floral",
@@ -275,7 +377,12 @@
       "sku": "808949",
       "hex": "#C78552",
       "image": "/assets/img/fabrics/light-brown-red-floral.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Red"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "mauve-floral",
@@ -283,7 +390,12 @@
       "sku": "2012797",
       "hex": "#96867E",
       "image": "/assets/img/fabrics/mauve-floral.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Pink",
+        "Purple"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "mauve-rose-textured",
@@ -291,7 +403,12 @@
       "sku": "1752740",
       "hex": "#DB968E",
       "image": "/assets/img/fabrics/mauve-rose-textured.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Pink",
+        "Purple"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "mini-floral",
@@ -299,7 +416,11 @@
       "sku": "2047553",
       "hex": "#5A3D34",
       "image": "/assets/img/fabrics/mini-floral.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "muted-rainbow",
@@ -307,7 +428,14 @@
       "sku": "2153310",
       "hex": "#E9E6E5",
       "image": "/assets/img/fabrics/muted-rainbow.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Blue",
+        "Green",
+        "Pink",
+        "Yellow"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "light-nautical",
@@ -315,7 +443,12 @@
       "sku": "1254879",
       "hex": "#DADAE0",
       "image": "/assets/img/fabrics/light-nautical.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Blue"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "navy-coral-suns",
@@ -323,7 +456,12 @@
       "sku": "2241297",
       "hex": "#C8C3CA",
       "image": "/assets/img/fabrics/navy-coral-suns.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Blue",
+        "Orange"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "navy-nautical",
@@ -331,7 +469,11 @@
       "sku": "1428259",
       "hex": "#434760",
       "image": "/assets/img/fabrics/navy-nautical.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Blue"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "painted-flowers",
@@ -339,7 +481,12 @@
       "sku": "2595569",
       "hex": "#AD918B",
       "image": "/assets/img/fabrics/painted-flowers.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Pink"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "prairie-ecru-stripes",
@@ -347,7 +494,11 @@
       "sku": "272641",
       "hex": "#BDA68F",
       "image": "/assets/img/fabrics/prairie-ecru-stripes.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light"
+      ],
+      "pattern": "Stripes"
     },
     {
       "id": "red-cream-distressed",
@@ -355,7 +506,12 @@
       "sku": "1759190",
       "hex": "#C6A093",
       "image": "/assets/img/fabrics/red-cream-distressed.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Red"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "red-white-gingham",
@@ -363,7 +519,12 @@
       "sku": "2248904",
       "hex": "#D46B7B",
       "image": "/assets/img/fabrics/red-white-gingham.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Red"
+      ],
+      "pattern": "Check & gingham"
     },
     {
       "id": "red-mini-floral",
@@ -371,7 +532,11 @@
       "sku": "838607",
       "hex": "#6D2124",
       "image": "/assets/img/fabrics/red-mini-floral.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Red"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "rosebuds",
@@ -379,7 +544,12 @@
       "sku": "2597359",
       "hex": "#16120D",
       "image": "/assets/img/fabrics/rosebuds.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Pink"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "rust-floral",
@@ -387,7 +557,11 @@
       "sku": "2156206",
       "hex": "#DD9985",
       "image": "/assets/img/fabrics/rust-floral.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Orange"
+      ],
+      "pattern": "Floral"
     },
     {
       "id": "strawberries",
@@ -395,7 +569,12 @@
       "sku": "2638096",
       "hex": "#F6E5EB",
       "image": "/assets/img/fabrics/strawberries.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Red"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "tan-stripes",
@@ -403,7 +582,12 @@
       "sku": "2230019",
       "hex": "#DBD2CF",
       "image": "/assets/img/fabrics/tan-stripes.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Stripes"
     },
     {
       "id": "tea-dye-bee",
@@ -411,7 +595,12 @@
       "sku": "2241016",
       "hex": "#DDC7AE",
       "image": "/assets/img/fabrics/tea-dye-bee.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "tiny-pink-hearts",
@@ -419,7 +608,11 @@
       "sku": "417667",
       "hex": "#F6DDD5",
       "image": "/assets/img/fabrics/tiny-pink-hearts.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Pink"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "tonal-starburst",
@@ -427,7 +620,11 @@
       "sku": "2248805",
       "hex": "#F9CA65",
       "image": "/assets/img/fabrics/tonal-starburst.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Yellow"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "unbleached-muslin",
@@ -435,7 +632,11 @@
       "sku": "719591",
       "hex": "#EAE6DB",
       "image": "/assets/img/fabrics/unbleached-muslin.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light"
+      ],
+      "pattern": "Solid"
     },
     {
       "id": "white-black-polka",
@@ -443,7 +644,12 @@
       "sku": "133405",
       "hex": "#D6D4D5",
       "image": "/assets/img/fabrics/white-black-polka.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Novelty"
     },
     {
       "id": "white-black-ticking",
@@ -451,7 +657,12 @@
       "sku": "1678408",
       "hex": "#AAB2BB",
       "image": "/assets/img/fabrics/white-black-ticking.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Dark"
+      ],
+      "pattern": "Stripes"
     },
     {
       "id": "wine-tan-check",
@@ -459,7 +670,12 @@
       "sku": "487421",
       "hex": "#90473B",
       "image": "/assets/img/fabrics/wine-tan-check.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Dark",
+        "Red"
+      ],
+      "pattern": "Check & gingham"
     },
     {
       "id": "yellow-scroll",
@@ -467,10 +683,14 @@
       "sku": "2238095",
       "hex": "#EFBA2C",
       "image": "/assets/img/fabrics/yellow-scroll.webp",
-      "placeholder": false
+      "placeholder": false,
+      "colors": [
+        "Yellow"
+      ],
+      "pattern": "Novelty"
     }
   ],
-  "fabricNote": "Fabric names, SKUs, and swatch photos come from the LivLocal Fabric Library in Notion. The website is built from a snapshot taken when this file was generated, so a change in the library appears on the site after the next successful build and deploy.",
+  "fabricNote": "Fabric names, SKUs, and swatch photos come from the LivLocal fabric library. A change there shows up on the site after the next update.",
   "products": [
     {
       "slug": "kids-dress",
@@ -482,51 +702,50 @@
         {
           "slug": "lydia-boho-mauve",
           "alt": "The Lydia Dress in Boho Blender with a Mauve Rose Textured collar",
-          "caption": "Boho Blender dress body with a Mauve Rose Textured collar. Illustrative fabric preview.",
+          "caption": "Boho Blender dress body with a Mauve Rose Textured collar.",
           "kind": "preview"
         },
         {
           "slug": "lydia-buffalo-pink-hearts",
           "alt": "The Lydia Dress in pink and white buffalo plaid with a Tiny Pink Hearts collar",
-          "caption": "Pink and white buffalo plaid dress body with a Tiny Pink Hearts collar. Illustrative fabric preview.",
+          "caption": "Pink and white buffalo plaid dress body with a Tiny Pink Hearts collar.",
           "kind": "preview"
         },
         {
           "slug": "lydia-green-white-plaid-mustard",
           "alt": "The Lydia Dress in green and white plaid with a solid mustard collar",
-          "caption": "Green and white plaid dress body with a solid mustard collar. Illustrative fabric preview. These two fabric records are not confirmed in the fabric library yet.",
+          "caption": "Green and white plaid dress body with a solid mustard collar. These two fabric records are not confirmed in the fabric library yet.",
           "kind": "preview"
         },
         {
           "slug": "lydia-green-daisy-yellow-scroll",
           "alt": "The Lydia Dress in Green Daisy with a Yellow Scroll Print collar",
-          "caption": "Green Daisy dress body with a Yellow Scroll Print collar. Illustrative fabric preview.",
+          "caption": "Green Daisy dress body with a Yellow Scroll Print collar.",
           "kind": "preview"
         },
         {
           "slug": "lydia-navy-nautical-light-nautical",
           "alt": "The Lydia Dress in Navy Nautical Map with a light Nautical Map collar",
-          "caption": "Navy Nautical Map dress body with a light Nautical Map collar. Illustrative fabric preview.",
+          "caption": "Navy Nautical Map dress body with a light Nautical Map collar.",
           "kind": "preview"
         },
         {
           "slug": "lydia-red-cream-earth-botanical",
           "alt": "The Lydia Dress in Red & Cream Distressed with an Earth Botanical collar",
-          "caption": "Red and cream distressed dress body with an Earth Botanical collar. Illustrative fabric preview.",
+          "caption": "Red and cream distressed dress body with an Earth Botanical collar.",
           "kind": "preview"
         },
         {
           "slug": "lydia-tea-dye-bee-homespun-plaid",
           "alt": "The Lydia Dress in Tea Dye Bee with a navy Homespun Plaid collar",
-          "caption": "Tea Dye Bee dress body with a navy Homespun Plaid collar. Illustrative fabric preview.",
+          "caption": "Tea Dye Bee dress body with a navy Homespun Plaid collar.",
           "kind": "preview"
         }
       ],
       "summary": "A children’s dress sewn after you order. Choose a size from 0 to 3 months through 7 to 8 years, then pick the main and contrast fabrics. The price changes with the size.",
       "bullets": [
         "Choose a dress body fabric and a separate collar fabric",
-        "Soft, breathable cotton blends that wash well",
-        "Made to order in about 2 to 3 weeks"
+        "Cotton and cotton blends that wash well"
       ],
       "specs": [
         {
@@ -677,20 +896,76 @@
           "image": "lydia-tea-dye-bee-homespun-plaid"
         }
       ],
-      "imageNote": "Photos show example fabric combinations, not the combination selected above. Combination images are AI-assisted previews, not photographs of a sewn piece. Every dress is made to order in the fabrics you choose."
+      "imageNote": "Photos show example fabric combinations, not the combination selected above. Every dress is made to order in the fabrics you choose."
     },
     {
       "slug": "quilted-bag",
-      "name": "Quilted Bag",
+      "name": "Quilted Stroller Bag",
       "category": "bags",
-      "price": null,
-      "priceLabel": "Pricing on request",
-      "images": [],
-      "summary": "A padded, lined bag made with the two fabrics you choose. Contact Olivia to confirm the finished size, strap, timing, and price before ordering.",
+      "price": 6000,
+      "priceLabel": "$60",
+      "imageDir": "/assets/img/stroller/",
+      "imageNote": "Photos show a finished Quilted Stroller Bag. Every bag is made to order in the two fabrics you choose.",
+      "images": [
+        {
+          "slug": "stroller-medium",
+          "alt": "Quilted Stroller Bag, full view",
+          "caption": "Quilted Stroller Bag.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-close",
+          "alt": "Quilted Stroller Bag, close view",
+          "caption": "Close view.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-medium-1",
+          "alt": "Quilted Stroller Bag, second full view",
+          "caption": "Second view.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-1",
+          "alt": "Quilted Stroller Bag, detail view 1",
+          "caption": "Detail view 1.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-2",
+          "alt": "Quilted Stroller Bag, detail view 2",
+          "caption": "Detail view 2.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-3",
+          "alt": "Quilted Stroller Bag, detail view 3",
+          "caption": "Detail view 3.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-4",
+          "alt": "Quilted Stroller Bag, detail view 4",
+          "caption": "Detail view 4.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-5",
+          "alt": "Quilted Stroller Bag, detail view 5",
+          "caption": "Detail view 5.",
+          "kind": "photo"
+        },
+        {
+          "slug": "stroller-tight-6",
+          "alt": "Quilted Stroller Bag, detail view 6",
+          "caption": "Detail view 6.",
+          "kind": "photo"
+        }
+      ],
+      "summary": "A padded, lined bag made with the two fabrics you choose. Pick your outside fabric and lining before adding it to the cart.",
       "bullets": [
         "Quilted body with a lined interior",
-        "Primary fabric outside, secondary fabric for the lining or base",
-        "Pricing confirmed once the size and hardware are chosen"
+        "Primary fabric outside, secondary fabric for the lining or base"
       ],
       "specs": [
         {
@@ -732,11 +1007,10 @@
       "price": 2000,
       "priceLabel": "$20",
       "images": [],
-      "summary": "A padded bag made to carry a Bible, notebook, and pen. Choose the outside fabric and lining, then contact Olivia to confirm the size and price.",
+      "summary": "A padded bag made to carry a Bible, notebook, and pen. Choose the outside fabric and lining, and message us if you need a different size.",
       "bullets": [
         "Padded to protect a Bible and notebook",
-        "Primary fabric outside, secondary fabric lining",
-        "Made to order in about 2 to 3 weeks"
+        "Primary fabric outside, secondary fabric lining"
       ],
       "specs": [
         {
@@ -775,7 +1049,7 @@
   "shipping": {
     "flatRate": 600,
     "freeOver": 7500,
-    "localPickup": true,
+    "localPickup": false,
     "localPickupLabel": "Local pickup in Ottumwa",
     "standardLabel": "Standard shipping (US)",
     "standardEstimate": "3 to 5 business days after your piece is made",
@@ -805,11 +1079,11 @@
     },
     {
       "q": "Can I pick a fabric that is not listed?",
-      "a": "Possibly. Send Olivia a message with what you are looking for before ordering. She will confirm availability, timing, and any price change."
+      "a": "Possibly. Send us a message with what you are looking for before ordering. We’ll tell you what’s possible and what it costs."
     },
     {
       "q": "Do you take returns?",
-      "a": "Made-to-order pieces are cut for the size and fabrics you select. If your order arrives damaged or does not match what you ordered, contact Olivia so she can make it right."
+      "a": "Made-to-order pieces are cut for the size and fabrics you select. If your order arrives damaged or does not match what you ordered, contact us so we can make it right."
     },
     {
       "q": "Do you ship outside the United States?",
@@ -817,11 +1091,11 @@
     },
     {
       "q": "Can I pick up locally?",
-      "a": "Local pickup is not available through online checkout yet. Contact Olivia before ordering if you are near Ottumwa and want to ask about pickup."
+      "a": "Local pickup is not available through online checkout yet. Contact us before ordering if you are near Ottumwa and want to ask about pickup."
     },
     {
       "q": "Can I order a custom size or a custom piece?",
-      "a": "Send the details through the contact page. Olivia will confirm whether she can make it, how long it will take, and what it will cost."
+      "a": "Send the details through the contact page. We’ll tell you whether we can make it, how long it will take, and what it costs."
     }
   ],
   "fabricSource": {

@@ -36,7 +36,7 @@ function resolveBaseUrl(req) {
   const match = /^(https?:\/\/[^/]+)/.exec(origin);
   if (match) return match[1];
 
-  return 'https://www.livlocal.shop';
+  return 'https://www.livlocal.studio';
 }
 
 function parseBody(req) {

@@ -34,8 +34,8 @@ module.exports = {
       }
     },
     "quilted-bag": {
-      "name": "Quilted Bag",
-      "base": null,
+      "name": "Quilted Stroller Bag",
+      "base": 6000,
       "sizes": {},
       "sizeLabels": {}
     },
@@ -98,7 +98,7 @@ module.exports = {
   "shipping": {
     "flatRate": 600,
     "freeOver": 7500,
-    "localPickup": true,
+    "localPickup": false,
     "localPickupLabel": "Local pickup in Ottumwa",
     "standardLabel": "Standard shipping (US)",
     "standardEstimate": "3 to 5 business days after your piece is made",

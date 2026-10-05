@@ -101,7 +101,7 @@ function footer() {
   <div class="wrap footer-inner">
     <div class="footer-col footer-brand">
       <span class="brand-text">${esc(SITE.name)}</span>
-      <p>${esc(content.copy.tagline)}. Made to order in ${esc(SITE.location)}.</p>
+      <p>${esc(content.copy.tagline)}.</p>
     </div>
     <div class="footer-col">
       <h3>Shop</h3>
@@ -118,7 +118,7 @@ function footer() {
   </div>
   <div class="wrap footer-base">
     <p>&copy; ${year} ${esc(SITE.name)}. ${esc(SITE.location)}.</p>
-    <p class="footer-note">Prices in USD. Made-to-order pieces ship in about ${esc(SITE.leadTime)}.</p>
+    <p class="footer-note">Prices in USD.</p>
   </div>
 </footer>`;
 }
@@ -171,8 +171,7 @@ ${footer()}
 /* --------------------------- product photography --------------------------- */
 
 /** File paths for one square product photo in assets/img/lydia. */
-function photoSet(slug) {
-  const dir = '/assets/img/lydia/';
+function photoSet(slug, dir = '/assets/img/lydia/') {
   return {
     jpg: `${dir}${slug}.jpg`,
     jpg550: `${dir}${slug}-550.jpg`,
@@ -191,8 +190,9 @@ function productMedia(p) {
         <p class="media-note">Product photo coming soon. Every piece is made to order, so your fabric pairing is the real thing.</p>
       </div>`;
   }
+  const dir = p.imageDir || '/assets/img/lydia/';
   const first = images[0];
-  const set = photoSet(first.slug);
+  const set = photoSet(first.slug, dir);
   const sizes = '(min-width: 900px) 540px, 92vw';
   const payload = images.map((im) => ({
     slug: im.slug,
@@ -201,13 +201,12 @@ function productMedia(p) {
     kind: im.kind || 'preview',
   }));
   return `<div class="product-media">
-      <div class="gallery" data-gallery data-pairs="${esc(JSON.stringify(p.imagePairs || []))}" data-images="${esc(JSON.stringify(payload))}">
+      <div class="gallery" data-gallery data-image-dir="${esc(dir)}" data-pairs="${esc(JSON.stringify(p.imagePairs || []))}" data-images="${esc(JSON.stringify(payload))}">
         <figure class="gallery-stage">
           <picture>
             <source data-gallery-webp type="image/webp" srcset="${esc(set.webp550)} 550w, ${esc(set.webp)} 1100w" sizes="${sizes}">
             <img data-gallery-main class="gallery-main" src="${esc(set.jpg550)}" srcset="${esc(set.jpg550)} 550w, ${esc(set.jpg)} 1100w" sizes="${sizes}" width="1100" height="1100" alt="${esc(first.alt)}" decoding="async">
           </picture>
-          <span class="gallery-badge" data-gallery-badge>${first.kind === 'photo' ? 'Photo' : 'Illustrative preview'}</span>
         </figure>
         <ul class="gallery-thumbs" data-gallery-thumbs>
           ${images
@@ -219,7 +218,7 @@ function productMedia(p) {
                   i === 0
                 }" aria-label="Show photo ${i + 1} of ${images.length}: ${esc(
                   im.alt
-                )}"><img src="${esc(photoSet(im.slug).thumb)}" alt="" width="240" height="240" loading="lazy" decoding="async"></button></li>`
+                )}"><img src="${esc(photoSet(im.slug, dir).thumb)}" alt="" width="240" height="240" loading="lazy" decoding="async"></button></li>`
             )
             .join('')}
         </ul>
@@ -245,7 +244,7 @@ function productCard(p) {
       ${
         (p.images || []).length
           ? `<img class="card-img" src="${esc(
-              photoSet(p.images[0].slug).jpg550
+              photoSet(p.images[0].slug, p.imageDir).jpg550
             )}" alt="${esc(p.images[0].alt)}" width="550" height="550" loading="lazy" decoding="async">`
           : tile(p)
       }
@@ -258,35 +257,155 @@ function productCard(p) {
   </article>`;
 }
 
-function swatchFieldset(opt, fabrics) {
-  return `<fieldset class="opt" data-opt="${esc(opt.key)}">
-  <legend>${esc(opt.label)}<span class="req" aria-hidden="true">*</span></legend>
-  ${opt.help ? `<p class="opt-help">${esc(opt.help)}</p>` : ''}
-  <div class="swatches">
-    ${fabrics
-      .map(
-        (f, i) => `<label class="swatch" data-fabric="${esc(f.id)}" data-fabric-name="${esc(
-          f.name
-        )}"${f.sku ? ` data-fabric-sku="${esc(f.sku)}"` : ''}${
-          f.image ? ` data-fabric-image="${esc(f.image)}"` : ''
-        }>
-      <input type="radio" name="${esc(opt.key)}" value="${esc(f.id)}"${i === 0 ? '' : ''} required>
-      <span class="swatch-chip" style="--chip:${esc(f.hex)};${
-        f.image ? `--chip-image:url('${esc(f.image)}')` : ''
-      }" aria-hidden="true"></span>
-      <span class="swatch-name">${esc(f.name)}</span>
+/* ------------------------ fabric picker (product pages) --------------------- */
+
+/** Grid names stay to three words; the full name lives in the slot and magnifier. */
+function shortFabricName(name) {
+  let base = name;
+  for (const tail of [' Cotton Calico Fabric', ' Cotton Fabric', ' Fabric']) {
+    if (base.endsWith(tail)) {
+      base = base.slice(0, -tail.length);
+      break;
+    }
+  }
+  const tokens = base.split(' ');
+  const out = [];
+  let words = 0;
+  for (const token of tokens) {
+    if (token === '&') {
+      if (words) out.push(token);
+      continue;
+    }
+    if (words === 3) break;
+    out.push(token);
+    words += 1;
+  }
+  while (out.length && out[out.length - 1] === '&') out.pop();
+  const text = out.join(' ');
+  return out.length < tokens.length ? `${text}\u2026` : text;
+}
+
+const PATTERN_ORDER = ['Solid', 'Check & gingham', 'Plaid', 'Stripes', 'Floral', 'Novelty'];
+const COLOR_ORDER = ['Light', 'Dark', 'Blue', 'Green', 'Orange', 'Pink', 'Purple', 'Red', 'Yellow'];
+
+/** Colour and pattern chips, counted from the library and shown in a fixed order. */
+function pickerRows(fabrics) {
+  const colors = new Map();
+  const patterns = new Map();
+  fabrics.forEach((f) => {
+    (f.colors || []).forEach((c) => colors.set(c, (colors.get(c) || 0) + 1));
+    if (f.pattern) patterns.set(f.pattern, (patterns.get(f.pattern) || 0) + 1);
+  });
+  return {
+    colors,
+    patterns,
+    colorOrder: COLOR_ORDER.filter((c) => colors.has(c)),
+    patternOrder: PATTERN_ORDER.filter((p) => patterns.has(p))
+  };
+}
+
+function chipRow(values, counts, allLabel) {
+  return [
+    `<button type="button" class="filter is-active" data-value="" aria-pressed="true">${esc(allLabel)}</button>`,
+    ...values.map(
+      (v) =>
+        `<button type="button" class="filter" data-value="${esc(v)}" aria-pressed="false">${esc(
+          v
+        )} (${counts.get(v)})</button>`
+    )
+  ].join('');
+}
+
+function fabricTile(f) {
+  return `<div class="swatch" data-id="${esc(f.id)}" data-name="${esc(f.name)}" data-hex="${esc(
+    f.hex
+  )}"${f.sku ? ` data-sku="${esc(f.sku)}"` : ''}${
+    f.colors && f.colors.length ? ` data-colors="${esc(f.colors.join('|'))}"` : ''
+  }${f.pattern ? ` data-pattern="${esc(f.pattern)}"` : ''}${
+    f.image ? ` data-image="${esc(f.image)}"` : ''
+  }>
+      <button type="button" class="swatch-pick" aria-pressed="false" aria-label="Use ${esc(
+        f.name
+      )}">
+        <span class="swatch-chip" style="--chip:${esc(f.hex)};${
+          f.image ? `--chip-image:url('${esc(f.image)}')` : ''
+        }" aria-hidden="true"></span>
+        <span class="swatch-name">${esc(shortFabricName(f.name))}</span>
+      </button>
       ${
         f.image
-          ? `<button type="button" class="swatch-zoom" data-swatch-zoom aria-label="Preview the ${esc(
+          ? `<button type="button" class="swatch-zoom" data-zoom aria-label="Preview the ${esc(
               f.name
             )}"><span aria-hidden="true">&#8981;</span></button>`
           : ''
       }
-    </label>`
-      )
+    </div>`;
+}
+
+/** Two pinned slots plus one panel, shared by every fabric option on the page. */
+function fabricPicker(swatchOpts, fabrics) {
+  const rows = pickerRows(fabrics);
+  const slots = swatchOpts
+    .map((opt, i) => {
+      const label = opt.label.replace(/\s*fabric$/i, '');
+      return `    <button type="button" class="slot${i === 0 ? ' is-active' : ''}" data-slot="${esc(
+        opt.key
+      )}"${opt.help ? ` data-help="${esc(opt.help)}"` : ''} aria-pressed="${
+        i === 0 ? 'true' : 'false'
+      }" aria-controls="fabric-picker-panel">
+      <span class="slot-chip" data-slot-chip aria-hidden="true"></span>
+      <span class="slot-text">
+        <span class="slot-label">${esc(label)}</span>
+        <span class="slot-name" data-slot-name>Choose a fabric</span>
+      </span>
+      <span class="slot-change">Change</span>
+    </button>`;
+    })
+    .join('\n');
+
+  const inputs = swatchOpts
+    .map(
+      (opt) => `  <fieldset class="opt picker-inputs" data-opt="${esc(opt.key)}">
+    <legend class="sr-only">${esc(opt.label)}</legend>
+    ${fabrics
+      .map((f) => `<input type="radio" name="${esc(opt.key)}" value="${esc(f.id)}">`)
       .join('')}
+  </fieldset>`
+    )
+    .join('\n');
+
+  return `<div class="picker" data-picker>
+  <div class="picker-slots">
+${slots}
   </div>
-</fieldset>`;
+  <p class="picker-help" data-picker-help></p>
+${inputs}
+  <section class="picker-panel" id="fabric-picker-panel" aria-label="Fabric picker">
+    <label class="sr-only" for="fabric-search">Search fabrics by name, color, or SKU</label>
+    <input type="search" class="fabric-search" id="fabric-search" data-search placeholder="Search name, color, or SKU" autocomplete="off">
+    <p class="picker-row-label" id="picker-pattern-label">Pattern</p>
+    <div class="filters" role="group" aria-labelledby="picker-pattern-label" data-pattern-row>${chipRow(
+      rows.patternOrder,
+      rows.patterns,
+      `All ${fabrics.length}`
+    )}</div>
+    <p class="picker-row-label" id="picker-color-label">Color</p>
+    <div class="filters" role="group" aria-labelledby="picker-color-label" data-color-row>${chipRow(
+      rows.colorOrder,
+      rows.colors,
+      'All colors'
+    )}</div>
+    <p class="picker-row-label">All fabrics</p>
+    <div class="swatches" data-grid>
+      ${fabrics.map(fabricTile).join('\n      ')}
+    </div>
+    <p class="picker-empty" data-empty>No fabrics match. Clear the search or choose another color.</p>
+    <div class="picker-foot">
+      <p class="fabric-status" data-status role="status"></p>
+      <button type="button" class="picker-reset" data-reset>Start over</button>
+    </div>
+  </section>
+</div>`;
 }
 
 function sizeFieldset(opt) {
@@ -379,28 +498,6 @@ function home() {
   </div>
 </section>
 
-<section class="section" id="fabrics">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>${esc(content.copy.fabricSectionTitle)}</h2>
-      <p>${esc(content.copy.fabricSectionBody)}</p>
-    </div>
-    <ul class="fabric-strip">
-      ${content.fabrics
-        .map(
-          (f) =>
-            `<li><span class="fabric-dot" style="--chip:${esc(f.hex)};${
-              f.image ? `--chip-image:url('${esc(f.image)}')` : ''
-            }" aria-hidden="true"></span><span>${esc(
-              f.name
-            )}</span></li>`
-        )
-        .join('')}
-    </ul>
-    ${content.fabrics.some((f) => f.placeholder) ? `<p class="provisional">${esc(content.fabricNote)}</p>` : ''}
-  </div>
-</section>
-
 <section class="section section-alt" id="how-it-works">
   <div class="wrap">
     <div class="section-head">
@@ -461,7 +558,7 @@ function home() {
         </tbody>
       </table>
     </div>
-    <p class="table-note">Prices are for the Handmade Kids Dress. Quilted bags and Bible bags are priced once the size is chosen.</p>
+    <p class="table-note">Prices are for The Lydia Dress, which changes with size.</p>
   </div>
 </section>
 
@@ -506,7 +603,7 @@ function shop() {
     <p class="shop-empty" id="shop-empty" hidden>Nothing in this category yet. More pieces are on the way.</p>
     <div class="notice">
       <h3>More on the way</h3>
-      <p>This is the opening lineup. New patterns get added as they are finished, so check back or follow along.</p>
+      <p>This is what is ready so far. New pieces get added as they are finished, so check back.</p>
     </div>
   </div>
 </section>`;
@@ -548,7 +645,7 @@ function productPage(p) {
           buyable
             ? `<form class="buy" data-buy data-slug="${esc(p.slug)}" data-name="${esc(p.name)}" data-base="${from}">
           ${selectOpt ? sizeFieldset(selectOpt) : ''}
-          ${swatchOpts.map((o) => swatchFieldset(o, content.fabrics)).join('')}
+          ${swatchOpts.length ? fabricPicker(swatchOpts, content.fabrics) : ''}
           <div class="buy-row">
             <div class="qty-field">
               <label for="qty">Quantity</label>
@@ -665,7 +762,7 @@ function faq() {
   <div class="wrap">
     <p class="eyebrow">Good to know</p>
     <h1>Sizing &amp; shipping</h1>
-    <p class="page-sub">Everything about sizes, fabrics, timelines, and returns.</p>
+    <p class="page-sub">Sizes, fabrics, how long things take, and returns.</p>
   </div>
 </section>
 
@@ -708,7 +805,7 @@ function contact() {
 <section class="page-head">
   <div class="wrap">
     <p class="eyebrow">Contact</p>
-    <h1>Let's make something</h1>
+    <h1>Tell us what you have in mind</h1>
     <p class="page-sub">Custom sizes, custom fabric pairings, small runs, or a question about an order.</p>
   </div>
 </section>
@@ -717,9 +814,9 @@ function contact() {
   <div class="wrap narrow">
     <div class="contact-card">
       <h2>Email us</h2>
-      <p>The fastest way to reach a person. Tell us the piece, the size, and the two fabrics you have in mind.</p>
+      <p>The fastest way to reach us. Tell us the piece, the size, and the two fabrics you have in mind.</p>
       <p class="contact-email"><a href="mailto:${esc(SITE.contactEmail)}" id="contact-link">${esc(SITE.contactEmail)}</a></p>
-      <p class="contact-meta">Made in ${esc(SITE.location)}. Typical reply within a day or two.</p>
+      <p class="contact-meta">Made in ${esc(SITE.location)}. We reply as soon as we can, usually within a couple of days.</p>
     </div>
 
     <div class="notice">
@@ -769,7 +866,7 @@ function cart() {
             <div><dt>Shipping</dt><dd id="cart-shipping">Calculated at checkout</dd></div>
           </dl>
           <button class="btn btn-primary btn-block" type="button" id="checkout-btn">Checkout</button>
-          <p class="buy-note">Shipping and any tax are calculated at checkout. Payment is handled by Stripe.</p>
+          <p class="buy-note">Shipping and any tax are calculated at checkout. Payment is handled by Square.</p>
           <p class="form-error" id="checkout-error" hidden></p>
           <a class="link-arrow" href="/shop.html">Keep shopping</a>
         </aside>
@@ -786,13 +883,13 @@ function success() {
   <div class="wrap narrow center">
     <span class="big-check" aria-hidden="true">${ICON.heart}</span>
     <h1>Thank you</h1>
-    <p class="page-sub">Your order is in. Stripe will email a receipt, and we will follow up when your piece goes on the cutting table.</p>
+    <p class="page-sub">Your order is in. Your receipt comes from Square. Your piece is next on the cutting table.</p>
     <div class="notice left">
       <h3>What happens next</h3>
       <ol class="steps steps--tight">
         <li><span class="step-num">1</span><div><h3>Order confirmed</h3><p>A receipt lands in your inbox right away.</p></div></li>
         <li><span class="step-num">2</span><div><h3>Your piece is made</h3><p>Cut, sewn, and finished by hand in about ${esc(SITE.leadTime)}.</p></div></li>
-        <li><span class="step-num">3</span><div><h3>It ships</h3><p>You get tracking as soon as it leaves Ottumwa.</p></div></li>
+        <li><span class="step-num">3</span><div><h3>It ships</h3><p>We’ll email tracking when your order ships.</p></div></li>
       </ol>
     </div>
     <div class="btn-row center-row">
