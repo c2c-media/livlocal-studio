@@ -109,6 +109,23 @@
     return base ? parseInt(base, 10) : null;
   }
 
+  /** The embroidery add-on, or null when the wording field was left empty. */
+  function readEmbroidery(area, errorBox) {
+    var toggle = area.querySelector('[data-embroidery-toggle]');
+    if (!toggle || !toggle.checked) return { on: false, text: '', price: 0 };
+    var field = area.querySelector('[data-embroidery-text]');
+    var max = parseInt(toggle.getAttribute('data-max'), 10) || 30;
+    var text = (field && field.value ? field.value : '').replace(/\s+/g, ' ').trim().slice(0, max);
+    if (!text) {
+      if (errorBox) {
+        errorBox.textContent = 'Add the wording you would like embroidered, or untick Add embroidery.';
+        errorBox.hidden = false;
+      }
+      return null;
+    }
+    return { on: true, text: text, price: parseInt(toggle.getAttribute('data-price'), 10) || 0 };
+  }
+
   function initProduct() {
     var form = document.querySelector('[data-buy]');
     if (!form) return;
@@ -120,12 +137,25 @@
       if (!display) return;
       var p = unitPrice(form);
       if (p == null) return;
+      var toggle = area.querySelector('[data-embroidery-toggle]');
+      if (toggle && toggle.checked) p += parseInt(toggle.getAttribute('data-price'), 10) || 0;
       var sel = form.querySelector('select[name]');
       display.textContent = sel ? money(p) : 'From ' + money(p);
     }
 
     form.addEventListener('change', refreshPrice);
     refreshPrice();
+
+    /* The wording field only appears once embroidery is ticked. */
+    var embroideryToggle = area.querySelector('[data-embroidery-toggle]');
+    var embroideryField = area.querySelector('[data-embroidery-field]');
+    if (embroideryToggle && embroideryField) {
+      var syncEmbroidery = function () {
+        embroideryField.hidden = !embroideryToggle.checked;
+      };
+      embroideryToggle.addEventListener('change', syncEmbroidery);
+      syncEmbroidery();
+    }
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -149,10 +179,21 @@
         return;
       }
 
+      var embroidery = readEmbroidery(area, errorBox);
+      if (!embroidery) return;
+
       var qtyInput = form.querySelector('input[name="qty"]');
       var qty = Math.max(1, Math.min(10, parseInt(qtyInput && qtyInput.value, 10) || 1));
       var options = readOptions(area);
       var slug = form.getAttribute('data-slug');
+      if (embroidery.on) {
+        options.push({
+          key: 'embroidery',
+          value: embroidery.text,
+          label: embroidery.text,
+          fieldLabel: 'Embroidery'
+        });
+      }
       var id = slug + '|' + options.map(function (o) { return o.key + ':' + o.value; }).join('|');
 
       var items = readCart();
@@ -169,6 +210,34 @@
           options: options
         });
       }
+
+      /* The $5 embroidery charge is its own cart line, and follows the item's quantity. */
+      if (embroidery.on && embroidery.price > 0) {
+        var addonId = slug + '--embroidery|' + embroidery.text.toLowerCase();
+        var addon = items.find(function (i) { return i.id === addonId; });
+        if (addon) {
+          addon.qty = Math.min(10, addon.qty + qty);
+          addon.parentId = id;
+        } else {
+          items.push({
+            id: addonId,
+            slug: slug + '--embroidery',
+            parentSlug: slug,
+            name: 'Embroidery',
+            price: embroidery.price,
+            qty: qty,
+            addon: true,
+            parentId: id,
+            options: [{
+              key: 'embroidery',
+              value: embroidery.text,
+              label: embroidery.text,
+              fieldLabel: 'Embroidery'
+            }]
+          });
+        }
+      }
+
       writeCart(items);
       window.location.href = '/cart.html';
     });
@@ -227,11 +296,12 @@
       var opts = item.options.map(function (o) {
         return '<span>' + escapeHtml(o.label) + ': ' + escapeHtml(o.fieldLabel || o.value) + '</span>';
       }).join('');
+      var linkSlug = item.parentSlug || item.slug;
       return '' +
-        '<article class="cart-line" data-index="' + index + '">' +
-          '<div class="cart-thumb tile tile--' + tileTint(item.slug) + '"><span class="tile-weave"></span></div>' +
+        '<article class="cart-line' + (item.addon ? ' cart-line--addon' : '') + '" data-index="' + index + '">' +
+          '<div class="cart-thumb tile tile--' + tileTint(linkSlug) + '"><span class="tile-weave"></span></div>' +
           '<div>' +
-            '<h3><a href="/product/' + escapeHtml(item.slug) + '.html">' + escapeHtml(item.name) + '</a></h3>' +
+            '<h3><a href="/product/' + escapeHtml(linkSlug) + '.html">' + escapeHtml(item.name) + '</a></h3>' +
             '<p class="cart-opts">' + opts + '</p>' +
             '<div class="cart-line-controls">' +
               '<label class="sr-only" for="qty-' + index + '">Quantity for ' + escapeHtml(item.name) + '</label>' +
@@ -250,7 +320,16 @@
       input.addEventListener('change', function () {
         var idx = parseInt(input.getAttribute('data-qty'), 10);
         var next = readCart();
-        next[idx].qty = Math.max(1, Math.min(10, parseInt(input.value, 10) || 1));
+        var line = next[idx];
+        if (!line) return;
+        var qty = Math.max(1, Math.min(10, parseInt(input.value, 10) || 1));
+        line.qty = qty;
+        /* An embroidery charge is per item, so it follows the quantity it belongs to. */
+        if (!line.addon) {
+          next.forEach(function (other) {
+            if (other.addon && other.parentId === line.id) other.qty = qty;
+          });
+        }
         writeCart(next);
         renderCart();
       });
@@ -259,8 +338,23 @@
       btn.addEventListener('click', function () {
         var idx = parseInt(btn.getAttribute('data-remove'), 10);
         var next = readCart();
-        next.splice(idx, 1);
-        writeCart(next);
+        var line = next[idx];
+        if (!line) return;
+        /* Removing the piece takes its embroidery with it, and removing the
+           embroidery leaves the piece without it. */
+        var kept = next.filter(function (other, i) {
+          if (i === idx) return false;
+          if (line.addon) return true;
+          return !(other.addon && other.parentId === line.id);
+        });
+        if (line.addon) {
+          kept.forEach(function (other) {
+            if (other.id === line.parentId && other.options) {
+              other.options = other.options.filter(function (o) { return o.key !== 'embroidery'; });
+            }
+          });
+        }
+        writeCart(kept);
         renderCart();
       });
     });
@@ -290,7 +384,8 @@
               qty: i.qty,
               size: opts.size || null,
               primaryFabric: opts.primaryFabric || null,
-              secondaryFabric: opts.secondaryFabric || null
+              secondaryFabric: opts.secondaryFabric || null,
+              embroidery: opts.embroidery || null
             };
           })
         })
@@ -367,6 +462,10 @@
     var caption = gallery.querySelector('[data-gallery-caption]');
     var status = gallery.querySelector('[data-gallery-status]');
     var thumbs = Array.prototype.slice.call(gallery.querySelectorAll('[data-gallery-index]'));
+    var stage = gallery.querySelector('[data-gallery-stage]');
+    var prevBtn = gallery.querySelector('[data-gallery-prev]');
+    var nextBtn = gallery.querySelector('[data-gallery-next]');
+    var counter = gallery.querySelector('[data-gallery-count]');
     if (!main || !thumbs.length) return;
 
     var images = parseJson(gallery.getAttribute('data-images'));
@@ -396,6 +495,13 @@
         status.textContent = message || '';
         status.hidden = !message;
       }
+      if (counter) counter.textContent = (index + 1) + ' / ' + images.length;
+    }
+
+    /** Moving by hand, which clears any message about the selected pair. */
+    function step(delta) {
+      if (images.length < 2) return;
+      show((shown + delta + images.length) % images.length, '');
     }
 
     thumbs.forEach(function (thumb) {
@@ -403,6 +509,63 @@
         show(parseInt(thumb.getAttribute('data-gallery-index'), 10), '');
       });
     });
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { step(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { step(1); });
+
+    if (stage) {
+      /* Keyboard: the stage takes focus, then the arrow keys walk the photos. */
+      stage.addEventListener('keydown', function (event) {
+        var key = event.key;
+        if (key === 'ArrowRight') { event.preventDefault(); step(1); }
+        else if (key === 'ArrowLeft') { event.preventDefault(); step(-1); }
+        else if (key === 'Home') { event.preventDefault(); show(0, ''); }
+        else if (key === 'End') { event.preventDefault(); show(images.length - 1, ''); }
+      });
+
+      /* Swipe: a sideways drag moves one photo. A vertical drag is left alone, so
+         the page still scrolls normally. */
+      var tracking = false;
+      var decided = false;
+      var startX = 0;
+      var startY = 0;
+      var moved = 0;
+
+      stage.addEventListener('pointerdown', function (event) {
+        if (images.length < 2) return;
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        tracking = true;
+        decided = false;
+        moved = 0;
+        startX = event.clientX;
+        startY = event.clientY;
+      });
+
+      stage.addEventListener('pointermove', function (event) {
+        if (!tracking) return;
+        var dx = event.clientX - startX;
+        var dy = event.clientY - startY;
+        if (!decided) {
+          if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+          decided = true;
+          if (Math.abs(dy) > Math.abs(dx)) { tracking = false; return; }
+          if (stage.setPointerCapture) {
+            try { stage.setPointerCapture(event.pointerId); } catch (err) { /* not capturable */ }
+          }
+        }
+        moved = dx;
+      });
+
+      function endDrag() {
+        if (!tracking) return;
+        tracking = false;
+        if (Math.abs(moved) < 40) return;
+        step(moved < 0 ? 1 : -1);
+      }
+
+      stage.addEventListener('pointerup', endDrag);
+      stage.addEventListener('pointercancel', function () { tracking = false; });
+    }
 
     /** A combination photo shows only for an exact dress-body plus collar pair. */
     function syncToSelection() {

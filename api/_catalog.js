@@ -35,15 +35,31 @@ module.exports = {
     },
     "quilted-bag": {
       "name": "Quilted Stroller Bag",
-      "base": 6000,
+      "base": 4500,
       "sizes": {},
       "sizeLabels": {}
+    },
+    "quilted-bag--embroidery": {
+      "name": "Embroidery for Quilted Stroller Bag",
+      "base": 500,
+      "sizes": {},
+      "sizeLabels": {},
+      "embroideryAddon": true,
+      "maxLength": 30
     },
     "bible-bag": {
       "name": "Bible Bag",
       "base": 2000,
       "sizes": {},
       "sizeLabels": {}
+    },
+    "bible-bag--embroidery": {
+      "name": "Embroidery for Bible Bag",
+      "base": 500,
+      "sizes": {},
+      "sizeLabels": {},
+      "embroideryAddon": true,
+      "maxLength": 30
     }
   },
   "fabricMap": {

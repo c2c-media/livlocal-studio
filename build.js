@@ -203,11 +203,18 @@ function productMedia(p) {
   return `<div class="product-media">
       <div class="gallery" data-gallery data-image-dir="${esc(dir)}" data-pairs="${esc(JSON.stringify(p.imagePairs || []))}" data-images="${esc(JSON.stringify(payload))}">
         <div class="gallery-frame">
-        <figure class="gallery-stage">
+        <figure class="gallery-stage" data-gallery-stage role="group" aria-roledescription="carousel" aria-label="Product photos" tabindex="0">
           <picture>
             <source data-gallery-webp type="image/webp" srcset="${esc(set.webp550)} 550w, ${esc(set.webp)} 1100w" sizes="${sizes}">
-            <img data-gallery-main class="gallery-main" src="${esc(set.jpg550)}" srcset="${esc(set.jpg550)} 550w, ${esc(set.jpg)} 1100w" sizes="${sizes}" width="1100" height="1100" alt="${esc(first.alt)}" decoding="async">
+            <img data-gallery-main class="gallery-main" src="${esc(set.jpg550)}" srcset="${esc(set.jpg550)} 550w, ${esc(set.jpg)} 1100w" sizes="${sizes}" width="1100" height="1100" alt="${esc(first.alt)}" decoding="async" draggable="false">
           </picture>
+          ${
+            images.length > 1
+              ? `<button type="button" class="gallery-nav gallery-nav--prev" data-gallery-prev aria-label="Previous photo"><span aria-hidden="true">&#8249;</span></button>
+          <button type="button" class="gallery-nav gallery-nav--next" data-gallery-next aria-label="Next photo"><span aria-hidden="true">&#8250;</span></button>
+          <p class="gallery-count" data-gallery-count aria-live="polite" aria-atomic="true">1 / ${images.length}</p>`
+              : ''
+          }
         </figure>
         <ul class="gallery-thumbs" data-gallery-thumbs>
           ${images
@@ -445,6 +452,56 @@ function sizeFieldset(opt) {
 </div>`;
 }
 
+/** The embroidery add-on: one tick box, then the wording field it reveals. */
+function embroideryField(opt) {
+  const max = opt.maxLength || 30;
+  return `<div class="opt opt-embroidery">
+  <label class="check-line" for="opt-embroidery">
+    <input type="checkbox" id="opt-embroidery" name="embroidery" data-embroidery-toggle data-price="${esc(
+      opt.price
+    )}" data-max="${esc(max)}">
+    <span>${esc(opt.label)} <span class="opt-price">+${money(opt.price)}</span></span>
+  </label>
+  ${opt.help ? `<p class="opt-help">${esc(opt.help)}</p>` : ''}
+  <div class="embroidery-field" data-embroidery-field hidden>
+    <label class="opt-label" for="embroidery-text">${esc(opt.fieldLabel)}</label>
+    <input type="text" id="embroidery-text" name="embroideryText" maxlength="${esc(
+      max
+    )}" data-embroidery-text placeholder="A name, initials, or a short word" autocomplete="off">
+  </div>
+</div>`;
+}
+
+/** The size chart supplied by LivLocal, presented with the site's own table. */
+function sizeGuideBlock(p) {
+  const guide = p.sizeGuide;
+  const select = (p.options || []).find((o) => o.type === 'select');
+  const labelFor = (id) => {
+    const value = select && select.values.find((v) => v.id === id);
+    return value ? value.label : id;
+  };
+  return `<details class="accordion" open>
+          <summary>Size guide</summary>
+          <p class="size-guide-intro">${esc(guide.intro)}</p>
+          <div class="table-scroll">
+            <table class="price-table size-table">
+              <thead><tr>${guide.columns.map((c) => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead>
+              <tbody>
+                ${guide.rows
+                  .map(
+                    (r) =>
+                      `<tr><th scope="row">${esc(labelFor(r.size))}</th>${r.values
+                        .map((v) => `<td>${esc(v)}</td>`)
+                        .join('')}</tr>`
+                  )
+                  .join('')}
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">${esc(guide.source)}</p>
+        </details>`;
+}
+
 /* ----------------------------------- pages ---------------------------------- */
 
 function home() {
@@ -583,7 +640,7 @@ function shop() {
   <div class="wrap">
     <p class="eyebrow">The shop</p>
     <h1>Handmade pieces</h1>
-    <p class="page-sub">Made to order in Ottumwa, Iowa. Pick your size and your two fabrics on any product page.</p>
+    <p class="page-sub">Made to order. Pick your size and your two fabrics on any product page.</p>
   </div>
 </section>
 
@@ -611,7 +668,7 @@ function shop() {
 </section>`;
   return layout({
     title: 'Shop',
-    description: 'Handmade kids clothes, quilted bags, and Bible bags made to order in Ottumwa, Iowa.',
+    description: 'Handmade kids clothes, quilted bags, and Bible bags made to order.',
     body,
     active: '/shop.html',
   });
@@ -621,6 +678,7 @@ function productPage(p) {
   const from = priceFrom(p);
   const selectOpt = (p.options || []).find((o) => o.type === 'select');
   const swatchOpts = (p.options || []).filter((o) => o.type === 'swatch');
+  const embroideryOpt = (p.options || []).find((o) => o.type === 'embroidery');
   const buyable = from != null;
 
   const body = `
@@ -649,6 +707,7 @@ function productPage(p) {
           buyable
             ? `<form class="buy" data-buy data-slug="${esc(p.slug)}" data-name="${esc(p.name)}" data-base="${from}">
           ${selectOpt ? sizeFieldset(selectOpt) : ''}
+          ${embroideryOpt ? embroideryField(embroideryOpt) : ''}
           <div class="buy-row">
             <div class="qty-field">
               <label for="qty">Quantity</label>
@@ -679,6 +738,8 @@ function productPage(p) {
         <ul class="bullets">
           ${p.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}
         </ul>
+
+        ${p.sizeGuide ? sizeGuideBlock(p) : ''}
 
         <details class="accordion" open>
           <summary>Details</summary>
@@ -1016,6 +1077,20 @@ function run() {
       sizes: size ? Object.fromEntries(size.values.map((v) => [v.id, v.price])) : {},
       sizeLabels: size ? Object.fromEntries(size.values.map((v) => [v.id, v.label])) : {},
     };
+
+    // The embroidery charge is its own line item, priced here so a tampered cart
+    // cannot change it.
+    const embroidery = (p.options || []).find((o) => o.type === 'embroidery');
+    if (embroidery) {
+      catalog[`${p.slug}--embroidery`] = {
+        name: `Embroidery for ${p.name}`,
+        base: embroidery.price,
+        sizes: {},
+        sizeLabels: {},
+        embroideryAddon: true,
+        maxLength: embroidery.maxLength || 30,
+      };
+    }
   });
   const fabricMap = Object.fromEntries(content.fabrics.map((f) => [f.id, f.name]));
   fs.writeFileSync(

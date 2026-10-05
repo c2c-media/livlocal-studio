@@ -22,6 +22,7 @@ const data = require('../_catalog.js');
 const MAX_QTY = 10;
 const MAX_LINES = 20;
 const MAX_NAME = 512;
+const MAX_EMBROIDERY = 30;
 
 function apiBase() {
   const env = (process.env.SQUARE_ENVIRONMENT || 'sandbox').toLowerCase();
@@ -51,6 +52,17 @@ function parseBody(req) {
   return req.body;
 }
 
+/** The wording the customer asked for, cleaned and capped at the advertised length. */
+function embroideryText(raw, entry) {
+  if (typeof raw.embroidery !== 'string') return '';
+  const max = (entry && entry.maxLength) || MAX_EMBROIDERY;
+  return raw.embroidery
+    .replace(/[\u0000-\u001f\u007f]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, max);
+}
+
 /** Turns one cart line into a Square order line item, priced from the catalog. */
 function buildLineItem(raw) {
   const entry = data.catalog[raw.slug];
@@ -70,12 +82,32 @@ function buildLineItem(raw) {
     return { error: `${entry.name} is priced on request and cannot be checked out online.` };
   }
 
+  const qty = Math.max(1, Math.min(MAX_QTY, parseInt(raw.qty, 10) || 1));
+  const text = embroideryText(raw, entry);
+
+  // The embroidery charge rides as its own line, so the buyer sees the $5 and
+  // the wording they asked for before they pay.
+  if (entry.embroideryAddon) {
+    if (!text) {
+      return { error: 'Add the wording you would like embroidered, or remove the embroidery line.' };
+    }
+    return {
+      lineItem: {
+        name: `Embroidery: ${text}`.slice(0, MAX_NAME),
+        quantity: String(qty),
+        base_price_money: { amount: unitAmount, currency: 'USD' },
+        note: `Embroidery text: ${text}`,
+      },
+      unitAmount,
+      qty,
+    };
+  }
+
   const parts = [];
   if (raw.size && entry.sizeLabels[raw.size]) parts.push(`Size: ${entry.sizeLabels[raw.size]}`);
   if (raw.primaryFabric) parts.push(`Primary fabric: ${data.fabricMap[raw.primaryFabric] || 'TBC'}`);
   if (raw.secondaryFabric) parts.push(`Secondary fabric: ${data.fabricMap[raw.secondaryFabric] || 'TBC'}`);
-
-  const qty = Math.max(1, Math.min(MAX_QTY, parseInt(raw.qty, 10) || 1));
+  if (text) parts.push(`Embroidery: ${text}`);
 
   // The chosen options go in the line item name so the buyer can see them on
   // the checkout page and confirm them before paying.

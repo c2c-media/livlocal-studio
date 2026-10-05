@@ -174,6 +174,7 @@ p:last-child { margin-bottom: 0; }
   content: ''; position: absolute; left: 14px; right: 14px; bottom: 4px;
   height: 2px; background: var(--accent); border-radius: 2px;
 }
+.cart-count[hidden] { display: none; }
 .cart-count {
   display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px;
   background: var(--accent); color: #fff; border-radius: 999px;
@@ -338,6 +339,11 @@ p:last-child { margin-bottom: 0; }
 .price-table th, .price-table td { padding: 13px 18px; text-align: left; border-bottom: 1px solid var(--border); }
 .price-table thead th { font-size: .74rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); background: var(--surface-alt); }
 .price-table tbody tr:last-child td { border-bottom: 0; }
+/* The Lydia Dress size chart, shown with the same table the price tiers use. */
+.size-table { min-width: 520px; }
+.size-table tbody th { font-weight: 600; color: var(--ink); }
+.size-table tbody tr:last-child th { border-bottom: 0; }
+.accordion .table-scroll { margin-top: 12px; }
 .price-cell { font-weight: 700; color: var(--accent); }
 .table-note { margin-top: 14px; font-size: .88rem; color: var(--ink-soft); }
 
@@ -460,6 +466,26 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 /* points from Add to cart down to the fabric picker: a step up from the note above it */
 .buy-jump { margin: 0; font-size: 1rem; font-weight: 600; color: var(--ink); }
 .buy-jump-arrow { display: inline-block; }
+
+/* Embroidery add-on: one tick box, then the wording field it reveals. */
+.opt-embroidery { display: grid; gap: 8px; }
+.check-line {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  font-weight: 600; font-size: .95rem; color: var(--ink);
+}
+.check-line input[type="checkbox"] {
+  flex: none; width: 20px; height: 20px; margin: 0; accent-color: var(--accent); cursor: pointer;
+}
+.check-line:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+.opt-price { font-weight: 600; color: var(--ink-soft); }
+.embroidery-field { display: grid; gap: 6px; }
+.embroidery-field[hidden] { display: none; }
+.embroidery-field input[type="text"] {
+  width: 100%; padding: 11px 13px; font: inherit; font-size: .95rem; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+}
+.embroidery-field input[type="text"]:hover { border-color: var(--ink-soft); }
+.embroidery-field input[type="text"]:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
 .form-error { margin: 0; color: var(--danger); font-size: .9rem; font-weight: 600; }
 
 .quote-box {
@@ -531,6 +557,9 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 
 /* ---------------------------------- cart ----------------------------------- */
 
+/* The hidden attribute has to beat the grid display, or an empty cart still
+   shows its summary and a checkout button. */
+.cart-layout[hidden], .cart-empty[hidden] { display: none; }
 .cart-layout { display: grid; gap: 34px; grid-template-columns: minmax(0, 1fr) 320px; align-items: start; }
 .cart-empty { padding: 48px 0; max-width: 480px; }
 .cart-empty h2 { margin-bottom: 8px; }
@@ -554,6 +583,8 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 }
 .cart-remove:hover { color: var(--danger); }
 .cart-line-price { font-weight: 700; white-space: nowrap; }
+/* The embroidery charge reads as a small add-on under the piece it belongs to. */
+.cart-line--addon { background: var(--surface-alt); }
 
 .cart-summary {
   position: sticky; top: calc(var(--header-h) + 20px);
@@ -590,7 +621,8 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
   .site-nav { display: none; }
   .nav-toggle { display: block; }
   .product-layout {
-    grid-template-columns: 1fr;
+    /* minmax(0, ...) so a wide table inside can scroll instead of widening the page */
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "media" "sub" "head" "buy" "more";
   }
   .product-layout:has(.product-picker) {
@@ -616,6 +648,11 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
   .footer-inner { grid-template-columns: 1fr; }
   .price-table { min-width: 0; font-size: .88rem; }
   .price-table th, .price-table td { padding: 10px 12px; }
+  .size-table { min-width: 460px; }
+  .gallery-nav { width: 38px; height: 38px; font-size: 1.4rem; }
+  .gallery-nav--prev { left: 6px; }
+  .gallery-nav--next { right: 6px; }
+  .gallery-count { right: 6px; bottom: 6px; }
   .spec-list { grid-template-columns: 1fr; gap: 2px 0; }
   .spec-list dd { margin-bottom: 10px; }
 }
@@ -634,7 +671,10 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
   background: var(--surface);
 }
 .gallery { display: grid; gap: 14px; }
-.gallery-stage { position: relative; margin: 0; }
+.gallery-stage { position: relative; margin: 0; touch-action: pan-y; user-select: none; }
+.gallery-stage:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: var(--radius-lg); }
+/* Without this the browser starts a native image drag and the swipe never lands. */
+.gallery-stage img { -webkit-user-drag: none; user-drag: none; }
 .gallery-stage picture { display: block; }
 .gallery-main {
   display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover;
@@ -672,6 +712,24 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 .gallery-status {
   margin: 0; padding: 10px 12px; font-size: .9rem; color: var(--ink);
   background: var(--gold-tint); border: 1px solid var(--border); border-radius: var(--radius);
+}
+
+/* Carousel controls: previous and next over the photo, and a position counter. */
+.gallery-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 44px; height: 44px; padding: 0; display: grid; place-items: center;
+  font-family: inherit; font-size: 1.7rem; line-height: 1; cursor: pointer;
+  color: var(--ink); background: var(--surface);
+  border: 1px solid var(--border-strong); border-radius: 50%; box-shadow: var(--shadow);
+}
+.gallery-nav:hover { color: var(--accent); border-color: var(--accent); }
+.gallery-nav--prev { left: 10px; }
+.gallery-nav--next { right: 10px; }
+.gallery-count {
+  position: absolute; right: 10px; bottom: 10px; margin: 0;
+  padding: 5px 11px; font-size: .8rem; font-weight: 600; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+  box-shadow: var(--shadow);
 }
 
 /* -------------------------- fabric preview popover -------------------------- */

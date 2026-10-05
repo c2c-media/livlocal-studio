@@ -19,7 +19,7 @@
     "locale": "en-US"
   },
   "copy": {
-    "tagline": "Sewn in Ottumwa, Iowa",
+    "tagline": "Sewn one at a time",
     "heroEyebrow": "",
     "heroHeadline": "Little things, sewn one at a time",
     "heroSub": "LivLocal makes children’s dresses, quilted bags, and Bible bags one order at a time. Pick your size and two fabrics. Sewing takes about 2 to 3 weeks.",
@@ -56,7 +56,7 @@
       },
       {
         "step": "LivLocal makes it",
-        "body": "Your order is cut and sewn in Ottumwa, then shipped when it is finished."
+        "body": "Your order is cut and sewn, then shipped when it is finished."
       }
     ],
     "fabricSectionTitle": "Pick two fabrics",
@@ -896,14 +896,135 @@
           "image": "lydia-tea-dye-bee-homespun-plaid"
         }
       ],
-      "imageNote": "Photos show example fabric combinations, not the combination selected above. Every dress is made to order in the fabrics you choose."
+      "imageNote": "Photos show example fabric combinations, not the combination selected above. Every dress is made to order in the fabrics you choose.",
+      "sizeGuide": {
+        "intro": "Body measurements, not the finished garment. Pick the size closest to your child's measurements; sizing up leaves room to grow.",
+        "columns": [
+          "Size",
+          "Height",
+          "Chest",
+          "Waist",
+          "Hip"
+        ],
+        "rows": [
+          {
+            "size": "0-3m",
+            "values": [
+              "22–24.5",
+              "17.5–18",
+              "17.5–18",
+              "17.5–18"
+            ]
+          },
+          {
+            "size": "3-6m",
+            "values": [
+              "24.5–27",
+              "18–19",
+              "18–18.5",
+              "18–19"
+            ]
+          },
+          {
+            "size": "6-9m",
+            "values": [
+              "27–29",
+              "19–19.5",
+              "18.5–19",
+              "19–19.5"
+            ]
+          },
+          {
+            "size": "9-12m",
+            "values": [
+              "29–31.5",
+              "19.5–20.5",
+              "19–19.5",
+              "19.5–20.5"
+            ]
+          },
+          {
+            "size": "12-18m",
+            "values": [
+              "31.5–34",
+              "20.5–21.5",
+              "19.5",
+              "20.5–21.5"
+            ]
+          },
+          {
+            "size": "18-24m",
+            "values": [
+              "34–36",
+              "21.5",
+              "19.5–20",
+              "21.5"
+            ]
+          },
+          {
+            "size": "2-3y",
+            "values": [
+              "36–38.5",
+              "21.5–22",
+              "20–20.5",
+              "21.5–22.5"
+            ]
+          },
+          {
+            "size": "3-4y",
+            "values": [
+              "38.5–41",
+              "22–22.5",
+              "20.5–21",
+              "22.5–23"
+            ]
+          },
+          {
+            "size": "4-5y",
+            "values": [
+              "41–43.5",
+              "22.5–23",
+              "21–21.5",
+              "23–24"
+            ]
+          },
+          {
+            "size": "5-6y",
+            "values": [
+              "43.5–45.5",
+              "23–23.5",
+              "21.5",
+              "24–25"
+            ]
+          },
+          {
+            "size": "6-7y",
+            "values": [
+              "45.5–48",
+              "23.5–24.5",
+              "21.5–22",
+              "25–26"
+            ]
+          },
+          {
+            "size": "7-8y",
+            "values": [
+              "48–50.5",
+              "24.5–25",
+              "22–22.5",
+              "26–27"
+            ]
+          }
+        ],
+        "source": "Standard units, in inches. Measurements from the size chart supplied by LivLocal."
+      }
     },
     {
       "slug": "quilted-bag",
       "name": "Quilted Stroller Bag",
       "category": "bags",
-      "price": 6000,
-      "priceLabel": "$60",
+      "price": 4500,
+      "priceLabel": "$45",
       "imageDir": "/assets/img/stroller/",
       "imageNote": "Photos show a finished Quilted Stroller Bag. Every bag is made to order in the two fabrics you choose.",
       "images": [
@@ -962,7 +1083,7 @@
           "kind": "photo"
         }
       ],
-      "summary": "A padded, lined bag made with the two fabrics you choose. Pick your outside fabric and lining before adding it to the cart.",
+      "summary": "A padded, lined bag made with the two fabrics you choose. Includes two water bottle pockets and an additional phone pocket. Pick your outside fabric and lining before adding it to the cart.",
       "bullets": [
         "Quilted body with a lined interior",
         "Primary fabric outside, secondary fabric for the lining or base"
@@ -997,6 +1118,15 @@
           "source": "fabrics",
           "required": true,
           "help": "The lining or base."
+        },
+        {
+          "key": "embroidery",
+          "label": "Add embroidery",
+          "type": "embroidery",
+          "price": 500,
+          "fieldLabel": "What would you like embroidered?",
+          "help": "Up to 30 characters. One thread colour and one font.",
+          "maxLength": 30
         }
       ]
     },
@@ -1006,7 +1136,32 @@
       "category": "bible-bags",
       "price": 2000,
       "priceLabel": "$20",
-      "images": [],
+      "images": [
+        {
+          "slug": "bible-bag-1",
+          "alt": "Bible Bag, front view",
+          "caption": "Bible Bag.",
+          "kind": "photo"
+        },
+        {
+          "slug": "bible-bag-2",
+          "alt": "Bible Bag, detail view",
+          "caption": "Second view.",
+          "kind": "photo"
+        },
+        {
+          "slug": "bible-bag-3",
+          "alt": "Bible Bag, zipper detail",
+          "caption": "Third view.",
+          "kind": "photo"
+        },
+        {
+          "slug": "bible-bag-4",
+          "alt": "Bible Bag, top view",
+          "caption": "Detail view.",
+          "kind": "photo"
+        }
+      ],
       "summary": "A padded bag made to carry a Bible, notebook, and pen. Choose the outside fabric and lining, and message us if you need a different size.",
       "bullets": [
         "Padded to protect a Bible and notebook",
@@ -1042,8 +1197,19 @@
           "source": "fabrics",
           "required": true,
           "help": "The lining."
+        },
+        {
+          "key": "embroidery",
+          "label": "Add embroidery",
+          "type": "embroidery",
+          "price": 500,
+          "fieldLabel": "What would you like embroidered?",
+          "help": "Up to 30 characters. One thread colour and one font.",
+          "maxLength": 30
         }
-      ]
+      ],
+      "imageDir": "/assets/img/bible/",
+      "imageNote": "Photos show a finished Bible Bag. Every bag is made to order in the two fabrics you choose."
     }
   ],
   "shipping": {
