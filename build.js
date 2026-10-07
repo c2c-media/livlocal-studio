@@ -833,8 +833,39 @@ function contact() {
     <div class="contact-grid">
       <div class="contact-card">
         <h2>Send us a note</h2>
-        <p>Tell us what you need and we&rsquo;ll reply by email. The form asks for your name, your email, what it is about, and your message.</p>
-        <p class="contact-cta"><a class="btn btn-primary" href="${esc(SITE.contactForm)}" target="_blank" rel="noopener">Open the form</a></p>
+        <p>Tell us what you need and we&rsquo;ll reply by email.</p>
+        <form class="contact-form" data-contact-form novalidate>
+          <div class="field">
+            <label for="contact-name">Your name</label>
+            <input type="text" id="contact-name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="contact-email">Your email</label>
+            <input type="email" id="contact-email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="contact-topic">What is this about?</label>
+            <select id="contact-topic" name="topic">
+              <option value="">Choose one if you like</option>
+              <option value="Sizing">Sizing</option>
+              <option value="Fabrics">Fabrics</option>
+              <option value="Custom piece">Custom piece</option>
+              <option value="Existing order">Existing order</option>
+              <option value="Something else">Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" name="message" rows="6" required></textarea>
+            <p class="field-hint">If it is about a piece, include the size and the fabrics you have in mind.</p>
+          </div>
+          <div class="contact-trap" aria-hidden="true">
+            <label for="contact-website">Website</label>
+            <input type="text" id="contact-website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+          <p class="contact-status" data-contact-status role="status" aria-live="polite"></p>
+          <button class="btn btn-primary btn-block" type="submit" data-contact-submit>Send</button>
+        </form>
       </div>
 
       <div class="contact-card">

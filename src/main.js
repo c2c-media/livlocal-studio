@@ -425,6 +425,75 @@
     link.setAttribute('href', href + '?subject=' + encodeURIComponent('Custom order: ' + piece));
   }
 
+/* --------------------------------- contact -------------------------------- */
+
+  function initContactForm() {
+    var form = document.querySelector('[data-contact-form]');
+    if (!form) return;
+
+    var status = form.querySelector('[data-contact-status]');
+    var submit = form.querySelector('[data-contact-submit]');
+    var link = document.getElementById('contact-link');
+    var fallback = link ? link.textContent.trim() : 'us';
+
+    function say(message, kind) {
+      if (!status) return;
+      status.textContent = message;
+      status.className = 'contact-status' + (kind ? ' is-' + kind : '');
+    }
+
+    function valueOf(key) {
+      var el = form.elements.namedItem(key);
+      return el && typeof el.value === 'string' ? el.value.trim() : '';
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      var data = {
+        name: valueOf('name'),
+        email: valueOf('email'),
+        topic: valueOf('topic'),
+        message: valueOf('message'),
+        website: valueOf('website')
+      };
+
+      if (!data.name || !data.email || !data.message) {
+        say('Please add your name, your email, and a message.', 'bad');
+        return;
+      }
+
+      submit.disabled = true;
+      say('Sending&hellip;'.replace('&hellip;', '\u2026'));
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (response) {
+          return response
+            .json()
+            .catch(function () {
+              return {};
+            })
+            .then(function (body) {
+              if (!response.ok) {
+                throw new Error((body && body.error) || 'We could not send that just now.');
+              }
+              form.reset();
+              say('Thanks, we got it. We reply as soon as we can, usually within a couple of days.', 'good');
+            });
+        })
+        .catch(function (error) {
+          say((error && error.message ? error.message : 'We could not send that just now.') + ' You can also email us at ' + fallback + '.', 'bad');
+        })
+        .then(function () {
+          submit.disabled = false;
+        });
+    });
+  }
+
   /* --------------------------------- gallery -------------------------------- */
 
   function parseJson(raw) {
@@ -959,6 +1028,7 @@
     renderCart();
     initCheckout();
     initContactPrefill();
+    initContactForm();
     paintCount();
   }
 

@@ -866,4 +866,21 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 /* --------------------------------- contact --------------------------------- */
 
 .contact-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-.contact-cta { margin-top: 18px; margin-bottom: 0; }
+.contact-form { margin-top: 18px; }
+.contact-form .field { margin-bottom: 15px; }
+.contact-form label { display: block; font-size: .88rem; font-weight: 600; margin-bottom: 6px; }
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%; padding: 11px 13px; font: inherit; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+}
+.contact-form textarea { min-height: 140px; resize: vertical; }
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus { outline: 2px solid var(--focus); outline-offset: 1px; }
+.field-hint { margin: 6px 0 0; font-size: .84rem; color: var(--ink-soft); }
+.contact-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.contact-status { margin: 0 0 14px; font-size: .92rem; color: var(--ink-soft); }
+.contact-status.is-good { color: var(--ink); font-weight: 600; }
+.contact-status.is-bad { color: var(--danger); font-weight: 600; }
