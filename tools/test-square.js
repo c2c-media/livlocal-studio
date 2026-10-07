@@ -12,10 +12,13 @@ process.env.SITE_URL = 'https://www.livlocal.shop';
 
 const CATALOG_PATH = require.resolve('../api/_catalog.js');
 
-function loadHandler({ taxEnabled = false } = {}) {
+function loadHandler({ taxEnabled = false, unpriced = '' } = {}) {
   delete require.cache[CATALOG_PATH];
   const data = require(CATALOG_PATH);
   data.tax = Object.assign({}, data.tax, { enabled: taxEnabled, rate: 7.0, label: 'Sales tax (Iowa 7%)' });
+  /* Every product carries a price now, so the quote path is exercised by taking
+     one price away rather than relying on a product that has none. */
+  if (unpriced && data.catalog[unpriced]) data.catalog[unpriced].base = null;
   const handlerPath = require.resolve('../api/create-payment-link/index.js');
   delete require.cache[handlerPath];
   return require(handlerPath);
@@ -82,7 +85,8 @@ global.fetch = async (url, init) => {
   const badSizeRes = await run(handler, { items: [{ slug: 'kids-dress', qty: 1, size: '99y' }] });
   check('invalid size returns 400', () => assert.strictEqual(badSizeRes.status, 400));
 
-  const quoteRes = await run(handler, { items: [{ slug: 'quilted-bag', qty: 1 }] });
+  const quoteHandler = loadHandler({ unpriced: 'quilted-bag' });
+  const quoteRes = await run(quoteHandler, { items: [{ slug: 'quilted-bag', qty: 1 }] });
   check('price-on-request item returns 400', () => {
     assert.strictEqual(quoteRes.status, 400);
     assert.match(quoteRes.body.error, /priced on request/i);

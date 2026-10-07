@@ -603,7 +603,7 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 /* --------------------------------- footer ---------------------------------- */
 
 .site-footer { background: var(--surface); border-top: 1px solid var(--border); padding-block: clamp(40px, 5vw, 60px) 28px; margin-top: 0; }
-.footer-inner { display: grid; gap: 34px; grid-template-columns: 1.6fr 1fr 1fr; }
+.footer-inner { display: grid; gap: 34px; grid-template-columns: 1.6fr 1fr 1fr 1fr; }
 .footer-brand .brand-text { display: block; margin-bottom: 10px; }
 .footer-brand p { color: var(--ink-soft); font-size: .93rem; max-width: 320px; }
 .footer-col h3 { font-size: .76rem; text-transform: uppercase; letter-spacing: .11em; color: var(--ink-soft); margin-bottom: 12px; font-family: var(--font-body); font-weight: 700; }
@@ -841,3 +841,29 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
   .slot-change { font-size: .8rem; }
   .picker-panel { padding: 14px 12px; }
 }
+
+/* ---------------------------------- social --------------------------------- */
+
+.social { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 12px; }
+.social-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--ink-soft); text-decoration: none; min-height: 34px;
+}
+.social-icon { display: inline-flex; flex: none; }
+.social-icon svg { display: block; width: 20px; height: 20px; }
+.social-text { font-size: .94rem; }
+.social-link:hover, .social-link:focus-visible { color: var(--accent); }
+.social-link.is-placeholder { opacity: .5; cursor: default; }
+.social--nav { margin-left: 12px; padding-left: 12px; border-left: 1px solid var(--border); }
+.social--footer, .social--mobile { display: block; }
+.social--mobile { margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--border); }
+
+/* The header runs out of room for the icons before the nav collapses. */
+@media (max-width: 1100px) {
+  .social--nav { display: none; }
+}
+
+/* --------------------------------- contact --------------------------------- */
+
+.contact-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.contact-cta { margin-top: 18px; margin-bottom: 0; }

@@ -830,12 +830,39 @@
       });
     }
 
-    /** Picking a tile fills the active slot and tells the gallery what changed. */
+    /**
+     * Picking a tile fills the active slot and tells the gallery what changed.
+     * The picker then moves on to the slot that still needs a fabric, so the
+     * buyer never presses Change, and one fabric is never used in both slots.
+     */
     function pick(id) {
       var input = root.querySelector('input[name="' + active + '"][value="' + id + '"]');
       if (!input) return;
+      var previous = radioFor(active);
+      var previousId = previous ? previous.value : '';
+      slots.forEach(function (slot) {
+        var key = slot.getAttribute('data-slot');
+        if (key === active) return;
+        var chosen = radioFor(key);
+        if (!chosen || chosen.value !== id) return;
+        var swap = previousId
+          ? root.querySelector('input[name="' + key + '"][value="' + previousId + '"]')
+          : null;
+        chosen.checked = false;
+        if (swap) {
+          swap.checked = true;
+          swap.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
       input.checked = true;
       input.dispatchEvent(new Event('change', { bubbles: true }));
+      for (var i = 0; i < slots.length; i++) {
+        var nextKey = slots[i].getAttribute('data-slot');
+        if (!radioFor(nextKey)) {
+          active = nextKey;
+          break;
+        }
+      }
       paint();
     }
 

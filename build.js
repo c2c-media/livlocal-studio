@@ -47,16 +47,49 @@ const ICON = {
   spool: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v16H8z"/><path d="M6 4h12M6 20h12M8 9h8M8 15h8"/></svg>',
   heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9Z"/></svg>',
   mark: '<svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="3" y="3" width="26" height="26" rx="7" stroke="currentColor" stroke-width="2.2"/><path d="M9 16h14" stroke="currentColor" stroke-width="2.2" stroke-dasharray="3 3" stroke-linecap="round"/></svg>',
+  instagram:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.9"/><circle cx="17.1" cy="6.9" r=".9" fill="currentColor" stroke="none"/></svg>',
+  tiktok:
+    '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3v12.4a2.6 2.6 0 1 1-2.2-2.6V8.7a5.8 5.8 0 1 0 5.2 5.8V8.9a6 6 0 0 0 3.4 1.1V7a3.2 3.2 0 0 1-3.4-3.2V2Z"/></svg>',
+  facebook:
+    '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-1.5 19.5v-6.9H8v-2.8h2.5V9.8c0-2.5 1.4-3.8 3.6-3.8 1 0 2.1.2 2.1.2v2.3h-1.2c-1.2 0-1.5.7-1.5 1.5v1.8h2.6l-.4 2.8h-2.2v6.9A9.8 9.8 0 0 0 12 2.2Z"/></svg>',
 };
 
 /* ---------------------------------- layout ---------------------------------- */
 
 const NAV = [
+  { href: '/', label: 'Home' },
   { href: '/shop.html', label: 'Shop' },
   { href: '/about.html', label: 'About' },
-  { href: '/faq.html', label: 'Sizing & Shipping' },
+  { href: '/faq.html', label: 'FAQ' },
   { href: '/contact.html', label: 'Contact' },
 ];
+
+/** Self-hosted social icons. Facebook has no page yet, so it stays a placeholder. */
+function socialLinks({ className = '', text = false } = {}) {
+  const items = [
+    { key: 'instagram', label: 'Instagram', icon: ICON.instagram, href: SITE.instagram },
+    { key: 'tiktok', label: 'TikTok', icon: ICON.tiktok, href: SITE.tiktok },
+    { key: 'facebook', label: 'Facebook', icon: ICON.facebook, href: SITE.facebook },
+  ];
+  const inner = (s) =>
+    `<span class="social-icon">${s.icon}</span>${
+      text ? `<span class="social-text">${esc(s.label)}</span>` : ''
+    }`;
+  return `<ul class="social${className ? ' ' + className : ''}">
+      ${items
+        .map((s) =>
+          s.href
+            ? `<li><a class="social-link" href="${esc(s.href)}" target="_blank" rel="noopener" aria-label="${esc(
+                s.label
+              )}">${inner(s)}</a></li>`
+            : `<li><span class="social-link is-placeholder" role="img" aria-label="${esc(
+                s.label
+              )} page coming soon" title="${esc(s.label)} page coming soon">${inner(s)}</span></li>`
+        )
+        .join('\n      ')}
+    </ul>`;
+}
 
 function header(active) {
   const links = NAV.map(
@@ -75,6 +108,7 @@ function header(active) {
     <nav class="site-nav" aria-label="Main">
       ${links}
       <a class="nav-link" href="/cart.html">Cart<span class="cart-count" data-cart-count hidden>0</span></a>
+      ${socialLinks({ className: 'social--nav' })}
     </nav>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
       <span></span><span></span><span></span>
@@ -84,6 +118,7 @@ function header(active) {
     <div class="wrap">
       ${NAV.map((n) => `<a href="${n.href}">${esc(n.label)}</a>`).join('')}
       <a href="/cart.html">Cart</a>
+      ${socialLinks({ className: 'social--mobile', text: true })}
     </div>
   </div>
 </header>`;
@@ -91,12 +126,6 @@ function header(active) {
 
 function footer() {
   const year = new Date().getFullYear();
-  const social = [
-    SITE.instagram ? `<a href="${esc(SITE.instagram)}" rel="noopener">Instagram</a>` : '',
-    SITE.facebook ? `<a href="${esc(SITE.facebook)}" rel="noopener">Facebook</a>` : '',
-  ]
-    .filter(Boolean)
-    .join('');
   return `<footer class="site-footer">
   <div class="wrap footer-inner">
     <div class="footer-col footer-brand">
@@ -110,10 +139,13 @@ function footer() {
     </div>
     <div class="footer-col">
       <h3>Help</h3>
-      <a href="/faq.html">Sizing &amp; shipping</a>
+      <a href="/faq.html">FAQ</a>
       <a href="/faq.html#returns">Returns</a>
       <a href="/contact.html">Contact</a>
-      ${social}
+    </div>
+    <div class="footer-col">
+      <h3>Follow along</h3>
+      ${socialLinks({ className: 'social--footer', text: true })}
     </div>
   </div>
   <div class="wrap footer-base">
@@ -151,7 +183,12 @@ function layout({ title, description, body, active = '', bodyClass = '' }) {
     name: SITE.name,
     description: content.copy.heroSub,
     email: SITE.contactEmail,
-    address: { '@type': 'PostalAddress', addressLocality: 'Ottumwa', addressRegion: 'IA', addressCountry: 'US' },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Southeast Iowa',
+      addressRegion: 'IA',
+      addressCountry: 'US',
+    },
     url: SITE.siteUrl,
   }).replace(/</g, '\\u003c')}</script>
 </head>
@@ -356,7 +393,7 @@ function fabricPicker(swatchOpts, fabrics) {
   const rows = pickerRows(fabrics);
   const slots = swatchOpts
     .map((opt, i) => {
-      const label = opt.label.replace(/\s*fabric$/i, '');
+      const label = opt.slotLabel || opt.label.replace(/\s*fabric$/i, '');
       return `    <button type="button" class="slot${i === 0 ? ' is-active' : ''}" data-slot="${esc(
         opt.key
       )}"${opt.help ? ` data-help="${esc(opt.help)}"` : ''} aria-pressed="${
@@ -506,13 +543,6 @@ function sizeGuideBlock(p) {
 
 function home() {
   const featured = content.products.slice(0, 3);
-  const sizes = content.products[0].options.find((o) => o.type === 'select').values;
-  const tiers = [];
-  sizes.forEach((s) => {
-    const last = tiers[tiers.length - 1];
-    if (last && last.price === s.price) last.items.push(s);
-    else tiers.push({ price: s.price, items: [s] });
-  });
 
   const body = `
 <section class="hero">
@@ -523,7 +553,6 @@ function home() {
     <p class="hero-sub">${esc(content.copy.heroSub)}</p>
     <div class="btn-row">
       <a class="btn btn-primary" href="${esc(content.copy.heroPrimaryCta.href)}">${esc(content.copy.heroPrimaryCta.label)}</a>
-      <a class="btn btn-ghost" href="${esc(content.copy.heroSecondaryCta.href)}">${esc(content.copy.heroSecondaryCta.label)}</a>
     </div>
   </div>
 </section>
@@ -557,34 +586,12 @@ function home() {
   </div>
 </section>
 
-<section class="section section-alt" id="how-it-works">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>How ordering works</h2>
-      <p>Here is what to expect after you place an order.</p>
-    </div>
-    <ol class="steps">
-      ${content.copy.howItWorks
-        .map(
-          (s, i) => `<li>
-        <span class="step-num">${i + 1}</span>
-        <div>
-          <h3>${esc(s.step)}</h3>
-          <p>${esc(s.body)}</p>
-        </div>
-      </li>`
-        )
-        .join('')}
-    </ol>
-  </div>
-</section>
-
 <section class="section">
   <div class="wrap split">
     <div class="split-media">
       <picture>
-        <source srcset="/assets/img/workshop.webp" type="image/webp">
-        <img src="/assets/img/workshop.jpg" alt="Hands guiding fabric through a sewing machine" loading="lazy" width="1408" height="768">
+        <source srcset="/assets/img/olivia.webp" type="image/webp">
+        <img src="/assets/img/olivia.jpg" alt="Olivia, the maker behind LivLocal" loading="lazy" width="900" height="900">
       </picture>
     </div>
     <div class="split-copy">
@@ -595,40 +602,6 @@ function home() {
   </div>
 </section>
 
-<section class="section section-alt">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Kids sizing and price</h2>
-      <p>The price follows the size, because the fabric and the sewing time grow with the piece.</p>
-    </div>
-    <div class="table-scroll">
-      <table class="price-table">
-        <thead><tr><th scope="col">Sizes</th><th scope="col">Fits</th><th scope="col">Price</th></tr></thead>
-        <tbody>
-          ${tiers
-            .map(
-              (t) => `<tr>
-            <td>${esc(t.items.map((i) => i.id).join(', '))}</td>
-            <td>${esc(t.items[0].group || '')}</td>
-            <td class="price-cell">${money(t.price)}</td>
-          </tr>`
-            )
-            .join('')}
-        </tbody>
-      </table>
-    </div>
-    <p class="table-note">Prices are for The Lydia Dress, which changes with size.</p>
-  </div>
-</section>
-
-<section class="cta-band">
-  <div class="wrap cta-inner">
-    <div>
-      <h2>${esc(content.copy.ctaBandTitle)}</h2>
-      <p>${esc(content.copy.ctaBandBody)}</p>
-    </div>
-    <a class="btn btn-light" href="${esc(content.copy.ctaBandButton.href)}">${esc(content.copy.ctaBandButton.label)}</a>
-  </div>
 </section>`;
 
   return layout({ title: '', description: content.copy.heroSub, body, active: '/' });
@@ -664,6 +637,16 @@ function shop() {
       <h3>More on the way</h3>
       <p>This is what is ready so far. New pieces get added as they are finished, so check back.</p>
     </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap cta-inner">
+    <div>
+      <h2>${esc(content.copy.ctaBandTitle)}</h2>
+      <p>${esc(content.copy.ctaBandBody)}</p>
+    </div>
+    <a class="btn btn-light" href="${esc(content.copy.ctaBandButton.href)}">${esc(content.copy.ctaBandButton.label)}</a>
   </div>
 </section>`;
   return layout({
@@ -735,10 +718,6 @@ function productPage(p) {
       }
 
       <div class="product-more">
-        <ul class="bullets">
-          ${p.bullets.map((b) => `<li>${esc(b)}</li>`).join('')}
-        </ul>
-
         ${p.sizeGuide ? sizeGuideBlock(p) : ''}
 
         <details class="accordion" open>
@@ -788,7 +767,6 @@ function about() {
   <div class="wrap">
     <p class="eyebrow">About</p>
     <h1>${esc(content.copy.aboutTitle)}</h1>
-    <p class="page-sub">${esc(content.copy.tagline)}</p>
   </div>
 </section>
 
@@ -796,36 +774,13 @@ function about() {
   <div class="wrap split split--reverse">
     <div class="split-media">
       <picture>
-        <source srcset="/assets/img/texture.webp" type="image/webp">
-        <img src="/assets/img/texture.jpg" alt="Close-up of layered quilting cotton fabric" loading="lazy" width="900" height="900">
+        <source srcset="/assets/img/olivia.webp" type="image/webp">
+        <img src="/assets/img/olivia.jpg" alt="Olivia, the maker behind LivLocal" loading="lazy" width="900" height="900">
       </picture>
     </div>
     <div class="split-copy">
       ${content.copy.aboutBody.map((p) => `<p>${esc(p)}</p>`).join('')}
     </div>
-  </div>
-</section>
-
-<section class="section section-alt">
-  <div class="wrap">
-    <div class="section-head"><h2>How it is made</h2></div>
-    <ol class="steps">
-      ${content.copy.howItWorks
-        .map(
-          (s, i) => `<li><span class="step-num">${i + 1}</span><div><h3>${esc(s.step)}</h3><p>${esc(s.body)}</p></div></li>`
-        )
-        .join('')}
-    </ol>
-  </div>
-</section>
-
-<section class="cta-band">
-  <div class="wrap cta-inner">
-    <div>
-      <h2>${esc(content.copy.ctaBandTitle)}</h2>
-      <p>${esc(content.copy.ctaBandBody)}</p>
-    </div>
-    <a class="btn btn-light" href="/contact.html">Get in touch</a>
   </div>
 </section>`;
   return layout({ title: 'About', description: content.copy.aboutBody[0], body, active: '/about.html' });
@@ -836,8 +791,8 @@ function faq() {
 <section class="page-head">
   <div class="wrap">
     <p class="eyebrow">Good to know</p>
-    <h1>Sizing &amp; shipping</h1>
-    <p class="page-sub">Sizes, fabrics, how long things take, and returns.</p>
+    <h1>FAQ</h1>
+    <p class="page-sub">Sizes, fabrics, how long things take, shipping, and returns.</p>
   </div>
 </section>
 
@@ -853,22 +808,10 @@ function faq() {
         )
         .join('')}
     </div>
-
-    <div class="notice">
-      <h3>Shipping at a glance</h3>
-      <ul class="bullets">
-        <li>${esc(content.shipping.standardLabel)}: ${money(content.shipping.flatRate)}, free over ${money(
-    content.shipping.freeOver
-  )}</li>
-        <li>${esc(content.shipping.standardEstimate)}</li>
-        ${content.shipping.localPickup ? `<li>${esc(content.shipping.localPickupLabel)}: free</li>` : ''}
-        <li>Currently shipping within the United States only.</li>
-      </ul>
-    </div>
   </div>
 </section>`;
   return layout({
-    title: 'Sizing & Shipping',
+    title: 'FAQ',
     description: 'Sizing, fabrics, lead times, shipping, and returns for LivLocal handmade pieces.',
     body,
     active: '/faq.html',
@@ -881,17 +824,25 @@ function contact() {
   <div class="wrap">
     <p class="eyebrow">Contact</p>
     <h1>Tell us what you have in mind</h1>
-    <p class="page-sub">Custom sizes, custom fabric pairings, small runs, or a question about an order.</p>
+    <p class="page-sub">Sizing, fabrics, a custom piece, or an order you already placed. Send a note and we&rsquo;ll reply.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap narrow">
-    <div class="contact-card">
-      <h2>Email us</h2>
-      <p>The fastest way to reach us. Tell us the piece, the size, and the two fabrics you have in mind.</p>
-      <p class="contact-email"><a href="mailto:${esc(SITE.contactEmail)}" id="contact-link">${esc(SITE.contactEmail)}</a></p>
-      <p class="contact-meta">Made in ${esc(SITE.location)}. We reply as soon as we can, usually within a couple of days.</p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h2>Send us a note</h2>
+        <p>Tell us what you need and we&rsquo;ll reply by email. The form asks for your name, your email, what it is about, and your message.</p>
+        <p class="contact-cta"><a class="btn btn-primary" href="${esc(SITE.contactForm)}" target="_blank" rel="noopener">Open the form</a></p>
+      </div>
+
+      <div class="contact-card">
+        <h2>Email us</h2>
+        <p>Tell us the piece, the size, and the two fabrics you have in mind.</p>
+        <p class="contact-email"><a href="mailto:${esc(SITE.contactEmail)}" id="contact-link">${esc(SITE.contactEmail)}</a></p>
+        <p class="contact-meta">Made in ${esc(SITE.location)}. We reply as soon as we can, usually within a couple of days.</p>
+      </div>
     </div>
 
     <div class="notice">
@@ -906,7 +857,7 @@ function contact() {
 </section>`;
   return layout({
     title: 'Contact',
-    description: 'Contact LivLocal about custom sizes, fabric pairings, or an existing order.',
+    description: 'Contact LivLocal about sizing, fabrics, a custom piece, or an existing order.',
     body,
     active: '/contact.html',
   });

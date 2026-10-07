@@ -96,8 +96,25 @@ const VIEWPORTS = [{ w: 1440, h: 900, tag: 'desktop' }, { w: 390, h: 844, tag: '
   const priceBefore = await shop.textContent('[data-price-display]');
   await shop.selectOption('select[name="size"]', '6-7y');
   const priceAfter = await shop.textContent('[data-price-display]');
-  await shop.locator('input[name="primaryFabric"]').first().check();
-  await shop.locator('input[name="secondaryFabric"]').first().check();
+  /* Picking a fabric fills the first slot, then the picker moves to the collar
+     on its own, so the second pick needs no Change button. */
+  await shop.locator('.swatch-pick').first().click();
+  const activeAfterFirst = await shop
+    .locator('[data-slot].is-active')
+    .getAttribute('data-slot');
+  await shop.locator('.swatch').nth(4).locator('.swatch-pick').click();
+  const chosen = await shop.evaluate(() => ({
+    primary: document.querySelector('input[name="primaryFabric"]:checked')?.value || '',
+    secondary: document.querySelector('input[name="secondaryFabric"]:checked')?.value || '',
+  }));
+  if (activeAfterFirst !== 'secondaryFabric') {
+    problems.push(`picker did not advance to the collar slot, stayed on ${activeAfterFirst}`);
+  }
+  if (!chosen.primary || !chosen.secondary) problems.push('picker did not fill both fabric slots');
+  if (chosen.primary && chosen.primary === chosen.secondary) {
+    problems.push('both fabric slots took the same fabric');
+  }
+  console.log('picker:', activeAfterFirst, JSON.stringify(chosen));
   await shop.click('button[type="submit"]');
   await shop.waitForURL('**/cart.html');
   await shop.waitForTimeout(300);
