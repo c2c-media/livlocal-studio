@@ -828,18 +828,19 @@ function contact() {
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap narrow">
+<section class="section contact-section">
+  <div class="wrap">
     <div class="contact-grid">
       <div class="contact-card">
         <h2>Send us a note</h2>
         <p>Tell us what you need and we&rsquo;ll reply by email.</p>
+        <p class="contact-or">Or email <a href="mailto:${esc(SITE.contactEmail)}">${esc(SITE.contactEmail)}</a></p>
         <form class="contact-form" data-contact-form novalidate>
-          <div class="field">
+          <div class="field field--half">
             <label for="contact-name">Your name</label>
             <input type="text" id="contact-name" name="name" autocomplete="name" required>
           </div>
-          <div class="field">
+          <div class="field field--half">
             <label for="contact-email">Your email</label>
             <input type="email" id="contact-email" name="email" autocomplete="email" required>
           </div>
@@ -874,15 +875,6 @@ function contact() {
         <p class="contact-email"><a href="mailto:${esc(SITE.contactEmail)}" id="contact-link">${esc(SITE.contactEmail)}</a></p>
         <p class="contact-meta">Made in ${esc(SITE.location)}. We reply as soon as we can, usually within a couple of days.</p>
       </div>
-    </div>
-
-    <div class="notice">
-      <h3>Before you write</h3>
-      <ul class="bullets">
-        <li>For a custom piece, include the size range and what it is for.</li>
-        <li>For a fabric question, name the two fabrics you are considering.</li>
-        <li>For an existing order, include the name used at checkout.</li>
-      </ul>
     </div>
   </div>
 </section>`;

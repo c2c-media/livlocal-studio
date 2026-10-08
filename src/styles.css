@@ -884,3 +884,19 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 .contact-status { margin: 0 0 14px; font-size: .92rem; color: var(--ink-soft); }
 .contact-status.is-good { color: var(--ink); font-weight: 600; }
 .contact-status.is-bad { color: var(--danger); font-weight: 600; }
+
+/* Desktop only: the section uses the page width, the cards become tinted panels,
+   the email block sits under the form, and name and email share one row. */
+.contact-or { margin: 6px 0 0; font-size: .95rem; color: var(--ink-soft); }
+.contact-or a { display: inline-block; padding: 8px 0; }
+
+@media (min-width: 900px) {
+  .contact-section { padding-top: 64px; }
+  .contact-card { background: var(--surface-alt); border-color: transparent; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-form { display: grid; grid-template-columns: 1fr 1fr; column-gap: 18px; }
+  .contact-form > .field { grid-column: 1 / -1; }
+  .contact-form > .field--half { grid-column: span 1; }
+  .contact-form > .contact-status,
+  .contact-form > .btn-block { grid-column: 1 / -1; }
+}
