@@ -541,9 +541,6 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
   padding: 30px; background: var(--surface);
   border: 1px solid var(--border); border-radius: var(--radius-lg);
 }
-.contact-email { font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
-.contact-email a { display: inline-block; padding: 4px 0; }
-.contact-meta { font-size: .88rem; color: var(--ink-soft); }
 
 .big-check { display: inline-grid; place-items: center; width: 56px; height: 56px; color: var(--accent); margin-bottom: 18px; }
 .big-check svg { width: 100%; height: 100%; }

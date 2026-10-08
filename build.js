@@ -834,7 +834,7 @@ function contact() {
       <div class="contact-card">
         <h2>Send us a note</h2>
         <p>Tell us what you need and we&rsquo;ll reply by email.</p>
-        <p class="contact-or">Or email <a href="mailto:${esc(SITE.contactEmail)}">${esc(SITE.contactEmail)}</a></p>
+        <p class="contact-or">Or email <a href="mailto:${esc(SITE.contactEmail)}" id="contact-link">${esc(SITE.contactEmail)}</a></p>
         <form class="contact-form" data-contact-form novalidate>
           <div class="field field--half">
             <label for="contact-name">Your name</label>
@@ -867,13 +867,6 @@ function contact() {
           <p class="contact-status" data-contact-status role="status" aria-live="polite"></p>
           <button class="btn btn-primary btn-block" type="submit" data-contact-submit>Send</button>
         </form>
-      </div>
-
-      <div class="contact-card">
-        <h2>Email us</h2>
-        <p>Tell us the piece, the size, and the two fabrics you have in mind.</p>
-        <p class="contact-email"><a href="mailto:${esc(SITE.contactEmail)}" id="contact-link">${esc(SITE.contactEmail)}</a></p>
-        <p class="contact-meta">Made in ${esc(SITE.location)}. We reply as soon as we can, usually within a couple of days.</p>
       </div>
     </div>
   </div>
