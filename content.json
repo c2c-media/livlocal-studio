@@ -658,9 +658,9 @@
     },
     {
       "id": "unbleached-muslin",
-      "name": "Unbleached Premium Muslin Fabric",
-      "sku": "719591",
-      "hex": "#EAE6DB",
+      "name": "Unbleached Duck Cloth Fabric",
+      "sku": "1974484",
+      "hex": "#EFDDCF",
       "image": "/assets/img/fabrics/unbleached-muslin.webp",
       "placeholder": false,
       "colors": [
