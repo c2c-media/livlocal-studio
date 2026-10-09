@@ -1,84 +1,73 @@
-LivLocal contact page — 2026-10-08
-==================================
+LivLocal — two new fabrics, 2026-10-09
+======================================
 
 Files in this package (repo-relative paths):
 
-  build.js                    Contact page markup: the desktop layout, the email
-                              line, and the "Email us" card removed.
-  src/styles.css              Styles for the wider section and the email line.
-  api/contact/function.json   NEW. Registers the contact function with Azure.
+  content.json                              Two fabrics added to the list.
+  assets/img/fabrics/soft-pink-calico.webp  New tile.
+  assets/img/fabrics/pink-bows-calico.webp  New tile.
 
-Nothing else changes. src/main.js and the function code are untouched.
-
-
-1. The desktop layout
----------------------
-Built to the settings chosen in the tester:
-
-  section          full page width (1120px content, 1072px card)
-  form column      1072px, each field 496px
-  surface          tinted panel instead of a white card
-  name and email   side by side on one row
-  gap above        reduced from 96px to 72px
-
-The "Before you write" list came off.
-
-Nothing changes at 390px wide. The phone layout is identical to the live one:
-354px card, 292px field, white card, single column.
-
-One thing to know: on a tablet, between roughly 700px and 900px wide, the form
-is now wider than it was, because it no longer shares the row with the email
-card. At 768px each field goes from 288px to 658px. Say the word and a
-max-width can be added for that range.
+Nothing else changes. build.js, src/main.js and src/styles.css are untouched.
 
 
-2. The email line
------------------
-The "Email us" card is gone. In its place, one line sits under the intro:
+What was added
+--------------
+1. Soft Pink Cotton Calico Fabric     SKU 2557528   Solid     Light, Pink
+2. Pink Bows Cotton Calico Fabric     SKU 2469302   Novelty   Light, Pink
 
-  Or email liv@livlocal.studio
+Both are now in the LivLocal Fabric Library in Notion as well, with their
+reference images attached, so the library and the site agree.
 
-That link carries id="contact-link", which the old card's address used to
-carry, so two things keep working:
+The first is Hobby Lobby's plain "Cotton Calico Fabric" in Soft Pink. The name
+was written out as "Soft Pink Cotton Calico Fabric" because a fabric called
+plain "Cotton Calico Fabric" would be hard to pick out among 49. Say the word
+if you would rather it read exactly as Hobby Lobby has it.
 
-  - a product page linking here with ?piece=... still adds the subject line
-  - if a send fails, the message still names the real address rather than "us"
+The second keeps Hobby Lobby's own name. It is by Brother Sister Design Studio.
 
-The card's other line, "Made in Ottumwa, Iowa. We reply as soon as we can,
-usually within a couple of days.", went with it. It can come back as a short
-line under the email address if you want it.
+Where they sit in the picker
+----------------------------
+The list runs roughly alphabetically, so they were slotted in:
+  Pink Bows Cotton Calico Fabric     after Painted Flowers
+  Soft Pink Cotton Calico Fabric     after Rust Floral
+
+The tiles read "Pink Bows" and "Soft Pink" in the grid; the full name shows in
+the magnify view and in the cart.
 
 
-3. Why the form was failing
+Where the photos came from
 ---------------------------
-The 2026-10-07 contact package added api/contact/index.js but not
-api/contact/function.json. Static Web Apps only registers a function that has
-that file, so /api/contact was never routed. The browser posted to a URL that
-did not exist and the page showed "We could not send that just now."
+Hobby Lobby's own product photos, at 1000 x 1000, cut down to the same
+320 x 320 WebP the other 47 tiles use. The photo edges fade to white, so a
+25px border was trimmed off before resizing; without that the tiles would have
+had a washed-out rim next to the others.
 
-The working checkout function has always had one:
-  api/create-payment-link/function.json
+Colour chips: Soft Pink #EFCEDE, Pink Bows #CAC1C4. Those are the average
+colour of each tile, which is how the other 47 are set.
 
-The function code is unchanged and was checked against all four of its
-branches: no webhook set gives 500 "not set up yet", a filled honeypot gives
-200, a bad email gives 400, and an unreachable webhook gives the 502 the page
-was showing.
+
+Checked
+-------
+- 49 tiles now, up from 47.
+- The filter counts moved as expected: Solid 4 to 5, Novelty 14 to 15,
+  Light 20 to 22, Pink 8 to 10. Every other count is unchanged.
+- Search finds them by SKU (2557528, 2469302), by name ("bows"), and by
+  colour words ("soft pink").
+- Both tile images load, and picking one fills the fabric slot.
+- 12 pages build. No overflow at 390px wide.
+- Site QA reports only the two known mobile photo-strip findings.
+
+One thing worth a glance: the Pink Bows fabric is a pale pink with low-contrast
+pink bows, so its tile looks soft next to the bolder prints. That is the fabric,
+not the photo. If it reads too washed out in the grid, it can be zoomed in a
+little so the bows show more.
 
 
 After the push
 --------------
-Open the contact page and send a real message. It should say "Thanks, we got
-it." and a row should appear in LivLocal Messages with Status New.
-
-If it says "We could not send that just now.", the function is reachable and
-the problem is the webhook itself. If it says "The contact form is not set up
-yet.", then CONTACT_WEBHOOK_URL is missing from the Static Web Apps
-environment variables (Settings -> Environment variables -> Production).
+The GitHub Action runs node build.js and deploys. Nothing else to do.
 
 
 Commit message
 --------------
-Contact page: full-width desktop layout, email line replaces the email card, register the contact function
-
-
-Note: api/_catalog.js is regenerated by the build and is not in this package.
+Two new fabrics: Soft Pink Cotton Calico and Pink Bows Cotton Calico

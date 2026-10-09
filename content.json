@@ -12,12 +12,12 @@
     "siteUrl": "https://www.livlocal.studio",
     "contactEmail": "liv@livlocal.studio",
     "location": "Southeast Iowa",
-    "instagram": "https://www.instagram.com/livin.with.liv__/",
+    "instagram": "https://www.instagram.com/livin.with.liv_/",
     "facebook": "",
     "leadTime": "2 to 3 weeks",
     "currency": "USD",
     "locale": "en-US",
-    "tiktok": "https://www.tiktok.com/@livin_with_liv_",
+    "tiktok": "https://www.tiktok.com/@livin_with_liv",
     "contactForm": "https://app.notion.com/p/5511e29646b0411c9c1cba0c524fe61c"
   },
   "copy": {
@@ -67,7 +67,7 @@
     "aboutBody": [
       "I make homemade, personalized children’s clothes, quilted bags, Bible accessories, and more, all from my home studio in Southeast Iowa.",
       "I’ve always been passionate about sewing, and I’ve taken the step to start selling what I make.",
-      "I cut, sew, and press every piece myself.",
+      "I cut, sew, and press every piece myself, and every order is made one at a time. What arrives was made for the person who asked for it.",
       "I’m adding new pieces as I go. If you want something different from what is listed, send me a message and I’ll tell you what is possible."
     ],
     "ctaBandTitle": "Need a different size or fabric?",
@@ -492,6 +492,19 @@
       "pattern": "Floral"
     },
     {
+      "id": "pink-bows-calico",
+      "name": "Pink Bows Cotton Calico Fabric",
+      "sku": "2469302",
+      "hex": "#CAC1C4",
+      "image": "/assets/img/fabrics/pink-bows-calico.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Pink"
+      ],
+      "pattern": "Novelty"
+    },
+    {
       "id": "prairie-ecru-stripes",
       "name": "Prairie Girl Striped Ecru Cotton Calico Fabric",
       "sku": "272641",
@@ -565,6 +578,19 @@
         "Orange"
       ],
       "pattern": "Floral"
+    },
+    {
+      "id": "soft-pink-calico",
+      "name": "Soft Pink Cotton Calico Fabric",
+      "sku": "2557528",
+      "hex": "#EFCEDE",
+      "image": "/assets/img/fabrics/soft-pink-calico.webp",
+      "placeholder": false,
+      "colors": [
+        "Light",
+        "Pink"
+      ],
+      "pattern": "Solid"
     },
     {
       "id": "strawberries",
@@ -1280,7 +1306,7 @@
   "fabricSource": {
     "database": "https://app.notion.com/p/1e65cf621bea4ff09891d415b0dc72c4",
     "dataSource": "collection://148a60a2-f67d-48a1-97d2-6d89c260d9cc",
-    "snapshotDate": "2026-10-03",
+    "snapshotDate": "2026-10-09",
     "note": "Do not publish the Dress prompt or Collar prompt properties from that database."
   }
 }
