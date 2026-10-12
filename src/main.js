@@ -43,11 +43,17 @@
   /**
    * Sends one GA4 event.
    *
-   * Pushed straight onto the data layer rather than through gtag(), so nothing
-   * breaks when analytics is switched off or blocked.
+   * Goes through gtag() when it is available, because the Google tag only
+   * forwards events it is handed that way; a bare object pushed onto the data
+   * layer is ignored. Falls back to the plain push so nothing breaks when
+   * analytics is switched off or blocked.
    */
   function track(name, params) {
     try {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', name, params || {});
+        return;
+      }
       var layer = (window.dataLayer = window.dataLayer || []);
       var payload = { event: name };
       if (params) {
