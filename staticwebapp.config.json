@@ -1,21 +1,40 @@
 {
   "trailingSlash": "never",
   "routes": [
-    { "route": "/api/*", "allowedRoles": ["anonymous"] }
+    {
+      "route": "/api/*",
+      "allowedRoles": [
+        "anonymous"
+      ]
+    }
   ],
   "navigationFallback": {
     "rewrite": "/404.html",
-    "exclude": ["/assets/*", "/styles.css", "/main.js", "/analytics.js", "/api/*", "/*.xml", "/*.txt", "/*.ico", "/*.png", "/*.webp", "/*.jpg"]
+    "exclude": [
+      "/assets/*",
+      "/styles.css",
+      "/main.js",
+      "/analytics.js",
+      "/api/*",
+      "/*.xml",
+      "/*.txt",
+      "/*.ico",
+      "/*.png",
+      "/*.webp",
+      "/*.jpg"
+    ]
   },
   "responseOverrides": {
-    "404": { "rewrite": "/404.html" }
+    "404": {
+      "rewrite": "/404.html"
+    }
   },
   "globalHeaders": {
     "X-Content-Type-Options": "nosniff",
-    "X-Frame-Options": "SAMEORIGIN",
+    "X-Frame-Options": "",
     "Referrer-Policy": "strict-origin-when-cross-origin",
     "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
-    "Content-Security-Policy": "default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self'; style-src-attr 'unsafe-inline'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.googletagmanager.com; frame-src 'none'; base-uri 'self'; form-action 'self'"
+    "Content-Security-Policy": "default-src 'self'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; style-src 'self'; style-src-attr 'unsafe-inline'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.googletagmanager.com; frame-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self' https://notion.so https://*.notion.so https://*.notion.com https://*.notion.site"
   },
   "mimeTypes": {
     ".webp": "image/webp",
