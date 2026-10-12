@@ -63,10 +63,16 @@ function json(status, body) {
 }
 
 module.exports = async function (context, req) {
+  // Static Web Apps reads context.res, not a returned object, so every reply
+  // is written onto the context rather than returned.
+  const send = (status, body) => {
+    context.res = json(status, body);
+  };
+
   const webhook = process.env.CONTACT_WEBHOOK_URL;
   if (!webhook) {
     context.log.error('CONTACT_WEBHOOK_URL is not set.');
-    return json(500, { error: 'The contact form is not set up yet.' });
+    return send(500, { error: 'The contact form is not set up yet.' });
   }
 
   const body = req.body || {};
@@ -81,17 +87,17 @@ module.exports = async function (context, req) {
   // cannot tell it was dropped.
   if (trap) {
     context.log.warn('Contact submission dropped: honeypot filled.');
-    return json(200, { ok: true });
+    return send(200, { ok: true });
   }
 
   if (!name || !looksLikeEmail(email) || !message) {
-    return json(400, { error: 'Please add your name, your email, and a message.' });
+    return send(400, { error: 'Please add your name, your email, and a message.' });
   }
 
   const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
   if (throttled(ip)) {
     context.log.warn(`Contact submission throttled for ${ip}.`);
-    return json(429, { error: 'That is a lot of messages at once. Please try again shortly.' });
+    return send(429, { error: 'That is a lot of messages at once. Please try again shortly.' });
   }
 
   const topic = TOPICS.includes(topicValue) ? topicValue : undefined;
@@ -105,13 +111,13 @@ module.exports = async function (context, req) {
 
     if (!response.ok) {
       context.log.error(`Contact webhook answered ${response.status}.`);
-      return json(502, { error: 'We could not send that just now.' });
+      return send(502, { error: 'We could not send that just now.' });
     }
   } catch (error) {
     context.log.error('Contact webhook request failed', error && error.message);
-    return json(502, { error: 'We could not send that just now.' });
+    return send(502, { error: 'We could not send that just now.' });
   }
 
   context.log(`Filed a contact message from ${email}.`);
-  return json(200, { ok: true });
+  return send(200, { ok: true });
 };

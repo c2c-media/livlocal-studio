@@ -567,7 +567,8 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
   padding: 20px 0; border-bottom: 1px solid var(--border); align-items: start;
 }
 .cart-line:first-child { border-top: 1px solid var(--border); }
-.cart-thumb { aspect-ratio: 1 / 1; border-radius: var(--radius-sm); }
+.cart-thumb { aspect-ratio: 1 / 1; border-radius: var(--radius-sm); overflow: hidden; }
+.cart-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .cart-line h3 { font-size: 1.02rem; margin-bottom: 4px; }
 .cart-line h3 a { color: var(--ink); text-decoration: none; }
 .cart-opts { font-size: .86rem; color: var(--ink-soft); margin: 0 0 12px; }
@@ -801,6 +802,22 @@ select:hover, input[type="number"]:hover { border-color: var(--ink-soft); }
 .picker-row-label { margin: 16px 0 8px; font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
 .picker-panel .picker-row-label:first-of-type { margin-top: 0; }
 .picker-panel .filters { margin-bottom: 0; }
+
+/* Fold the search and the two filter rows away, so the grid is what you see. */
+.picker-filters[hidden] { display: none; }
+.picker-toggle {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%;
+  min-height: 44px; margin-bottom: 12px; padding: 8px 12px;
+  font-family: inherit; font-size: .84rem; font-weight: 600; color: var(--ink);
+  background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer;
+}
+.picker-toggle:hover { border-color: var(--ink-soft); }
+.picker-toggle:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.picker-toggle-caret {
+  width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg); transition: transform .15s ease;
+}
+.picker-toggle[aria-expanded="false"] .picker-toggle-caret { transform: rotate(-45deg); }
 
 .picker-panel .swatch { padding: 0; }
 .swatch-pick {

@@ -29,6 +29,15 @@ const money = (cents) => {
 
 const productBySlug = (slug) => content.products.find((p) => p.slug === slug);
 const productHref = (p) => `/product/${p.slug}.html`;
+
+/** Cart lines show the piece's own photo, so the page carries a slug -> thumb map. */
+const cartThumbs = () =>
+  content.products.reduce((map, p) => {
+    if (p.images && p.images.length) {
+      map[p.slug] = photoSet(p.images[0].slug, p.imageDir || '/assets/img/lydia/').thumb;
+    }
+    return map;
+  }, {});
 const categoryLabel = (id) =>
   (content.categories.find((c) => c.id === id) || { label: 'Shop' }).label;
 
@@ -155,9 +164,23 @@ function footer() {
 </footer>`;
 }
 
-function layout({ title, description, body, active = '', bodyClass = '' }) {
+function layout({
+  title,
+  description,
+  body,
+  active = '',
+  bodyClass = '',
+  image = '',
+  imageWidth = 0,
+  imageHeight = 0,
+}) {
   const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | ${content.copy.tagline}`;
-  const canonical = SITE.siteUrl.replace(/\/$/, '') + (active || '/');
+  const origin = SITE.siteUrl.replace(/\/$/, '');
+  const canonical = origin + (active || '/');
+  /* A product page shares its own photo. Everything else shares the hero. */
+  const ogImage = image ? (image.startsWith('http') ? image : origin + image) : `${origin}/assets/img/hero.jpg`;
+  const ogWidth = imageWidth || 1376;
+  const ogHeight = imageHeight || 768;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -171,7 +194,10 @@ function layout({ title, description, body, active = '', bodyClass = '' }) {
 <meta property="og:title" content="${esc(fullTitle)}">
 <meta property="og:description" content="${esc(description || content.copy.heroSub)}">
 <meta property="og:url" content="${esc(canonical)}">
-<meta property="og:image" content="${esc(SITE.siteUrl.replace(/\/$/, ''))}/assets/img/hero.jpg">
+<meta property="og:image" content="${esc(ogImage)}">
+<meta property="og:image:width" content="${ogWidth}">
+<meta property="og:image:height" content="${ogHeight}">
+<meta property="og:image:alt" content="${esc(fullTitle)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#9C4A32">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -428,20 +454,26 @@ ${slots}
   <p class="picker-help" data-picker-help></p>
 ${inputs}
   <section class="picker-panel" id="fabric-picker-panel" aria-label="Fabric picker">
-    <label class="sr-only" for="fabric-search">Search fabrics by name, color, or SKU</label>
-    <input type="search" class="fabric-search" id="fabric-search" data-search placeholder="Search name, color, or SKU" autocomplete="off">
-    <p class="picker-row-label" id="picker-pattern-label">Pattern</p>
-    <div class="filters" role="group" aria-labelledby="picker-pattern-label" data-pattern-row>${chipRow(
-      rows.patternOrder,
-      rows.patterns,
-      `All ${fabrics.length}`
-    )}</div>
-    <p class="picker-row-label" id="picker-color-label">Color</p>
-    <div class="filters" role="group" aria-labelledby="picker-color-label" data-color-row>${chipRow(
-      rows.colorOrder,
-      rows.colors,
-      'All colors'
-    )}</div>
+    <button type="button" class="picker-toggle" data-filter-toggle aria-expanded="true" aria-controls="picker-filters">
+      <span data-filter-toggle-text>Hide filters</span>
+      <span class="picker-toggle-caret" aria-hidden="true"></span>
+    </button>
+    <div class="picker-filters" id="picker-filters" data-filters>
+      <label class="sr-only" for="fabric-search">Search fabrics by name, color, or SKU</label>
+      <input type="search" class="fabric-search" id="fabric-search" data-search placeholder="Search name, color, or SKU" autocomplete="off">
+      <p class="picker-row-label" id="picker-pattern-label">Pattern</p>
+      <div class="filters" role="group" aria-labelledby="picker-pattern-label" data-pattern-row>${chipRow(
+        rows.patternOrder,
+        rows.patterns,
+        `All ${fabrics.length}`
+      )}</div>
+      <p class="picker-row-label" id="picker-color-label">Color</p>
+      <div class="filters" role="group" aria-labelledby="picker-color-label" data-color-row>${chipRow(
+        rows.colorOrder,
+        rows.colors,
+        'All colors'
+      )}</div>
+    </div>
     <p class="picker-row-label">All fabrics</p>
     <div class="swatches" data-grid>
       ${fabrics.map(fabricTile).join('\n      ')}
@@ -753,12 +785,17 @@ function productPage(p) {
   </div>
 </section>`;
 
+  const sharePhoto =
+    p.images && p.images.length ? photoSet(p.images[0].slug, p.imageDir || '/assets/img/lydia/').jpg : '';
   return layout({
     title: p.name,
     description: p.summary,
     body,
     active: productHref(p),
     bodyClass: 'is-product',
+    image: sharePhoto,
+    imageWidth: sharePhoto ? 1100 : 0,
+    imageHeight: sharePhoto ? 1100 : 0,
   });
 }
 
@@ -900,7 +937,7 @@ function cart() {
 
       <div class="cart-layout" id="cart-filled" hidden>
         <div class="cart-lines">
-          <div id="cart-items"></div>
+          <div id="cart-items" data-thumbs="${esc(JSON.stringify(cartThumbs()))}"></div>
         </div>
         <aside class="cart-summary">
           <h2>Summary</h2>

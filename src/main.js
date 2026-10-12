@@ -38,6 +38,148 @@
     });
   }
 
+  /* ------------------------------ analytics & carts -------------------------- */
+
+  /**
+   * Sends one GA4 event.
+   *
+   * Pushed straight onto the data layer rather than through gtag(), so nothing
+   * breaks when analytics is switched off or blocked.
+   */
+  function track(name, params) {
+    try {
+      var layer = (window.dataLayer = window.dataLayer || []);
+      var payload = { event: name };
+      if (params) {
+        Object.keys(params).forEach(function (key) { payload[key] = params[key]; });
+      }
+      layer.push(payload);
+    } catch (err) {
+      /* analytics is optional; never let it break the page */
+    }
+  }
+
+  function subtotalCents(items) {
+    return (items || []).reduce(function (total, line) { return total + line.price * line.qty; }, 0);
+  }
+
+  /** The cart in the shape GA4 ecommerce events expect. Embroidery rides on its piece. */
+  function gaItems(items) {
+    return (items || [])
+      .filter(function (line) { return !line.addon; })
+      .map(function (line) {
+        return {
+          item_id: line.slug,
+          item_name: line.name,
+          price: line.price / 100,
+          quantity: line.qty
+        };
+      });
+  }
+
+  var cartIdCache = '';
+  var checkoutStarted = false;
+
+  /** A short id that stays with this browser, so one cart is one row in Notion. */
+  function cartId() {
+    if (cartIdCache) return cartIdCache;
+    var key = 'livlocal.cartid.v1';
+    try { cartIdCache = localStorage.getItem(key) || ''; } catch (err) { cartIdCache = ''; }
+    if (!cartIdCache) {
+      cartIdCache = Math.random().toString(36).slice(2, 8) + Math.random().toString(36).slice(2, 4);
+      try { localStorage.setItem(key, cartIdCache); } catch (err) { /* one page's worth of cart, then */ }
+    }
+    return cartIdCache;
+  }
+
+  /**
+   * What the cart holds right now, in the shape the cart board reads.
+   *
+   * The cart only exists in this browser, so this snapshot is the only way
+   * anything outside it ever learns a cart exists.
+   */
+  function cartPayload(event) {
+    var items = readCart();
+    return {
+      cartId: cartId(),
+      event: event,
+      page: window.location.pathname,
+      seenAt: new Date().toISOString(),
+      value: subtotalCents(items),
+      items: items
+        .filter(function (line) { return !line.addon; })
+        .map(function (line) {
+          var opts = {};
+          line.options.forEach(function (o) { opts[o.key] = o.value; });
+          var embroidery = '';
+          items.forEach(function (other) {
+            if (other.addon && other.parentId === line.id && other.options[0]) {
+              embroidery = other.options[0].value;
+            }
+          });
+          return {
+            name: line.name,
+            qty: line.qty,
+            price: line.price,
+            size: opts.size || '',
+            primaryFabric: opts.primaryFabric || '',
+            secondaryFabric: opts.secondaryFabric || '',
+            embroidery: embroidery
+          };
+        })
+    };
+  }
+
+  /**
+   * Posts the cart to the site's own endpoint, which forwards it to the Worker.
+   *
+   * sendBeacon is used where it exists because this also runs as the page is
+   * being closed, when a normal fetch would be cut off.
+   */
+  function reportCart(event) {
+    try {
+      var body = JSON.stringify(cartPayload(event));
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/cart', new Blob([body], { type: 'application/json' }));
+        return;
+      }
+      fetch('/api/cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: body,
+        keepalive: true
+      });
+    } catch (err) {
+      /* the cart board is a nice-to-have, never worth breaking a page for */
+    }
+  }
+
+  /**
+   * The two moments a cart is worth reporting: looking at it, and leaving with
+   * something still in it.
+   */
+  function initCartReporting() {
+    var items = readCart();
+
+    if (document.getElementById('cart-filled') && items.length) {
+      track('view_cart', { currency: 'USD', value: subtotalCents(items) / 100, items: gaItems(items) });
+      reportCart('cart');
+    }
+
+    var sent = false;
+    window.addEventListener('pagehide', function () {
+      if (sent) return;
+      sent = true;
+      var leaving = readCart();
+      if (!leaving.length) return;
+      reportCart('cart');
+      /* Walking away with a full cart is the signal worth counting. */
+      if (!checkoutStarted) {
+        track('cart_left', { currency: 'USD', value: subtotalCents(leaving) / 100, items: gaItems(leaving) });
+      }
+    });
+  }
+
   /* ----------------------------------- nav ---------------------------------- */
 
   function initNav() {
@@ -146,6 +288,20 @@
     form.addEventListener('change', refreshPrice);
     refreshPrice();
 
+    var viewPrice = unitPrice(form);
+    if (viewPrice != null) {
+      track('view_item', {
+        currency: 'USD',
+        value: viewPrice / 100,
+        items: [{
+          item_id: form.getAttribute('data-slug') || '',
+          item_name: form.getAttribute('data-name') || document.title,
+          price: viewPrice / 100,
+          quantity: 1
+        }]
+      });
+    }
+
     /* The wording field only appears once embroidery is ticked. */
     var embroideryToggle = area.querySelector('[data-embroidery-toggle]');
     var embroideryField = area.querySelector('[data-embroidery-field]');
@@ -239,6 +395,17 @@
       }
 
       writeCart(items);
+      track('add_to_cart', {
+        currency: 'USD',
+        value: (price * qty) / 100,
+        items: [{
+          item_id: slug,
+          item_name: form.getAttribute('data-name') || slug,
+          price: price / 100,
+          quantity: qty
+        }]
+      });
+      reportCart('cart');
       window.location.href = '/cart.html';
     });
   }
@@ -277,6 +444,35 @@
     return map[slug] || 'clay';
   }
 
+  /* Cart lines show the piece's own photo, from the map the cart page carries. */
+  var thumbsCache = null;
+  function productThumbs() {
+    if (thumbsCache) return thumbsCache;
+    var el = document.querySelector('[data-thumbs]');
+    thumbsCache = {};
+    if (el) {
+      try {
+        thumbsCache = JSON.parse(el.getAttribute('data-thumbs')) || {};
+      } catch (err) {
+        thumbsCache = {};
+      }
+    }
+    return thumbsCache;
+  }
+
+  function cartThumb(slug) {
+    var map = productThumbs();
+    var src = Object.prototype.hasOwnProperty.call(map, slug) ? map[slug] : '';
+    if (src) {
+      return (
+        '<div class="cart-thumb"><img src="' +
+        escapeHtml(src) +
+        '" alt="" width="88" height="88" loading="lazy" decoding="async"></div>'
+      );
+    }
+    return '<div class="cart-thumb tile tile--' + tileTint(slug) + '"><span class="tile-weave"></span></div>';
+  }
+
   function renderCart() {
     var root = document.getElementById('cart-filled');
     var empty = document.getElementById('cart-empty');
@@ -299,7 +495,7 @@
       var linkSlug = item.parentSlug || item.slug;
       return '' +
         '<article class="cart-line' + (item.addon ? ' cart-line--addon' : '') + '" data-index="' + index + '">' +
-          '<div class="cart-thumb tile tile--' + tileTint(linkSlug) + '"><span class="tile-weave"></span></div>' +
+          cartThumb(linkSlug) +
           '<div>' +
             '<h3><a href="/product/' + escapeHtml(linkSlug) + '.html">' + escapeHtml(item.name) + '</a></h3>' +
             '<p class="cart-opts">' + opts + '</p>' +
@@ -332,6 +528,7 @@
         }
         writeCart(next);
         renderCart();
+        reportCart('cart');
       });
     });
     list.querySelectorAll('[data-remove]').forEach(function (btn) {
@@ -356,6 +553,8 @@
         }
         writeCart(kept);
         renderCart();
+        track('remove_from_cart', { currency: 'USD', value: subtotalCents(kept) / 100, items: gaItems(kept) });
+        reportCart('cart');
       });
     });
   }
@@ -368,6 +567,8 @@
     btn.addEventListener('click', function () {
       var items = readCart();
       if (!items.length) return;
+      track('begin_checkout', { currency: 'USD', value: subtotalCents(items) / 100, items: gaItems(items) });
+      reportCart('checkout');
       if (errorBox) { errorBox.hidden = true; }
       btn.disabled = true;
       btn.textContent = 'Starting checkout...';
@@ -393,6 +594,7 @@
         .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
         .then(function (result) {
           if (result.ok && result.data && result.data.url) {
+            checkoutStarted = true;
             window.location.href = result.data.url;
             return;
           }
@@ -808,10 +1010,22 @@
     var patternRow = picker.querySelector('[data-pattern-row]');
     var colorRow = picker.querySelector('[data-color-row]');
     var reset = picker.querySelector('[data-reset]');
+    var filterToggle = picker.querySelector('[data-filter-toggle]');
+    var filterBox = picker.querySelector('[data-filters]');
     var total = tiles.length;
     var active = slots.length ? slots[0].getAttribute('data-slot') : '';
     var pattern = '';
     var color = '';
+
+    /* The search and the two filter rows fold away on a phone, where they take
+       up most of the picker, and stay open on a desktop. The button flips it. */
+    function setFiltersOpen(open) {
+      if (!filterToggle || !filterBox) return;
+      filterToggle.setAttribute('aria-expanded', String(open));
+      filterBox.hidden = !open;
+      var text = filterToggle.querySelector('[data-filter-toggle-text]');
+      if (text) text.textContent = open ? 'Hide filters' : 'Show filters';
+    }
 
     function radioFor(key) {
       return root.querySelector('input[name="' + key + '"]:checked');
@@ -951,6 +1165,13 @@
       });
     });
 
+    if (filterToggle && filterBox) {
+      setFiltersOpen(!window.matchMedia('(max-width: 899px)').matches);
+      filterToggle.addEventListener('click', function () {
+        setFiltersOpen(filterToggle.getAttribute('aria-expanded') !== 'true');
+      });
+    }
+
     if (search) {
       search.addEventListener('input', applyFilters);
       /* Enter should narrow the list, never submit the buy form. */
@@ -1026,6 +1247,7 @@
     initSwatchPreview();
     initFilters();
     renderCart();
+    initCartReporting();
     initCheckout();
     initContactPrefill();
     initContactForm();
