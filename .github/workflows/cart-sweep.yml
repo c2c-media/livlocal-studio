@@ -1,0 +1,20 @@
+name: Cart sweep
+
+# Carts go quiet an hour after the last time they were seen. The worker has no
+# clock of its own, so this nudges it — the sweep runs on every call to the
+# cart webhook, cart event or not.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  nudge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Nudge the cart worker
+        run: |
+          curl -sS -X POST "${{ secrets.CART_SWEEP_URL }}" \
+            -H 'content-type: application/json' \
+            -d '{"ping":"cart-sweep"}' \
+            -o /dev/null -w 'worker answered %{http_code}\n'
