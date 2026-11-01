@@ -635,6 +635,29 @@ function home() {
   </div>
 </section>
 
+<section class="section section-alt" id="made-by-hand">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Made by hand, one at a time</h2>
+      <p>Cut and sewn in the workroom, piece by piece.</p>
+    </div>
+    <div class="photo-grid">
+      <picture>
+        <source srcset="/assets/img/bts/presser-foot.webp" type="image/webp">
+        <img src="/assets/img/bts/presser-foot.jpg" alt="Hands guiding quilted fabric under the sewing machine foot" loading="lazy" width="1067" height="1600">
+      </picture>
+      <picture>
+        <source srcset="/assets/img/bts/serger.webp" type="image/webp">
+        <img src="/assets/img/bts/serger.jpg" alt="A serger threaded with four cones of thread" loading="lazy" width="1067" height="1600">
+      </picture>
+      <picture>
+        <source srcset="/assets/img/bts/rotary-cutter.webp" type="image/webp">
+        <img src="/assets/img/bts/rotary-cutter.jpg" alt="A rotary cutter cutting a pattern piece on a mat" loading="lazy" width="1067" height="1600">
+      </picture>
+    </div>
+  </div>
+</section>
+
 </section>`;
 
   return layout({ title: '', description: content.copy.heroSub, body, active: '/' });
@@ -818,6 +841,40 @@ function about() {
     </div>
     <div class="split-copy">
       ${content.copy.aboutBody.map((p) => `<p>${esc(p)}</p>`).join('')}
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>From the workroom</h2>
+      <p>Pattern pieces, a rotary cutter, and a lot of thread.</p>
+    </div>
+    <div class="photo-grid photo-grid--six">
+      <picture>
+        <source srcset="/assets/img/bts/sewing-machine.webp" type="image/webp">
+        <img src="/assets/img/bts/sewing-machine.jpg" alt="Hands sewing fabric at the machine" loading="lazy" width="1067" height="1600">
+      </picture>
+      <picture>
+        <source srcset="/assets/img/bts/at-the-machine.webp" type="image/webp">
+        <img src="/assets/img/bts/at-the-machine.jpg" alt="Sewing at the machine in the workroom" loading="lazy" width="1600" height="1067">
+      </picture>
+      <picture>
+        <source srcset="/assets/img/bts/pattern-layout.webp" type="image/webp">
+        <img src="/assets/img/bts/pattern-layout.jpg" alt="A pattern piece laid out on checked fabric" loading="lazy" width="1600" height="1067">
+      </picture>
+      <picture>
+        <source srcset="/assets/img/bts/smoothing-pattern.webp" type="image/webp">
+        <img src="/assets/img/bts/smoothing-pattern.jpg" alt="A hand smoothing a pattern piece flat" loading="lazy" width="1067" height="1600">
+      </picture>
+      <picture>
+        <source srcset="/assets/img/bts/cut-and-shadow.webp" type="image/webp">
+        <img src="/assets/img/bts/cut-and-shadow.jpg" alt="A rotary cutter mid-cut across checked fabric" loading="lazy" width="1067" height="1600">
+      </picture>
+      <picture>
+        <source srcset="/assets/img/bts/pattern-piece.webp" type="image/webp">
+        <img src="/assets/img/bts/pattern-piece.jpg" alt="A paper pattern piece pinned to checked fabric" loading="lazy" width="1600" height="1067">
+      </picture>
     </div>
   </div>
 </section>`;

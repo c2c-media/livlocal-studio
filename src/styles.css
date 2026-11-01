@@ -332,6 +332,23 @@ p:last-child { margin-bottom: 0; }
 .split-media img { border-radius: var(--radius-lg); box-shadow: var(--shadow); }
 .split-copy p { color: var(--ink-soft); }
 
+/* ------------------------------ photo grids ------------------------------- */
+
+.photo-grid { display: grid; gap: clamp(12px, 1.6vw, 18px); grid-template-columns: repeat(3, 1fr); }
+.photo-grid--six { grid-template-columns: repeat(3, 1fr); }
+.photo-grid picture { display: block; }
+.photo-grid img {
+  display: block; width: 100%; height: auto;
+  aspect-ratio: 1 / 1; object-fit: cover;
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  background: var(--surface-alt);
+}
+@media (max-width: 720px) {
+  .photo-grid, .photo-grid--six { grid-template-columns: repeat(2, 1fr); }
+  .photo-grid > picture:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .photo-grid > picture:last-child:nth-child(odd) img { aspect-ratio: 16 / 10; }
+}
+
 /* ---------------------------------- table ---------------------------------- */
 
 .table-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }

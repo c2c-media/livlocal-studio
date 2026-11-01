@@ -161,19 +161,6 @@
       "pattern": "Solid"
     },
     {
-      "id": "brown-plaid",
-      "name": "Brown & White Plaid Cotton Fabric",
-      "sku": "2556157",
-      "hex": "#7F5C47",
-      "image": "/assets/img/fabrics/brown-plaid.webp",
-      "placeholder": false,
-      "colors": [
-        "Light",
-        "Dark"
-      ],
-      "pattern": "Plaid"
-    },
-    {
       "id": "brown-diamond",
       "name": "Brown Diamond Print Cotton Calico Fabric",
       "sku": "124404",
