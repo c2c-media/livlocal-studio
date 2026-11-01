@@ -223,13 +223,13 @@ p:last-child { margin-bottom: 0; }
   position: absolute; inset: 0; z-index: -2;
   background-image: url('/assets/img/hero.jpg');
   background-image: image-set(url('/assets/img/hero.webp') type('image/webp'), url('/assets/img/hero.jpg') type('image/jpeg'));
-  background-size: cover; background-position: center right;
+  background-size: cover; background-position: center;
 }
 .hero::after {
   content: ''; position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(100deg, rgba(26,22,18,.90) 0%, rgba(26,22,18,.74) 42%, rgba(26,22,18,.30) 100%);
 }
-.hero-inner { padding-block: clamp(72px, 10vw, 132px); color: #fff; max-width: 660px; }
+.hero-inner { padding-block: clamp(72px, 10vw, 132px); color: #fff; max-width: 660px; margin-inline: 0; }
 .hero-inner h1 { color: #fff; margin-bottom: 16px; }
 .hero .eyebrow { color: #F0C89B; }
 .hero-sub { font-size: 1.08rem; color: rgba(255,255,255,.88); margin-bottom: 28px; }

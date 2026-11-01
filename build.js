@@ -848,7 +848,6 @@ function about() {
   <div class="wrap">
     <div class="section-head">
       <h2>From the workroom</h2>
-      <p>Pattern pieces, a rotary cutter, and a lot of thread.</p>
     </div>
     <div class="photo-grid photo-grid--six">
       <picture>
