@@ -582,7 +582,7 @@ function home() {
   <div class="hero-media" aria-hidden="true"></div>
   <div class="wrap hero-inner">
     ${content.copy.heroEyebrow ? `<p class="eyebrow">${esc(content.copy.heroEyebrow)}</p>` : ''}
-    <h1>${esc(content.copy.heroHeadline)}</h1>
+    <h1>${(content.copy.heroHeadlineLines || [content.copy.heroHeadline]).map(esc).join('<br>')}</h1>
     <p class="hero-sub">${esc(content.copy.heroSub)}</p>
     <div class="btn-row">
       <a class="btn btn-primary" href="${esc(content.copy.heroPrimaryCta.href)}">${esc(content.copy.heroPrimaryCta.label)}</a>

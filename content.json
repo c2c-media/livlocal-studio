@@ -76,7 +76,11 @@
     "ctaBandButton": {
       "label": "Ask a question",
       "href": "/contact.html"
-    }
+    },
+    "heroHeadlineLines": [
+      "Little things,",
+      "Sewn one at a time"
+    ]
   },
   "categories": [
     {

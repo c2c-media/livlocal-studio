@@ -227,9 +227,11 @@ p:last-child { margin-bottom: 0; }
 }
 .hero::after {
   content: ''; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(100deg, rgba(26,22,18,.90) 0%, rgba(26,22,18,.74) 42%, rgba(26,22,18,.30) 100%);
+  background: linear-gradient(100deg, rgba(26,22,18,1) 0%, rgba(26,22,18,.874) 20%, rgba(26,22,18,.529) 38%, rgba(26,22,18,.161) 54%, rgba(26,22,18,0) 66%);
 }
-.hero-inner { padding-block: clamp(72px, 10vw, 132px); color: #fff; max-width: 660px; margin-inline: 0; }
+.hero-inner { padding-block: clamp(72px, 10vw, 132px); color: #fff; max-width: 660px; margin-inline: 0 auto; }
+@media (min-width: 900px) { .hero-inner { margin-inline-start: clamp(48px, 7vw, 96px); } }
+@media (max-width: 720px) { .hero::after { background: linear-gradient(100deg, rgba(26,22,18,1) 0%, rgba(26,22,18,.851) 52%, rgba(26,22,18,.46) 100%); } }
 .hero-inner h1 { color: #fff; margin-bottom: 16px; }
 .hero .eyebrow { color: #F0C89B; }
 .hero-sub { font-size: 1.08rem; color: rgba(255,255,255,.88); margin-bottom: 28px; }
