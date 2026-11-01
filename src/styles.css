@@ -337,7 +337,7 @@ p:last-child { margin-bottom: 0; }
 
 /* ------------------------------ photo grids ------------------------------- */
 
-.photo-grid { display: grid; gap: clamp(12px, 1.6vw, 18px); grid-template-columns: repeat(3, 1fr); }
+.photo-grid { display: grid; gap: clamp(10px, 1.4vw, 16px); grid-template-columns: repeat(4, 1fr); }
 .photo-grid--six { grid-template-columns: repeat(3, 1fr); }
 .photo-grid picture { display: block; }
 .photo-grid img {
@@ -346,6 +346,7 @@ p:last-child { margin-bottom: 0; }
   border-radius: var(--radius); box-shadow: var(--shadow);
   background: var(--surface-alt);
 }
+@media (max-width: 900px) { .photo-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 720px) {
   .photo-grid, .photo-grid--six { grid-template-columns: repeat(2, 1fr); }
   .photo-grid > picture:last-child:nth-child(odd) { grid-column: 1 / -1; }

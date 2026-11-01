@@ -642,16 +642,20 @@ function home() {
     </div>
     <div class="photo-grid">
       <picture>
+        <source srcset="/assets/img/bts/rotary-cutter.webp" type="image/webp">
+        <img src="/assets/img/bts/rotary-cutter.jpg" alt="A rotary cutter cutting a pattern piece on a mat" loading="lazy" width="1067" height="1600">
+      </picture>
+      <picture>
         <source srcset="/assets/img/bts/presser-foot.webp" type="image/webp">
         <img src="/assets/img/bts/presser-foot.jpg" alt="Hands guiding quilted fabric under the sewing machine foot" loading="lazy" width="1067" height="1600">
       </picture>
       <picture>
-        <source srcset="/assets/img/bts/serger.webp" type="image/webp">
-        <img src="/assets/img/bts/serger.jpg" alt="A serger threaded with four cones of thread" loading="lazy" width="1067" height="1600">
+        <source srcset="/assets/img/bts/sewing-machine.webp" type="image/webp">
+        <img src="/assets/img/bts/sewing-machine.jpg" alt="Hands sewing fabric at the machine" loading="lazy" width="1067" height="1600">
       </picture>
       <picture>
-        <source srcset="/assets/img/bts/rotary-cutter.webp" type="image/webp">
-        <img src="/assets/img/bts/rotary-cutter.jpg" alt="A rotary cutter cutting a pattern piece on a mat" loading="lazy" width="1067" height="1600">
+        <source srcset="/assets/img/bts/serger.webp" type="image/webp">
+        <img src="/assets/img/bts/serger.jpg" alt="A serger threaded with four cones of thread" loading="lazy" width="1067" height="1600">
       </picture>
     </div>
   </div>
